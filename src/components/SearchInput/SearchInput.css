@@ -31,10 +31,21 @@
     object-fit: contain;
 }
 
-.options-list li a.highlighted {
+.options-list li button {
+    width: 100%;
+    padding: 15px;
+    border-radius: 0;
+}
+
+.options-list li.highlighted {
     border: 1px solid var(--color-primary);
 }
 
 .options-list .loading {
     margin: 10px auto;
+}
+
+.no-results {
+    text-align: center;
+    padding: 15px;
 }

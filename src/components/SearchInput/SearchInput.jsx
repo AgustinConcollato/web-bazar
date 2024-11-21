@@ -47,13 +47,13 @@ export function SearchInput() {
             return
         } else {
             setIsLoading(true)
-            const response = await products.search({ options: { name: value.trim(), page: 1 } })
+            const response = await products.search({ options: { name: value, page: 1 } })
 
             if (response) {
                 const filtered = response.data.filter(option =>
                     option.name.toLowerCase().includes(value.toLowerCase())
                 )
-                setFilteredOptions(filtered)
+                setFilteredOptions([...filtered, { id: 'show_all', isButton: true }])
                 setIsLoading(false)
                 setHidden(false)
             }
@@ -71,9 +71,14 @@ export function SearchInput() {
             setHighlightedIndex((prevIndex) => Math.max(prevIndex - 1, 0))
         } else if (event.key === 'Enter') {
             event.preventDefault()
-            if (filteredOptions[highlightedIndex]) {
-                navigate('producto/' + filteredOptions[highlightedIndex].id)
-                setQuery(filteredOptions[highlightedIndex].name)
+            const selectedOption = filteredOptions[highlightedIndex]
+            if (selectedOption) {
+                if (selectedOption.isButton) {
+                    navigate('/buscador/' + query)
+                } else {
+                    navigate('producto/' + selectedOption.id)
+                    setQuery(selectedOption.name)
+                }
                 setFilteredOptions([])
                 setHidden(true)
             }
@@ -81,8 +86,11 @@ export function SearchInput() {
     }
 
     function handleOptionClick(option) {
-        setQuery(option.name)
-        setFilteredOptions([])
+        if (option.isButton) {
+            navigate('/buscador/' + query)
+        } else {
+            setQuery(option.name)
+        }
         setHidden(true)
     }
 
@@ -101,29 +109,46 @@ export function SearchInput() {
                 required
                 onFocus={() => setHidden(false)}
             />
-            {(!hidden && filteredOptions.length != 0) && (
+            {(!hidden && filteredOptions.length > 1) ? (
                 <ul className="options-list">
                     {isLoading ? (
                         <Loading />
                     ) : (
                         filteredOptions.map((option, index) => (
-                            <li key={option.id}>
-                                <Link
-                                    to={'producto/' + option.id}
-                                    className={highlightedIndex === index ? 'highlighted' : ''}
-                                    onClick={() => handleOptionClick(option)}
-                                >
-                                    <img
-                                        src={`${urlStorage}/${JSON.parse(option.thumbnails)[0]}`}
-                                        alt=""
-                                    />
-                                    {option.name}
-                                </Link>
+                            <li
+                                key={option.id}
+                                className={highlightedIndex === index ? 'highlighted' : ''}
+                            >
+                                {option.isButton ? (
+                                    <button
+                                        type="button"
+                                        className='btn'
+                                        onClick={() => handleOptionClick(option)}
+                                    >
+                                        Ver todos los resultados
+                                    </button>
+                                ) : (
+                                    <Link
+                                        to={'producto/' + option.id}
+                                        onClick={() => handleOptionClick(option)}
+                                    >
+                                        <img
+                                            src={`${urlStorage}/${JSON.parse(option.thumbnails)[0]}`}
+                                            alt=""
+                                        />
+                                        {option.name}
+                                    </Link>
+                                )}
                             </li>
                         ))
                     )}
                 </ul>
-            )}
+            ) :
+                !hidden &&
+                <ul className='options-list'>
+                    <li className='no-results'>No hay resultdos</li>
+                </ul>
+            }
         </div>
     )
 }

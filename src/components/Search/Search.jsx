@@ -16,7 +16,7 @@ export function Search() {
     return (
         <form onSubmit={searchProduct} className="search">
             <SearchInput />
-            <button type="submit"><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+            <button type="button"><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
         </form>
     )
 }
