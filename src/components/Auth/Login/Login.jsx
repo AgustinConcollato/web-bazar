@@ -15,7 +15,6 @@ export function Login() {
 
     function validateForm(e) {
         e.preventDefault()
-        console.log(email, password)
         if (email !== '' && password !== '') {
             const dataLogin = { email, password }
             login(dataLogin, setError)

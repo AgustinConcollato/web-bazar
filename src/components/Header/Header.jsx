@@ -1,12 +1,12 @@
-import { faBasketShopping, faMagnifyingGlass, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import { NavBar } from "../NavBar/NavBar";
-import { NavUser } from "../NavUser/NavUser";
+import { UserMenu } from "../UserMenu/UserMenu";
 import { Search } from "../Search/Search";
-import './Header.css'
+import './Header.css';
 
 export function Header() {
 
@@ -22,11 +22,8 @@ export function Header() {
                 <Search />
                 {user ?
                     <div>
-                        <Link to={'/pedido'} className="btn"><FontAwesomeIcon icon={faBasketShopping} /></Link>
-                        <div>
-                            <button className="btn"><FontAwesomeIcon icon={faUser} /></button>
-                            <NavUser />
-                        </div>
+                        <Link to={'/pedido'}><FontAwesomeIcon icon={faBasketShopping} /></Link>
+                        <UserMenu />
                     </div> :
                     <div>
                         <Link to={'/iniciar-sesion'} className="btn btn-thins">Ingresar</Link>

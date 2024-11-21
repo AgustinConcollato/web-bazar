@@ -26,6 +26,7 @@ export function App() {
         <Route path='/iniciar-sesion' element={<Login />} />
         <Route path='/registrarse' element={<Register />} />
         <Route path='/productos/:categoryCode' element={<></>} />
+        <Route path='/buscador/:productName' element={<></>} />
         <Route path='/pedido' element={<></>} />
         <Route path='*' element={<>no se encontró</>} />
       </Routes>

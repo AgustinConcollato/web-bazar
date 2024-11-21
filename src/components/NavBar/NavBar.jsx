@@ -30,7 +30,7 @@ export function NavBar() {
                 <nav>
                     <ul>
                         {(categories && categories.length != 0) &&
-                            categories.map(e => <li><Link to={'productos/' + e.category_code}>{e.category_name}</Link></li>)}
+                            categories.map(e => <li onClick={() => setHidden(!hidden)}><Link to={'productos/' + e.category_code}>{e.category_name}</Link></li>)}
                     </ul>
                 </nav>}
         </div>
