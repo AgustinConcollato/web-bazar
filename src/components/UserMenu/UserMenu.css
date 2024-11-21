@@ -1,0 +1,71 @@
+.container-user-nav {
+    position: relative;
+}
+
+.btn-image {
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.btn-image:active {
+    box-shadow: 0 0 0 3px #00000020;
+}
+
+.user-nav {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    box-shadow: 0 5px 20px #00000010;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    width: 300px;
+    background: #fff;
+}
+
+.user-nav ul:last-child {
+    margin-bottom: 10px;
+}
+
+.user-nav li a {
+    display: block;
+    padding: 10px 20px;
+}
+
+.user-nav li a:hover,
+.user-nav li button:hover {
+    background: #eee;
+}
+
+.user-nav ul button {
+    background: #fff;
+    display: block;
+    padding: 10px 20px;
+    width: 100%;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    text-align: start;
+    font-size: 16px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px 5px 20px;
+    gap: 10px;
+}
+
+.user-info img {
+    object-fit: cover;
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+}
+
+.user-info p span {
+    font-size: 14px;
+}
