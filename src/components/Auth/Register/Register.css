@@ -1,0 +1,27 @@
+.register {
+    min-height: calc(100% - 90px);
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 60px 0;
+}
+
+.register form input {
+    margin-bottom: 10px;
+}
+
+.register form button {
+    width: 100%;
+}
+
+.register p {
+    text-align: center;
+}
+
+.register .message-notification {
+    margin-bottom: 3px;
+}

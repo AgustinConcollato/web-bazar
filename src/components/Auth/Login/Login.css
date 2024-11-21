@@ -1,0 +1,48 @@
+.login {
+    min-height: calc(100% - 90px);
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 60px 0;
+}
+
+.login form input {
+    margin-bottom: 10px;
+}
+
+.login form button {
+    width: 100%;
+}
+
+.login p {
+    text-align: center;
+}
+
+.div {
+    height: 1px;
+    background: #eee;
+    margin: 10px 0;
+}
+
+.container-btn-auth {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-auth {
+    border: 1px solid #eee;
+    background: #fff;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.btn-auth>img {
+    object-fit: contain;
+    width: 25px;
+}
