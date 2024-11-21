@@ -1,0 +1,40 @@
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.options-list {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    max-height: 250px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    z-index: 10;
+    box-shadow: 0 5px 20px #00000010;
+}
+
+.options-list li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.options-list li a img {
+    height: 35px;
+    width: 35px;
+    object-fit: contain;
+}
+
+.options-list li a.highlighted {
+    border: 1px solid var(--color-primary);
+}
+
+.options-list .loading {
+    margin: 10px auto;
+}
