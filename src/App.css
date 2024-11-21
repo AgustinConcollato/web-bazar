@@ -1,0 +1,151 @@
+@font-face {
+    font-family: Rubik;
+    src: url('./assets/fonts/Rubik.ttf');
+}
+
+:root {
+    --color-primary: #df491c;
+    --color-primary-900: #df491c90;
+    --color-primary-200: #df491c20;
+    --color-primary-100: #df491c10;
+    --color-error: #e74c3c;
+    --color-error-200: #e74c3c20;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #000;
+    font-family: 'Rubik';
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+body {
+    height: 100vh;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+}
+
+.message-error {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--color-error);
+    background: var(--color-error-200);
+    color: var(--color-error);
+    width: 100%;
+}
+
+
+.message-notification {
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #f5f5f5;
+    width: 100%;
+}
+
+.btn {
+    border-radius: 10px;
+    padding: 7px 15px;
+    cursor: pointer;
+    transition: .1s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    background: #f0f0f0;
+    border: none;
+    height: 40px;
+    font-size: 16px;
+}
+
+.btn-solid {
+    color: #fff;
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+}
+
+.btn-solid svg path {
+    fill: #fff;
+}
+
+.btn-regular svg path,
+.btn-thins svg path {
+    fill: var(--color-primary);
+}
+
+.btn-regular {
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary-100);
+}
+
+.btn-thins {
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    background: #fff;
+}
+
+.btn:active {
+    box-shadow: 0 0 0 3px #00000020;
+}
+
+.btn-solid:active,
+.btn-regular:active,
+.btn-thins:active {
+    box-shadow: 0 0 0 3px var(--color-primary-900);
+}
+
+.btn-error-solid {
+    color: #fff;
+    border: 1px solid var(--color-error);
+    background: var(--color-error);
+}
+
+.btn-error-solid svg path {
+    fill: #fff;
+}
+
+.btn-error-regular svg path,
+.btn-error-thins svg path {
+    fill: var(--color-error);
+}
+
+.btn-error-regular {
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+    background: var(--color-error-200);
+}
+
+.btn-error-thins {
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+    background: #fff;
+}
+
+.btn-error-solid:active,
+.btn-error-regular:active,
+.btn-error-thins:active {
+    box-shadow: 0 0 0 3px #e74c3c30;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    outline: none;
+}
