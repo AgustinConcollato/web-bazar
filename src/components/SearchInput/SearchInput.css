@@ -3,18 +3,22 @@
     width: 100%;
 }
 
-.options-list {
+.container-options-list {
     position: absolute;
     top: calc(100% + 10px);
-    left: 0;
+    left: -45px;
     right: 0;
-    max-height: 250px;
-    overflow-y: auto;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
     z-index: 10;
     box-shadow: 0 5px 20px #00000010;
+    width: calc(100% + 45px);
+}
+
+.options-list {
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .options-list li a {
@@ -23,6 +27,7 @@
     gap: 10px;
     padding: 10px;
     cursor: pointer;
+    min-height: 55px;
 }
 
 .options-list li a img {
@@ -31,14 +36,21 @@
     object-fit: contain;
 }
 
-.options-list li button {
+.options-list li.highlighted {
+    border: 1px solid var(--color-primary);
+}
+
+.container-options-list .options-list+button {
     width: 100%;
     padding: 15px;
     border-radius: 0;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
 }
 
-.options-list li.highlighted {
-    border: 1px solid var(--color-primary);
+.container-options-list .options-list+button:hover {
+    background: #dfdfdf;
 }
 
 .options-list .loading {

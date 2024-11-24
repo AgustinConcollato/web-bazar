@@ -16,7 +16,7 @@ export function Header() {
         <header>
             <div>
                 <div>
-                    <img src="" alt="logo negocio" />
+                    <Link to={'/'}><img src="" alt="logo negocio" /></Link>
                     <NavBar />
                 </div>
                 <Search />
@@ -26,7 +26,7 @@ export function Header() {
                         <UserMenu />
                     </div> :
                     <div>
-                        <Link to={'/iniciar-sesion'} className="btn btn-thins">Ingresar</Link>
+                        <Link to={'/iniciar-sesion'} className="btn btn-regular">Ingresar</Link>
                         <Link to={'/registrarse'} className="btn btn-solid">Registrarse </Link>
                     </div>
                 }

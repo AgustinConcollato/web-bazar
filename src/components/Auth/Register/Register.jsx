@@ -105,7 +105,7 @@ export const Register = () => {
         <section className="register">
             <p>Crear cuenta con correo electrónco</p>
             <form onSubmit={validateForm}>
-                <input onChange={validateName} className="input" type="text" placeholder="Nombre" autoComplete="off" />
+                <input onChange={validateName} className="input" type="text" placeholder="Nombre y Apellido" autoComplete="off" />
                 <input onChange={validateEmail} className="input" type="email" placeholder="Correo electrónico" />
                 <input onChange={checkPassword} ref={passwordRef} className="input" type="password" placeholder="Contraseña" />
                 <button type="submit" className="btn btn-solid">Registrarse</button>

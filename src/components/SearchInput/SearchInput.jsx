@@ -12,9 +12,11 @@ export function SearchInput() {
     const [highlightedIndex, setHighlightedIndex] = useState(0)
     const [isLoading, setIsLoading] = useState(false)
     const [hidden, setHidden] = useState(true)
+    const [total, setTotal] = useState(0)
 
     const inputRef = useRef(null)
     const dropdownRef = useRef(null)
+    const optionRefs = useRef([])
     const navigate = useNavigate()
 
     const products = new Products()
@@ -37,6 +39,16 @@ export function SearchInput() {
         }
     }, [])
 
+    useEffect(() => {
+        if (optionRefs.current[highlightedIndex]) {
+            optionRefs.current[highlightedIndex].scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+
+            })
+        }
+    }, [highlightedIndex])
+
     async function handleChange(event) {
         const value = event.target.value
         setQuery(value)
@@ -53,7 +65,9 @@ export function SearchInput() {
                 const filtered = response.data.filter(option =>
                     option.name.toLowerCase().includes(value.toLowerCase())
                 )
-                setFilteredOptions([...filtered, { id: 'show_all', isButton: true }])
+
+                setFilteredOptions(filtered)
+                setTotal(response.total)
                 setIsLoading(false)
                 setHidden(false)
             }
@@ -73,24 +87,16 @@ export function SearchInput() {
             event.preventDefault()
             const selectedOption = filteredOptions[highlightedIndex]
             if (selectedOption) {
-                if (selectedOption.isButton) {
-                    navigate('/buscador/' + query)
-                } else {
-                    navigate('producto/' + selectedOption.id)
-                    setQuery(selectedOption.name)
-                }
-                setFilteredOptions([])
+                navigate('producto/' + selectedOption.id)
+
+                setQuery(selectedOption.name)
                 setHidden(true)
             }
         }
     }
 
     function handleOptionClick(option) {
-        if (option.isButton) {
-            navigate('/buscador/' + query)
-        } else {
-            setQuery(option.name)
-        }
+        setQuery(option.name)
         setHidden(true)
     }
 
@@ -98,6 +104,7 @@ export function SearchInput() {
         <div className="search" ref={dropdownRef}>
             <input
                 type="text"
+                id='search'
                 ref={inputRef}
                 value={query}
                 onChange={handleChange}
@@ -107,48 +114,44 @@ export function SearchInput() {
                 className="input"
                 autoComplete="off"
                 required
-                onFocus={() => setHidden(false)}
+                onFocus={() => query && setHidden(false)}
             />
-            {(!hidden && filteredOptions.length > 1) ? (
-                <ul className="options-list">
-                    {isLoading ? (
-                        <Loading />
-                    ) : (
-                        filteredOptions.map((option, index) => (
-                            <li
-                                key={option.id}
-                                className={highlightedIndex === index ? 'highlighted' : ''}
-                            >
-                                {option.isButton ? (
-                                    <button
-                                        type="button"
-                                        className='btn'
-                                        onClick={() => handleOptionClick(option)}
-                                    >
-                                        Ver todos los resultados
-                                    </button>
-                                ) : (
-                                    <Link
-                                        to={'producto/' + option.id}
-                                        onClick={() => handleOptionClick(option)}
-                                    >
+            {(!hidden && filteredOptions.length > 0) ? (
+                <div className='container-options-list'>
+                    <ul className="options-list">
+                        {isLoading ? (
+                            <Loading />
+                        ) : (
+                            filteredOptions.map((option, index) => (
+                                <li
+                                    key={option.id}
+                                    className={highlightedIndex === index ? 'highlighted' : ''}
+                                    ref={(el) => (optionRefs.current[index] = el)}
+                                >
+                                    <Link to={'producto/' + option.id} onClick={() => handleOptionClick(option)}>
                                         <img
                                             src={`${urlStorage}/${JSON.parse(option.thumbnails)[0]}`}
                                             alt=""
                                         />
                                         {option.name}
                                     </Link>
-                                )}
-                            </li>
-                        ))
-                    )}
-                </ul>
-            ) :
-                !hidden &&
-                <ul className='options-list'>
-                    <li className='no-results'>No hay resultdos</li>
-                </ul>
-            }
+                                </li>
+                            ))
+                        )}
+                    </ul>
+                    {total > 20 &&
+                        <button type="submit" onClick={() => setHidden(true)}>Ver todos los resultados</button>
+                    }
+                </div>
+            ) : (
+                !hidden && (
+                    <div className='container-options-list'>
+                        <ul className="options-list">
+                            <li className="no-results">No hay resultados</li>
+                        </ul>
+                    </div>
+                )
+            )}
         </div>
     )
 }

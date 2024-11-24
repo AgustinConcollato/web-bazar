@@ -7,17 +7,21 @@
 
 .search .input {
     width: 350px;
-    border-radius: 10px 0 0 10px;
-    padding: 0 15px;
+    border-radius: 0 10px 10px 0;
+    padding: 0 15px 0 3px;
+    border-left: none;
 }
 
-.search button {
-    border-radius: 0 10px 10px 0;
+.search label {
+    border-radius: 10px 0 0 10px;
     height: 100%;
     width: 45px;
     background: none;
-    background: #eee;
     outline: none;
     border: 1px solid #eee;
+    border-right: none;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

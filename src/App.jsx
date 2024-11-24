@@ -23,6 +23,7 @@ export function App() {
     <>
       <Header />
       <Routes>
+        <Route path='/' element={<></>} />
         <Route path='/iniciar-sesion' element={<Login />} />
         <Route path='/registrarse' element={<Register />} />
         <Route path='/productos/:categoryCode' element={<></>} />
