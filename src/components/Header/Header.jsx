@@ -22,7 +22,7 @@ export function Header() {
                 <Search />
                 {user ?
                     <div>
-                        <Link to={'/pedido'}><FontAwesomeIcon icon={faBasketShopping} /></Link>
+                        <Link className="btn-order" to={'/pedido'}><FontAwesomeIcon icon={faBasketShopping} /></Link>
                         <UserMenu />
                     </div> :
                     <div>

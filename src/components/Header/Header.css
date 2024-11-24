@@ -26,3 +26,16 @@ header>div>div {
 header>div>div:last-child {
     justify-content: flex-end;
 }
+
+.btn-order {
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    width: 35px;
+}
+
+.btn-order:hover {
+    background: #eee;
+}
