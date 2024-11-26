@@ -140,7 +140,7 @@ export function SearchInput() {
                         )}
                     </ul>
                     {total > 20 &&
-                        <button type="submit" onClick={() => setHidden(true)}>Ver todos los resultados</button>
+                        <button type="submit">Ver todos los resultados</button>
                     }
                 </div>
             ) : (
