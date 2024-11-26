@@ -1,0 +1,47 @@
+.filters {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.filters h1 {
+    margin-bottom: 20px;
+}
+
+.filters div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.filters div a {
+    font-size: 14px;
+    padding: 5px 10px;
+    height: 30px;
+}
+
+.filters div p {
+    font-weight: 600;
+}
+
+.filters ul {
+    width: 270px;
+}
+
+.filters ul li {
+    margin-bottom: 3px;
+}
+
+.filters ul li a {
+    display: block;
+    transition: .1s;
+}
+
+.filters ul li a:hover {
+    transform: translateX(5px);
+}
+
+.subcategorySelected {
+    color: var(--color-primary);
+}
