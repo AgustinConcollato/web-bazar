@@ -5,6 +5,7 @@
 .container-categories nav {
     position: absolute;
     top: calc(100% + 10px);
+    z-index: 1000;
 }
 
 .container-categories nav ul {

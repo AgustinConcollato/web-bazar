@@ -1,0 +1,72 @@
+.productCard {
+    width: 230px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.productCard a {
+    display: block;
+    padding: 10px;
+}
+
+.productCard a:hover img{
+    transform: scale(1.05);
+}
+
+.productCard a div {
+    min-height: 65px;
+}
+
+.productCard a div p:first-child {
+    margin-bottom: 5px;
+}
+
+.productCard img {
+    height: 210px;
+    width: 210px;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+    transition: .2s;
+}
+
+.productCard .description {
+    font-size: 14px;
+    color: #aaa;
+}
+
+.productCard span {
+    font-size: 18px;
+}
+
+.productCard form {
+    padding: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.productCard form div {
+    position: relative;
+}
+
+.productCard form div span {
+    position: absolute;
+    text-wrap: nowrap;
+    background: #00000099;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #fff;
+    right: 0;
+    top: calc(100% + 10px);
+    pointer-events: none;
+    opacity: 0;
+    transition: .3s;
+    font-size: 14px;
+}
+
+.productCard form div .btn:hover+span {
+    opacity: 1;
+}

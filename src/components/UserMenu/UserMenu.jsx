@@ -14,8 +14,6 @@ export function UserMenu() {
         (!e.target.closest('.btn-image') && !e.target.closest('.user-nav')) && setHidden(true)
     }
 
-    console.log(user)
-
     return (
         <div className="container-user-nav">
             <img className="btn-image" src={userImage} onClick={() => setHidden(!hidden)} alt="foto de perdil del usuario" />

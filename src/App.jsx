@@ -6,6 +6,7 @@ import { useContext } from 'react'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 import { Header } from './components/Header/Header'
 import { Register } from './components/Auth/Register/Register'
+import { ProductPage } from './pages/ProductPage'
 
 export function App() {
 
@@ -26,7 +27,7 @@ export function App() {
         <Route path='/' element={<></>} />
         <Route path='/iniciar-sesion' element={<Login />} />
         <Route path='/registrarse' element={<Register />} />
-        <Route path='/productos/:categoryCode' element={<></>} />
+        <Route path='/productos/:categoryCode/*' element={<ProductPage />} />
         <Route path='/buscador/:productName' element={<></>} />
         <Route path='/pedido' element={<></>} />
         <Route path='*' element={<>no se encontró</>} />

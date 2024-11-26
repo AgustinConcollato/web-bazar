@@ -1,0 +1,19 @@
+.product-page {
+    max-width: 1250px;
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    margin: auto;
+    padding: 60px 0 120px 0;
+}
+
+.container-product-list {
+    width: 100%;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 40px;
+}
