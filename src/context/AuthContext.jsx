@@ -25,14 +25,14 @@ export const AuthProvider = ({ children }) => {
     const loginWhitFacebook = (setError) => {
         const facebookProvider = new FacebookAuthProvider()
         signInWithPopup(auth, facebookProvider)
-            .then(e => e && navigate('/'))
+            .then(e => e && window.history.back())
             .catch((error) => setError(error.message))
     }
 
     const loginWhitGoogle = (setError) => {
         const googleProvider = new GoogleAuthProvider()
         signInWithPopup(auth, googleProvider)
-            .then(e => e && navigate('/'))
+            .then(e => e && window.history.back())
             .catch((error) => setError(error.message))
     }
 
@@ -68,7 +68,6 @@ export const AuthProvider = ({ children }) => {
         signOut(auth)
             .then(() => {
                 setUser(null)
-                navigate('/iniciar-sesion')
             })
     }
 
