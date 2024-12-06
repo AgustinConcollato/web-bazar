@@ -7,6 +7,8 @@ import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
 import { Header } from './components/Header/Header'
 import { Register } from './components/Auth/Register/Register'
 import { ProductPage } from './pages/ProductPage'
+import { ProductDetailPage } from './pages/ProductDetailPage'
+import { ShoppingCartPage } from './pages/ShoppingCartPage'
 
 export function App() {
 
@@ -29,7 +31,8 @@ export function App() {
         <Route path='/registrarse' element={<Register />} />
         <Route path='/productos/:categoryCode/*' element={<ProductPage />} />
         <Route path='/buscador/:productName' element={<></>} />
-        <Route path='/pedido' element={<></>} />
+        <Route path='/pedido' element={<ShoppingCartPage />} />
+        <Route path='/producto/:productId' element={<ProductDetailPage />} />
         <Route path='*' element={<>no se encontró</>} />
       </Routes>
     </>
