@@ -1,27 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { api } from "api-services"
-import './NavBar.css'
+import { CategoriesContext } from "../../context/CategoriesContext";
+import './NavBar.css';
 
 export function NavBar() {
 
-    const { Categories } = api
+    const { categories } = useContext(CategoriesContext)
 
-    const [categories, setCategories] = useState(null)
     const [hidden, setHidden] = useState(true)
-
-    async function getCategories() {
-        const categories = new Categories()
-        setCategories(await categories.get({}))
-    }
 
     document.onclick = (e) => {
         !e.target.closest('.btn') && setHidden(true)
     }
-
-    useEffect(() => {
-        getCategories()
-    }, [])
 
     return (
         <div className="container-categories">
@@ -30,7 +20,11 @@ export function NavBar() {
                 <nav>
                     <ul>
                         {(categories && categories.length != 0) &&
-                            categories.map(e => <li onClick={() => setHidden(!hidden)}><Link to={'productos/' + e.category_code}>{e.category_name}</Link></li>)}
+                            categories.map(e =>
+                                <li key={e.category_code} onClick={() => setHidden(!hidden)}>
+                                    <Link to={'productos/' + e.category_code}>{e.category_name}</Link>
+                                </li>
+                            )}
                     </ul>
                 </nav>}
         </div>
