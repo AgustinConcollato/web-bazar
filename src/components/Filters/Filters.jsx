@@ -13,12 +13,14 @@ export function Filters({ category }) {
     async function getCategories() {
         const categories = new Categories()
 
-        setCategoryData(await categories.get({ code: category }))
+        const response = await categories.get({ code: category })
+
+        setCategoryData(response)
+        document.title = `Productos de ${response.category_name}`
     }
 
-    console.log(subcategoryCode)
-
     useEffect(() => {
+
         getCategories()
     }, [category])
 
