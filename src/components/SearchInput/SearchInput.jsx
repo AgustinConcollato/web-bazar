@@ -62,11 +62,7 @@ export function SearchInput() {
             const response = await products.search({ options: { name: value, page: 1 } })
 
             if (response) {
-                const filtered = response.data.filter(option =>
-                    option.name.toLowerCase().includes(value.toLowerCase())
-                )
-
-                setFilteredOptions(filtered)
+                setFilteredOptions(response.data)
                 setTotal(response.total)
                 setIsLoading(false)
                 setHidden(false)
