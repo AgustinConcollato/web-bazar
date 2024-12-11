@@ -32,6 +32,7 @@ export function App() {
         <Route path='/productos/:categoryCode/*' element={<ProductPage />} />
         <Route path='/buscador/:productName' element={<></>} />
         <Route path='/pedido' element={<ShoppingCartPage />} />
+        <Route path='/pedido/confirmado/:id' element={<>pedido confirmado</>} />
         <Route path='/producto/:productId' element={<ProductDetailPage />} />
         <Route path='*' element={<>no se encontró</>} />
       </Routes>
