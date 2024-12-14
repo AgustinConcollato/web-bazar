@@ -21,6 +21,7 @@ export function FormAddProductToCart({ type, product }) {
             setHidden(false)
 
             setTimeout(() => setHidden(true), 5000)
+            return
         }
 
         const quantity = e.target[0].value
@@ -42,9 +43,8 @@ export function FormAddProductToCart({ type, product }) {
         })
 
         if (response) {
-                setAddStatus(true)
+            setAddStatus(true)
         }
-        console.log(response)
     }
 
     return (
@@ -71,9 +71,9 @@ export function FormAddProductToCart({ type, product }) {
                 <div className="message-not-auth">
                     <p>Ingresa a tu cuenta para agregar productos al pedido</p>
                     <Link to={'/iniciar-sesion'} className="btn btn-thins">Ingresar</Link>
-                    <div onClick={() => setHidden(true)}>
+                    {/* <div onClick={() => setHidden(true)}>
                         <FontAwesomeIcon icon={faXmark} />
-                    </div>
+                    </div> */}
                 </div>
             }
         </>
