@@ -1,21 +1,20 @@
-import { useContext, useEffect, useState } from "react"
-import { AuthContext } from "../context/authContext"
-import { Link, useNavigate } from "react-router-dom"
 import { api } from "api-services"
-import { Loading } from "../components/Loading/Loading"
+import { useContext, useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { CartDetail } from "../components/CartDetail/CartDetail"
 import { CartProduct } from "../components/CartProduct/CartProduct"
-import { generateId } from "../utils/generateId"
+import { Loading } from "../components/Loading/Loading"
+import { NavBar } from "../components/NavBar/NavBar"
+import { AuthContext } from "../context/authContext"
 
 export function ShoppingCartPage() {
 
     const { user } = useContext(AuthContext)
-    const navigate = useNavigate()
     const { ShoppingCart } = api
     const shoppingCart = new ShoppingCart()
 
     const [productList, setProductList] = useState(null)
     const [loading, setLoading] = useState(null)
-    const [comment, setComment] = useState(null)
 
     async function getShoppingCart() {
         document.title = 'Tu pedido'
@@ -40,32 +39,6 @@ export function ShoppingCartPage() {
         }
     }
 
-    async function confirmCart() {
-        const data = {
-            id: generateId(),
-            user_id: user.uid,
-            user_name: user.displayName,
-            date: new Date().getTime(),
-            comment
-        }
-
-        const response = await fetch('http://localhost:8000/api/cart/confirm', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-
-        if (!response.ok) {
-            return
-        }
-
-        const { order_id } = await response.json()
-
-        navigate('/pedido/confirmado/' + order_id)
-    }
-
     useEffect(() => {
         user && getShoppingCart()
     }, [user])
@@ -77,9 +50,8 @@ export function ShoppingCartPage() {
         return (
             <section className="shopping-cart-page">
                 <div className="shopping-cart-not-user">
-                    <p>Iniciar sesión para ver tu carrito</p>
+                    <p>Ingresa a tu cuenta para ver tu pedido</p>
                     <Link to={'/iniciar-sesion'} className="btn btn-regular">Ingresar</Link>
-                    <Link to={'/registrarse'} className="btn btn-solid">Registarse</Link>
                 </div>
             </section>
         )
@@ -89,26 +61,22 @@ export function ShoppingCartPage() {
         <>
             <section className="shopping-cart-page">
                 <div>
+                    <h1>Tu pedido</h1>
                     {(productList && !loading) ?
                         productList.length != 0 ?
-                            <>
-                                {productList.map((e, i) => <CartProduct key={i} e={e} onDelete={deleteProduct} />)}
-                                <textarea onChange={(e) => setComment(e.target.value)} placeholder="Agregar un comentario al pedido"></textarea>
-                            </> :
                             <div>
-                                Tu pedido todavía no tiene productos
+                                {productList.map((e, i) => <CartProduct key={i} e={e} onDelete={deleteProduct} setProductList={setProductList} />)}
+                            </div> :
+                            <div className="shopping-cart-empty">
+                                <h2>Todavía no tiene productos</h2>
+                                <p>Agrega lo que más te guste de las diferentes categorías <NavBar /></p>
                             </div> :
                         <Loading />
                     }
                 </div>
-                <div className="cartDetail">
-                    {(productList && !loading && productList.length != 0) &&
-                        <>
-                            {productList.reduce((a, e) => a + (e.product.price * e.quantity), 0)}
-                            <button onClick={confirmCart}>confirmar</button>
-                        </>
-                    }
-                </div>
+                {(productList && productList.length != 0) &&
+                    <CartDetail productList={productList} />
+                }
             </section >
         </>
     )
