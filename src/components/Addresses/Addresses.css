@@ -1,0 +1,40 @@
+.addresses {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.addresses h4 {
+}
+
+.container-address {
+    border-radius: 10px;
+    border: 1px solid #eee;
+    padding: 10px;
+}
+
+.address {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.address:hover {
+    background: #f5f5f5;
+}
+
+.address-selected {
+    background: #f5f5f5;
+}
+
+.address-selected svg path {
+    color: var(--color-primary);
+}
+
+.address p:first-child {
+    font-weight: 500;
+}
