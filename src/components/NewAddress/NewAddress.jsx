@@ -1,17 +1,15 @@
 import { useContext, useState } from "react";
+import { AuthContext } from "../../context/authContext";
+import { generateId } from "../../utils/generateId";
 import { InputCity } from "./InputCity";
 import { InputStreet } from "./InputStreet";
-import { AuthContext } from "../../context/authContext";
-import { Link, useNavigate } from "react-router-dom";
-import './NewAddress.css'
-import { generateId } from "../../utils/generateId";
+import './NewAddress.css';
 
-export function NewAddress({ setAddresses, total }) {
+export function NewAddress({ setAddresses, total, onClose }) {
 
     const urlApiLocation = 'https://apis.datos.gob.ar/georef/api'
 
     const { user } = useContext(AuthContext)
-    const navigate = useNavigate()
 
     const [provinceList, setProvinceList] = useState([])
     const [province, setProvince] = useState()
@@ -51,13 +49,12 @@ export function NewAddress({ setAddresses, total }) {
 
         if (addressCreated) {
             setAddresses(e => [...e, addressCreated])
-            navigate('/perfil')
+            onClose(false)
         }
     }
 
     return (
         <>
-            <Link to={'/perfil'}>Cerrar</Link>
             <form onSubmit={addAddress}>
                 <select name="province" onFocus={getProvinces} onChange={selectProvince}>
                     <option value="">Selecciona una provincia</option>
