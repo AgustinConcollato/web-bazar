@@ -31,7 +31,7 @@ export function ProfilePage() {
     return (
         <section className="section-profile">
             <h1>Hola, {user.displayName}</h1>
-            <Addresses user={user} />
+            <Addresses user={user} type={'PROFILE'}/>
         </section >
 
     )
