@@ -1,16 +1,16 @@
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons"
+import { faAngleUp, faLocationDot } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { url } from "api-services"
 import { useEffect, useState } from "react"
-import { Link, Route, Routes } from "react-router-dom"
 import { Loading } from "../Loading/Loading"
 import { NewAddress } from "../NewAddress/NewAddress"
 import './Addresses.css'
 
-export function Addresses({ user }) {
+export function Addresses({ user, type, onChange }) {
 
     const [addresses, setAddresses] = useState(null)
     const [selected, setSelected] = useState(0)
+    const [formNewAddress, setFormNewAddress] = useState(false)
 
     async function getAddress(userId) {
         const response = await fetch(`${url}/user/${userId}`)
@@ -75,26 +75,49 @@ export function Addresses({ user }) {
                 }
                 <div>
                     {addresses.map((e, i) =>
-                        (selected != i && e.status) &&
-                        <button
-                            className="btn btn-solid"
-                            onClick={() => saveAddrees(addresses[selected])}
-                        >
-                            Cambiar dirección principal
-                        </button>
+                        <>
+                            {(selected != i && e.status) &&
+                                <button
+                                    style={{ marginRight: '10px' }}
+                                    className="btn btn-solid"
+                                    onClick={() => {
+                                        saveAddrees(addresses[selected])
+                                        type == 'MODAL' && onChange(addresses[selected])
+                                    }}
+                                >
+                                    Cambiar dirección principal
+                                </button>
+                            }
+                            {(selected != i && type == 'MODAL') &&
+                                <button
+                                    className="btn"
+                                    onClick={() => {
+                                        sessionStorage.setItem('address', JSON.stringify(addresses[selected]))
+                                        onChange(addresses[selected])
+                                    }}
+                                >
+                                    Cambiar solo para este pedido
+                                </button>
+                            }
+                        </>
                     )}
                 </div>
-                <Routes>
-                    <Route path={'/'} element={
-                        <Link
-                            to={'nueva-direccion'}
-                            className="btn btn-new-address"
-                        >
-                            Agregar nueva dirección
-                        </Link>
-                    } />
-                    <Route path={'/nueva-direccion'} element={<NewAddress setAddresses={setAddresses} total={addresses?.length} />} />
-                </Routes>
+                {formNewAddress &&
+                    <NewAddress
+                        setAddresses={setAddresses}
+                        onClose={setFormNewAddress}
+                        total={addresses?.length}
+                    />
+                }
+                <button
+                    className="btn btn-new-address"
+                    onClick={() => setFormNewAddress(!formNewAddress)}
+                >
+                    {formNewAddress ?
+                        <FontAwesomeIcon icon={faAngleUp} /> :
+                        'Agregar nueva dirección'
+                    }
+                </button>
             </div> :
             <Loading />
     )
