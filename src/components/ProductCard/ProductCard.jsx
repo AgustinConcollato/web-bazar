@@ -13,7 +13,16 @@ export function ProductCard({ e }) {
                         <p>{e.name}</p>
                         <p className='description'>{e.description}</p>
                     </div>
-                    <span>${e.price}</span>
+                    {e.discount ?
+                        <>
+                            <p className="discount">
+                                <span>-{e.discount}%</span>
+                                <p className="price">${parseFloat(e.price)}</p>
+                            </p>
+                            <p>${parseFloat(e.price - (e.discount * e.price) / 100)}</p>
+                        </> :
+                        <p>${parseFloat(e.price)}</p>
+                    }
                 </Link>
                 <FormAddProductToCart type={'CARD'} product={e} />
             </div>
