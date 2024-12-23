@@ -39,3 +39,8 @@
 .address p:first-child {
     font-weight: 500;
 }
+
+.container-btn-change-address {
+    display: flex;
+    gap: 10px;
+}

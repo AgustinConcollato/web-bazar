@@ -17,19 +17,28 @@ export function Addresses({ user, type, onChange }) {
 
         if (!response.ok) {
             setAddresses([])
+            sessionStorage.removeItem('address')
             return
         }
 
         const address = await response.json()
 
-        address.forEach((e, i) => {
-            e.status && setSelected(i)
+        address.forEach((e) => {
+
+            if (sessionStorage.getItem('address')) {
+                const sessionAddress = sessionStorage.getItem('address')
+                e.code == JSON.parse(sessionAddress).code && setSelected(e)
+                return
+            }
+
+            e.status && setSelected(e)
         });
 
         setAddresses(address)
     }
 
     async function saveAddrees(address) {
+
         const response = await fetch(url + '/user/' + user.uid, {
             method: 'PUT',
             headers: {
@@ -56,10 +65,17 @@ export function Addresses({ user, type, onChange }) {
                 <h4>Tus direcciones</h4>
                 {addresses.length != 0 ?
                     <div className="container-address">
-                        {addresses.map((e, i) =>
+                        {addresses.map(e =>
                             <div
-                                onClick={() => setSelected(i)}
-                                className={selected == i ? 'address address-selected' : 'address'}
+                                key={e.code}
+                                onClick={() => setSelected(e)}
+                                className={
+                                    (selected.code == e.code && type == 'PROFILE') ||
+                                        (selected.code == e.code && type == 'MODAL' && !sessionStorage.getItem('address')) ||
+                                        (e.code == selected.code) ?
+                                        'address address-selected' :
+                                        'address'
+                                }
                             >
                                 <FontAwesomeIcon icon={faLocationDot} />
                                 <div>
@@ -73,27 +89,29 @@ export function Addresses({ user, type, onChange }) {
                         <p>no hay direcciones registradas</p>
                     </div>
                 }
-                <div>
-                    {addresses.map((e, i) =>
+                <div className="container-btn-change-address">
+                    {addresses.map(e =>
                         <>
-                            {(selected != i && e.status) &&
+                            {(e.status != 'selected' && e.code == selected.code) &&
                                 <button
-                                    style={{ marginRight: '10px' }}
+                                    style={{ order: 0 }}
                                     className="btn btn-solid"
                                     onClick={() => {
-                                        saveAddrees(addresses[selected])
-                                        type == 'MODAL' && onChange(addresses[selected])
+                                        saveAddrees(selected)
+                                        type == 'MODAL' && onChange(selected)
                                     }}
                                 >
                                     Cambiar dirección principal
                                 </button>
                             }
-                            {(selected != i && type == 'MODAL') &&
+                            {(e.code == selected.code && type == 'MODAL') &&
+                                JSON.parse(sessionStorage.getItem('address'))?.code != selected.code &&
                                 <button
+                                    style={{ order: 1 }}
                                     className="btn"
                                     onClick={() => {
-                                        sessionStorage.setItem('address', JSON.stringify(addresses[selected]))
-                                        onChange(addresses[selected])
+                                        sessionStorage.setItem('address', JSON.stringify(selected))
+                                        onChange(selected)
                                     }}
                                 >
                                     Cambiar solo para este pedido
