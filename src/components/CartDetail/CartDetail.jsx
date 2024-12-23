@@ -94,6 +94,7 @@ export function CartDetail({ productList }) {
 
     useEffect(() => {
         setAddress(changeAddress)
+        setAddresses([changeAddress])
     }, [changeAddress])
 
     return (
