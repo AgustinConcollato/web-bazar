@@ -21,6 +21,10 @@ export function ShoppingCartPage() {
 
         const response = await shoppingCart.get(user.uid)
 
+        if (response.length == 0 && sessionStorage.getItem('address')) {
+            sessionStorage.removeItem('address')
+        }
+
         setProductList(response)
     }
 
@@ -31,6 +35,10 @@ export function ShoppingCartPage() {
             const response = await shoppingCart.delete(data)
 
             setProductList(current => {
+                if (current.length == 1 && sessionStorage.getItem('address')) {
+                    sessionStorage.removeItem('address')
+                }
+
                 return current.filter(e => e.product_id != response.product_id && e)
             })
             setLoading(null)
