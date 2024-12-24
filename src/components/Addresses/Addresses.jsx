@@ -17,7 +17,7 @@ export function Addresses({ user, type, onChange }) {
 
         if (!response.ok) {
             setAddresses([])
-            sessionStorage.removeItem('address')
+            localStorage.removeItem('address')
             return
         }
 
@@ -25,8 +25,8 @@ export function Addresses({ user, type, onChange }) {
 
         address.forEach((e) => {
 
-            if (sessionStorage.getItem('address')) {
-                const sessionAddress = sessionStorage.getItem('address')
+            if (type == 'MODAL' && localStorage.getItem('address')) {
+                const sessionAddress = localStorage.getItem('address')
                 e.code == JSON.parse(sessionAddress).code && setSelected(e)
                 return
             }
@@ -66,23 +66,17 @@ export function Addresses({ user, type, onChange }) {
                 {addresses.length != 0 ?
                     <div className="container-address">
                         {addresses.map(e =>
-                            <div
-                                key={e.code}
-                                onClick={() => setSelected(e)}
-                                className={
-                                    (selected.code == e.code && type == 'PROFILE') ||
-                                        (selected.code == e.code && type == 'MODAL' && !sessionStorage.getItem('address')) ||
-                                        (e.code == selected.code) ?
-                                        'address address-selected' :
-                                        'address'
-                                }
-                            >
-                                <FontAwesomeIcon icon={faLocationDot} />
-                                <div>
-                                    <p>{e.address} {e.address_number}</p>
-                                    <p>{e.city}, {e.province}</p>
-                                </div>
-                            </div>
+                            type == 'PROFILE' ?
+                                <AddressListProfile
+                                    e={e}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                /> :
+                                <AddressListModal
+                                    e={e}
+                                    selected={selected}
+                                    setSelected={setSelected}
+                                />
                         )}
                     </div> :
                     <div className="not-addresses">
@@ -105,12 +99,12 @@ export function Addresses({ user, type, onChange }) {
                                 </button>
                             }
                             {(e.code == selected.code && type == 'MODAL') &&
-                                JSON.parse(sessionStorage.getItem('address'))?.code != selected.code &&
+                                JSON.parse(localStorage.getItem('address'))?.code != selected.code &&
                                 <button
                                     style={{ order: 1 }}
                                     className="btn"
                                     onClick={() => {
-                                        sessionStorage.setItem('address', JSON.stringify(selected))
+                                        localStorage.setItem('address', JSON.stringify(selected))
                                         onChange(selected)
                                     }}
                                 >
@@ -138,5 +132,47 @@ export function Addresses({ user, type, onChange }) {
                 </button>
             </div> :
             <Loading />
+    )
+}
+
+function AddressListProfile({ e, selected, setSelected }) {
+    return (
+        <div
+            key={e.code}
+            onClick={() => setSelected(e)}
+            className={
+                selected.code == e.code ?
+                    'address address-selected' :
+                    'address'
+            }
+        >
+            <FontAwesomeIcon icon={faLocationDot} />
+            <div>
+                <p>{e.address} {e.address_number}</p>
+                <p>{e.city}, {e.province}</p>
+            </div>
+        </div>
+    )
+}
+
+function AddressListModal({ e, selected, setSelected }) {
+    return (
+        <div
+            key={e.code}
+            onClick={() => setSelected(e)}
+            className={
+                (selected.code == e.code && !localStorage.getItem('address')) ?
+                    'address address-selected' :
+                    (e.code == selected.code) ?
+                        'address address-selected' :
+                        'address'
+            }
+        >
+            <FontAwesomeIcon icon={faLocationDot} />
+            <div>
+                <p>{e.address} {e.address_number}</p>
+                <p>{e.city}, {e.province}</p>
+            </div>
+        </div>
     )
 }
