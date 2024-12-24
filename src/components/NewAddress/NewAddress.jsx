@@ -54,32 +54,31 @@ export function NewAddress({ setAddresses, total, onClose }) {
     }
 
     return (
-        <>
-            <form onSubmit={addAddress}>
-                <select name="province" onFocus={getProvinces} onChange={selectProvince}>
-                    <option value="">Selecciona una provincia</option>
-                    {provinceList.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)}
-                </select>
-                {province && <InputCity url={urlApiLocation} province={province} setCity={setCity} />}
-                {city &&
-                    <div>
-                        <InputStreet
-                            url={urlApiLocation}
-                            setAddress={setAddress}
-                            province={province}
-                            city={city}
-                        />
-                        <input
-                            type="text"
-                            placeholder="Altura"
-                            onChange={({ target }) => setNumber(target.value)}
-                            className="input"
-                        />
-                    </div>}
-                {(province && city && address && number) &&
-                    <button type="submit" className="btn btn-solid">Agregar</button>
-                }
-            </form>
-        </>
+        <form onSubmit={addAddress} className="form-new-address">
+            <h4>Nueva dirección</h4>
+            <select className="input" name="province" onFocus={getProvinces} onChange={selectProvince}>
+                <option value="">Selecciona una provincia</option>
+                {provinceList.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)}
+            </select>
+            {province && <InputCity url={urlApiLocation} province={province} setCity={setCity} />}
+            {city &&
+                <div className="div-street">
+                    <InputStreet
+                        url={urlApiLocation}
+                        setAddress={setAddress}
+                        province={province}
+                        city={city}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Altura"
+                        onChange={({ target }) => setNumber(target.value)}
+                        className="input"
+                    />
+                </div>}
+            {(province && city && address && number) &&
+                <button type="submit" className="btn btn-solid">Agregar</button>
+            }
+        </form>
     )
 }
