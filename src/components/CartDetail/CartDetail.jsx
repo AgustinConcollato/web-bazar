@@ -34,7 +34,7 @@ export function CartDetail({ productList }) {
 
         setAddresses(addresses)
 
-        const sessionAddress = sessionStorage.getItem('address')
+        const sessionAddress = localStorage.getItem('address')
 
         if (sessionAddress) {
             setAddress(JSON.parse(sessionAddress))
@@ -120,7 +120,7 @@ export function CartDetail({ productList }) {
                                                 change={changeAddress}
                                             />
                                         </p>
-                                        <p>{address.city} {address.province}</p>
+                                        <p>{address.city}, {address.province}</p>
                                     </div> :
                                     <div className="address-for-order">
                                         <p>No hay direcciones registradas</p>
