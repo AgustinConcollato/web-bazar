@@ -1,6 +1,6 @@
 import { faAngleUp, faLocationDot } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { url } from "api-services"
+import { api, url } from "api-services"
 import { useEffect, useState } from "react"
 import { Loading } from "../Loading/Loading"
 import { NewAddress } from "../NewAddress/NewAddress"
@@ -8,51 +8,43 @@ import './Addresses.css'
 
 export function Addresses({ user, type, onChange }) {
 
+    const { Address } = api
+    const address = new Address(user.uid)
+
     const [addresses, setAddresses] = useState(null)
     const [selected, setSelected] = useState(0)
     const [formNewAddress, setFormNewAddress] = useState(false)
 
-    async function getAddress(userId) {
-        const response = await fetch(`${url}/user/${userId}`)
+    async function getAddress() {
 
-        if (!response.ok) {
+        try {
+            const response = await address.get()
+
+            response.forEach((e) => {
+                if (type == 'MODAL' && localStorage.getItem('address')) {
+                    const sessionAddress = localStorage.getItem('address')
+                    e.code == JSON.parse(sessionAddress).code && setSelected(e)
+                    return
+                }
+
+                e.status && setSelected(e)
+            });
+
+            setAddresses(response)
+        } catch (error) {
             setAddresses([])
             localStorage.removeItem('address')
             return
         }
-
-        const address = await response.json()
-
-        address.forEach((e) => {
-
-            if (type == 'MODAL' && localStorage.getItem('address')) {
-                const sessionAddress = localStorage.getItem('address')
-                e.code == JSON.parse(sessionAddress).code && setSelected(e)
-                return
-            }
-
-            e.status && setSelected(e)
-        });
-
-        setAddresses(address)
     }
 
-    async function saveAddrees(address) {
-
-        const response = await fetch(url + '/user/' + user.uid, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ code: address.code })
-        })
-
-        if (response.ok) {
-
-            const addresses = await response.json()
-            setAddresses(addresses)
+    async function saveAddrees(e) {
+        try {
+            const response = await address.save(e)
+            setAddresses(response)
+        } catch (error) {
+            console.log(error)
         }
-
     }
 
     useEffect(() => {
