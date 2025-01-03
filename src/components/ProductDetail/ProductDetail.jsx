@@ -30,14 +30,15 @@ export function ProductDetail({ product }) {
                 <div className="container-images">
                     <img src={urlStorage + '/' + images[position]} alt={product.name} />
                     <div className="container-thumbnails">
-                        {thumbnails.map((e, i) =>
-                            <img
-                                src={urlStorage + '/' + e}
-                                key={i}
-                                onClick={() => setPosition(i)}
-                                className={position == i ? "thumbnail-selected" : ""}
-                            />
-                        )}
+                        {thumbnails.length > 1 &&
+                            thumbnails.map((e, i) =>
+                                <img
+                                    src={urlStorage + '/' + e}
+                                    key={i}
+                                    onClick={() => setPosition(i)}
+                                    className={position == i ? "thumbnail-selected" : ""}
+                                />
+                            )}
                     </div>
                 </div>
                 {product.status == 'active' ?
@@ -45,10 +46,19 @@ export function ProductDetail({ product }) {
                         <div className="container-product-info">
                             <h1>{product.name} <span>Código referencia: {product.code}</span></h1>
                             {product.description && <p className="description">{product.description}</p>}
-                            <span>${product.price}</span>
+                            {product.discount ?
+                                <>
+                                    <p className="discount">
+                                        <span>-{product.discount}%</span>
+                                        <p>${parseFloat(product.price)}</p>
+                                    </p>
+                                    <p className="price">${parseFloat(product.price - (product.discount * product.price) / 100)}</p>
+                                </> :
+                                <p className="price">${parseFloat(product.price)}</p>
+                            }
                             <FormAddProductToCart type={'DETAIL'} product={product} />
+                            <RecommendCategories product={product} />
                         </div>
-                        <RecommendCategories product={product} />
                     </> :
                     <div className="product-inactive">
                         <p>Este producto no está disponible en este momento</p>
@@ -69,7 +79,7 @@ function RecommendCategories({ product }) {
         categories.map(e =>
             e.category_code == product.category_id &&
             <div className="recommend">
-                <p>Ver mas productos relacionados:</p>
+                <p>Ver mas productos relacionados</p>
                 <ul>
                     <li><Link to={'/productos/' + e.category_code}>{e.category_name}</Link></li>
                     {product.subcategory &&
