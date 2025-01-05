@@ -13,14 +13,25 @@ export function FormAddProductToCart({ type, product }) {
     const [hidden, setHidden] = useState(true)
     const [error, setError] = useState(false)
     const [addStatus, setAddStatus] = useState(true)
+    const [timeoutId, setTimeoutId] = useState(null)
 
     async function addCart(e) {
         e.preventDefault()
 
         if (!user) {
-            setHidden(false)
+            if (hidden) {
+                setHidden(false);
 
-            setTimeout(() => setHidden(true), 5000)
+                const newTimeoutId = setTimeout(() => {
+                    setHidden(true);
+                }, 5000);
+
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                }
+
+                setTimeoutId(newTimeoutId);
+            }
             return
         }
 
@@ -71,9 +82,6 @@ export function FormAddProductToCart({ type, product }) {
                 <div className="message-not-auth">
                     <p>Ingresa a tu cuenta para agregar productos al pedido</p>
                     <Link to={'/iniciar-sesion'} className="btn btn-thins">Ingresar</Link>
-                    {/* <div onClick={() => setHidden(true)}>
-                        <FontAwesomeIcon icon={faXmark} />
-                    </div> */}
                 </div>
             }
         </>
