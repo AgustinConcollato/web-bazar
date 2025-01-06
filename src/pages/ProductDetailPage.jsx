@@ -56,7 +56,7 @@ export function ProductDetailPage() {
         product ?
             <>
                 <ProductDetail product={product} />
-                <RelatedProducts product={product} type={'NAME'} />
+                {/* <RelatedProducts product={product} type={'NAME'} /> */}
                 {/* <RelatedProducts product={product} type={'CATEGORY'} /> */}
             </> :
             <Loading />
