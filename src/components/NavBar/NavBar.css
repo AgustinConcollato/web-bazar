@@ -27,3 +27,7 @@
 .container-categories nav ul li a:hover {
     background: #eee;
 }
+
+@media (max-width: 1280px) {
+    
+}

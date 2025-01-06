@@ -79,3 +79,26 @@
 .product-card form div .btn:hover+span {
     opacity: 1;
 }
+
+@media (max-width: 750px) {
+    .product-card {
+        width: calc(50% - 10px);
+        height: 400px;
+    }
+}
+
+@media (max-width: 520px) {
+    .product-card {
+        width: calc(50% - 10px);
+        height: 400px;
+    }
+
+    .product-card a img {
+        height: 210px;
+        width: 100%;
+        object-fit: contain;
+        display: block;
+        margin: auto;
+        transition: .2s;
+    }
+}

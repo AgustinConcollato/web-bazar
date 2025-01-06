@@ -25,3 +25,15 @@
     justify-content: center;
     align-items: center;
 }
+
+
+@media (max-width:1000px) {
+    .search {
+        order: 3;
+        width: 100%;
+    }
+
+    .search .input {
+        width: 100%;
+    }
+}
