@@ -10,6 +10,7 @@
     box-shadow: 0 5px 10px #00000010;
     display: flex;
     align-items: center;
+    justify-content: center;
     animation: fade-message 5s 1 forwards;
 }
 
@@ -45,5 +46,11 @@
 
     100% {
         top: -100%;
+    }
+}
+
+@media (max-width: 920px) {
+    .message-not-auth {
+        min-width: calc(100% - 40px);
     }
 }

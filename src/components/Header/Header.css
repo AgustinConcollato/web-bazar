@@ -66,9 +66,14 @@ header>div>div:last-child {
         flex-wrap: wrap;
         height: 120px;
     }
+}
 
-    /* header>div>div:first-child {
-        flex-direction: row-reverse;
-    } */
-    
+@media (max-width:500px) {
+    header>div>div {
+        gap: 5px;
+    }
+
+    header>div>div .btn.btn-solid:last-child {
+        display: none;
+    }
 }

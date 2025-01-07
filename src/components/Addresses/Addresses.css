@@ -44,3 +44,16 @@
     display: flex;
     gap: 10px;
 }
+
+@media (max-width: 768px) {
+
+    .container-address,
+    .address {
+        padding: 5px;
+    }
+
+    .container-btn-change-address {
+        flex-direction: column-reverse;
+    }
+
+}

@@ -89,7 +89,7 @@
 
 @media (max-width: 520px) {
     .product-card {
-        width: calc(50% - 10px);
+        width: calc(50% - 5px);
         height: 400px;
     }
 

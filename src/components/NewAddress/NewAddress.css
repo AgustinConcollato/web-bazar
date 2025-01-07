@@ -8,9 +8,18 @@
     margin-bottom: 10px;
 }
 
+.form-new-address .container-options-list {
+    width: 100%;
+    left: 0;
+}
+
+.form-new-address .container-options-list .options-list li {
+    padding: 3px 7px;
+}
+
 .div-street {
     display: flex;
-    gap:  10px;
+    gap: 10px;
 }
 
 .div-street input {
@@ -23,8 +32,4 @@
 
 .input-address {
     position: relative;
-}
-
-.input-address .container-options-list {
-    left: 0;
 }
