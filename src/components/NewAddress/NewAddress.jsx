@@ -4,6 +4,7 @@ import { generateId } from "../../utils/generateId";
 import { InputCity } from "./InputCity";
 import { InputStreet } from "./InputStreet";
 import './NewAddress.css';
+import { Address } from "api-services/addressService";
 
 export function NewAddress({ setAddresses, total, onClose }) {
 
@@ -29,12 +30,10 @@ export function NewAddress({ setAddresses, total, onClose }) {
     async function addAddress(e) {
         e.preventDefault()
 
-        const response = await fetch('http://localhost:8000/api/user', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
+        const address = new Address(user.uid)
+
+        try {
+            const addressCreated = await address.add({
                 user_id: user.uid,
                 province,
                 city,
@@ -43,13 +42,14 @@ export function NewAddress({ setAddresses, total, onClose }) {
                 status: total == 0 ? 'selected' : null,
                 code: generateId()
             })
-        })
 
-        const addressCreated = await response.json()
+            if (addressCreated) {
+                setAddresses(e => [...e, addressCreated])
+                onClose(false)
+            }
 
-        if (addressCreated) {
-            setAddresses(e => [...e, addressCreated])
-            onClose(false)
+        } catch (error) {
+            console.log(error)
         }
     }
 
