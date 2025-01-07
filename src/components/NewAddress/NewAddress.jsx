@@ -30,10 +30,10 @@ export function NewAddress({ setAddresses, total, onClose }) {
     async function addAddress(e) {
         e.preventDefault()
 
-        const address = new Address(user.uid)
+        const a = new Address(user.uid)
 
         try {
-            const addressCreated = await address.add({
+            const addressCreated = await a.add({
                 user_id: user.uid,
                 province,
                 city,

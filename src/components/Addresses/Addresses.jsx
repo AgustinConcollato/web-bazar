@@ -1,6 +1,6 @@
 import { faAngleUp, faLocationDot } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { api, url } from "api-services"
+import { Address } from "api-services/addressService"
 import { useEffect, useState } from "react"
 import { Loading } from "../Loading/Loading"
 import { NewAddress } from "../NewAddress/NewAddress"
@@ -8,7 +8,6 @@ import './Addresses.css'
 
 export function Addresses({ user, type, onChange }) {
 
-    const { Address } = api
     const address = new Address(user.uid)
 
     const [addresses, setAddresses] = useState(null)
