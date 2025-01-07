@@ -133,3 +133,48 @@
 .cart-product .btn span {
     color: var(--color-error);
 }
+
+@media (max-width: 1280px) {
+    .shopping-cart-page {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 850px) {
+
+    .cart-product {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #eee;
+        padding: 15px 0;
+        position: relative;
+    }
+
+    .cart-product a {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        min-width: 90%;
+        max-width: 90%;
+    }
+
+    .cart-product form {
+        order: 3;
+    }
+
+    .cart-product-price,
+    .cart-product-discount {
+        order: 4;
+        min-width: min-content;
+        text-align: end;
+    }
+
+    .cart-product>div .btn {
+        position: absolute;
+        top: 30px;
+        right: 0;
+    }
+}

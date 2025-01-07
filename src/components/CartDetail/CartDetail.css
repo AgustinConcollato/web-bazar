@@ -92,3 +92,14 @@
 .btn-change-address:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 1280px) {
+    .cart-detail {
+        padding: 0;
+        width: 100%;
+    }
+
+    .cart-detail-info {
+        min-width: 100%;
+    }
+}
