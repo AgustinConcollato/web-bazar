@@ -28,7 +28,7 @@ export function UserMenu() {
                     <div className="div"></div>
                     <ul onClick={() => setHidden(!hidden)}>
                         <li><Link to={'/perfil'}>Mi Perfil</Link></li>
-                        <li><Link to={'/compras'}>Mis compras</Link></li>
+                        <li><Link to={'/compras'}>Mis pedidos</Link></li>
                     </ul>
                     <div className="div"></div>
                     <ul onClick={() => setHidden(!hidden)}>
