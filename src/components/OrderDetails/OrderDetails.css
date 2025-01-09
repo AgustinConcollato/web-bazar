@@ -1,0 +1,37 @@
+.order-details {
+    width: 90%;
+    max-width: 500px;
+}
+
+.order-details h2 {
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.order-details ul {
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0 20px;
+}
+
+.order-details ul:last-child {
+    border: none;
+}
+
+.order-details ul li {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    padding: 3px 0;
+}
+
+.order-details ul li p {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.order-details ul li p span.discount {
+    text-decoration: line-through;
+}
