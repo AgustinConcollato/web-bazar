@@ -1,0 +1,40 @@
+.order-confirmed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.order-confirmed h1 {
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.container-btn {
+    width: 90%;
+    max-width: 500px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 15px;
+}
+
+.container-btn a {
+    text-align: center;
+    background: #fff;
+    border: 1px solid #eee
+}
+
+@media (max-width: 450px) {
+    .container-btn {
+        flex-direction: column;
+    }
+
+    .container-btn a {
+        display: block;
+        width: 100%;
+    }
+}
