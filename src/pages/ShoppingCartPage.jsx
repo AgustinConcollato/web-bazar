@@ -1,11 +1,13 @@
 import { api } from "api-services"
 import { useContext, useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, Route, Routes } from "react-router-dom"
 import { CartDetail } from "../components/CartDetail/CartDetail"
 import { CartProduct } from "../components/CartProduct/CartProduct"
 import { Loading } from "../components/Loading/Loading"
 import { NavBar } from "../components/NavBar/NavBar"
 import { AuthContext } from "../context/authContext"
+import { NotFoundPage } from "./NotFoundPage"
+import { OrderConfirmed } from "../components/OrderConfirmed/OrderConfirmed"
 
 export function ShoppingCartPage() {
 
@@ -66,26 +68,30 @@ export function ShoppingCartPage() {
     }
 
     return (
-        <>
-            <section className="shopping-cart-page">
-                <div>
-                    <h1>Tu pedido</h1>
-                    {(productList && !loading) ?
-                        productList.length != 0 ?
-                            <div>
-                                {productList.map((e, i) => <CartProduct key={i} e={e} onDelete={deleteProduct} setProductList={setProductList} />)}
-                            </div> :
-                            <div className="shopping-cart-empty">
-                                <h2>Todavía no tiene productos</h2>
-                                <p>Agrega lo que más te guste de las diferentes categorías <NavBar /></p>
-                            </div> :
-                        <Loading />
+        <Routes>
+            <Route path='/' element={
+                <section className="shopping-cart-page">
+                    <div>
+                        <h1>Tu pedido</h1>
+                        {(productList && !loading) ?
+                            productList.length != 0 ?
+                                <div>
+                                    {productList.map((e, i) => <CartProduct key={i} e={e} onDelete={deleteProduct} setProductList={setProductList} />)}
+                                </div> :
+                                <div className="shopping-cart-empty">
+                                    <h2>Todavía no tiene productos</h2>
+                                    <p>Agrega lo que más te guste de las diferentes categorías <NavBar /></p>
+                                </div> :
+                            <Loading />
+                        }
+                    </div>
+                    {(productList && productList.length != 0) &&
+                        <CartDetail productList={productList} />
                     }
-                </div>
-                {(productList && productList.length != 0) &&
-                    <CartDetail productList={productList} />
-                }
-            </section >
-        </>
+                </section >
+            } />
+            <Route path='/confirmado/:id' element={<OrderConfirmed />} />
+            <Route path='*' element={<NotFoundPage />} />
+        </Routes>
     )
 }
