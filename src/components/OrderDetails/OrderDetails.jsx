@@ -18,7 +18,15 @@ export function OrderDetails({ order, address }) {
                 </li>
             </ul>
             <ul>
-                <li>Cantidad de productos<b>{order.products.length}</b></li>
+                <li>Cantidad de productos <b>{order.products.length}</b></li>
+                <li>Cantidad de unidades
+                    <b>
+                        {order.products.reduce(
+                            (accumulator, currentValue) => accumulator + currentValue.quantity,
+                            0,
+                        )}
+                    </b>
+                </li>
                 {order.discount ? <li>Descuento <b>{order.discount}%</b></li> : null}
                 {order.discount ?
                     <li>Precio
