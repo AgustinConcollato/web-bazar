@@ -3,12 +3,12 @@ import './App.css'
 import { Login } from './components/Auth/Login/Login'
 import { Register } from './components/Auth/Register/Register'
 import { Header } from './components/Header/Header'
+import { HomePage } from './pages/HomePage'
+import { NotFoundPage } from './pages/NotFoundPage'
 import { ProductDetailPage } from './pages/ProductDetailPage'
 import { ProductPage } from './pages/ProductPage'
 import { ProfilePage } from './pages/ProfilePage'
 import { ShoppingCartPage } from './pages/ShoppingCartPage'
-import { OrderConfirmedPage } from './pages/OrderConfirmedPage'
-import { HomePage } from './pages/HomePage'
 
 export function App() {
 
@@ -21,11 +21,10 @@ export function App() {
         <Route path='/registrarse' element={<Register />} />
         <Route path='/productos/:categoryCode/*' element={<ProductPage />} />
         <Route path='/buscador/:productName' element={<></>} />
-        <Route path='/pedido' element={<ShoppingCartPage />} />
-        <Route path='/pedido/confirmado/:id' element={<OrderConfirmedPage />} />
+        <Route path='/pedido/*' element={<ShoppingCartPage />} />
         <Route path='/producto/:productId' element={<ProductDetailPage />} />
         <Route path='/perfil' element={<ProfilePage />} />
-        <Route path='*' element={<>no se encontró</>} />
+        <Route path='*' element={<NotFoundPage />} />
       </Routes>
     </>
   )
