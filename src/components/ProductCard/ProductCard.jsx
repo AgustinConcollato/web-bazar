@@ -4,6 +4,16 @@ import { FormAddProductToCart } from "../FormAddProductToCart/FormAddProductToCa
 import './ProductCard.css';
 
 export function ProductCard({ e }) {
+
+    const isNewArrival = () => {
+        const currentDate = new Date();
+        const creationDate = new Date(e.creation_date);
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(currentDate.getDate() - 30);
+
+        return creationDate >= thirtyDaysAgo;
+    };
+
     return (
         <>
             <div className='product-card'>
@@ -13,6 +23,7 @@ export function ProductCard({ e }) {
                         <p>{e.name}</p>
                         <p className='description'>{e.description}</p>
                     </div>
+                    {isNewArrival() && <span className="new-arrival">Nuevo Ingreso</span>}
                     {e.discount ?
                         <>
                             <p className="discount">
