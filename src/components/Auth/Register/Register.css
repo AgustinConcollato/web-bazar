@@ -1,5 +1,5 @@
 .register {
-    min-height: calc(100% - 90px);
+    min-height: calc(100vh - 90px);
     width: 100%;
     max-width: 300px;
     margin: auto;
