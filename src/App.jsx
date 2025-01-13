@@ -9,6 +9,7 @@ import { ProductDetailPage } from './pages/ProductDetailPage'
 import { ProductPage } from './pages/ProductPage'
 import { ProfilePage } from './pages/ProfilePage'
 import { ShoppingCartPage } from './pages/ShoppingCartPage'
+import { Footer } from './components/Footer/Footer'
 
 export function App() {
 
@@ -26,6 +27,7 @@ export function App() {
         <Route path='/perfil' element={<ProfilePage />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
+      <Footer />
     </>
   )
 }

@@ -1,0 +1,106 @@
+footer {
+    background: #2b2b2b;
+    width: 100%;
+    padding: 40px 20px;
+}
+
+footer>div {
+    max-width: 1250px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    flex-wrap: wrap;
+}
+
+footer>div h4 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+footer>div .btn {
+    color: #fff;
+    margin-left: 10px;
+    background: transparent;
+    border: 1px solid #aaa;
+}
+
+footer>div .btn:hover {
+    background: #ffffff10;
+}
+
+.container-footer-list {
+    display: flex;
+    gap: 80px;
+}
+
+.footer-list {
+    min-height: 210px;
+}
+
+footer>div ul li a {
+    color: #aaa;
+    padding: 3px 0;
+    display: inline-block;
+}
+
+footer>div ul li a:hover {
+    color: #fff;
+}
+
+footer>div ul li button {
+    color: #aaa;
+    padding: 3px 0;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: start;
+}
+
+footer>div ul li button:hover {
+    color: #fff;
+}
+
+.btn-whatsapp {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #008069;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-whatsapp svg path {
+    fill: #fff;
+}
+
+@media (max-width: 950px) {
+    footer>div {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    footer>div>div {
+        width: 100%;
+    }
+
+    footer>div .btn {
+        margin-left: 0;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 360px) {
+    .container-footer-list {
+        justify-content: space-between;
+        gap: 10px;
+    }
+}
