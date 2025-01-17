@@ -8,9 +8,9 @@ footer>div {
     max-width: 1250px;
     margin: auto;
     display: flex;
-    justify-content: space-between;
-    align-items: end;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 footer>div h4 {
@@ -31,24 +31,21 @@ footer>div .btn:hover {
 
 .container-footer-list {
     display: flex;
+    justify-content: center;
     gap: 80px;
 }
 
-.footer-list {
-    min-height: 210px;
-}
-
-footer>div ul li a {
+.footer-list ul li a {
     color: #aaa;
     padding: 3px 0;
     display: inline-block;
 }
 
-footer>div ul li a:hover {
+.footer-list ul li a:hover {
     color: #fff;
 }
 
-footer>div ul li button {
+.footer-list ul li button {
     color: #aaa;
     padding: 3px 0;
     background: none;
@@ -58,7 +55,7 @@ footer>div ul li button {
     text-align: start;
 }
 
-footer>div ul li button:hover {
+.footer-list ul li button:hover {
     color: #fff;
 }
 
@@ -80,27 +77,12 @@ footer>div ul li button:hover {
     fill: #fff;
 }
 
-@media (max-width: 950px) {
-    footer>div {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
+@media (max-width: 620px) {
 
-    footer>div>div {
-        width: 100%;
-    }
-
-    footer>div .btn {
-        margin-left: 0;
-        margin-bottom: 10px;
-        width: 100%;
-    }
-}
-
-@media (max-width: 360px) {
     .container-footer-list {
+        width: 100%;
         justify-content: space-between;
-        gap: 10px;
+        flex-wrap: wrap;
+        gap: 30px;
     }
 }
