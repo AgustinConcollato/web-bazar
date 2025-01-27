@@ -29,9 +29,9 @@ export function ProfilePage() {
     }
 
     return (
-        <section className="section-profile">
+        <section className="section-profile" style={{ minHeight: 'calc(100vh - 375px)' }}>
             <h1>Hola, {user.displayName}</h1>
-            <Addresses user={user} type={'PROFILE'}/>
+            <Addresses user={user} type={'PROFILE'} />
         </section >
 
     )
