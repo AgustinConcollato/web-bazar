@@ -71,4 +71,11 @@
 
 .user-info p span {
     font-size: 14px;
+    display: block;
+}
+
+@media (max-width: 425px) {
+    .user-nav {
+        width: calc(100vw - 40px);
+    }
 }
