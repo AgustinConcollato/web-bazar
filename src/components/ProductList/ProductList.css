@@ -5,6 +5,7 @@
     gap: 10px;
     margin: auto;
     padding: 60px 0 120px 0;
+    min-height: calc(100vh - 375px);
 }
 
 .container-product-list {
