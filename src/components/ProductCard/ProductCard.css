@@ -112,3 +112,8 @@
         transition: .2s;
     }
 }
+@media (max-width: 350px) {
+    .new-arrival {
+        font-size: 14px;
+    }
+}
