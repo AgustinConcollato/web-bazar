@@ -8,38 +8,62 @@ export function HomePage() {
 
     const { Products, Address } = api
 
-    const [productsList, setProductsList] = useState(null);
+    const [productsListDate, setProductsListDate] = useState(null);
+    const [productsListViews, setProductsListViews] = useState(null);
 
-    async function getProducts() {
-        const products = new Products()
+    async function getProductsByCreationDate() {
+
+        const currentDate = new Date()
+        const pastDate = new Date(currentDate.getTime() - 30 * 24 * 60 * 60 * 1000)
+        const pastDateInMilliseconds = pastDate.getTime()
 
         const options = {
-            category: 'CAT002',
+            date: pastDateInMilliseconds,
             page: 1
         }
 
+        const products = new Products()
         const dataPage = await products.search({ options })
+        setProductsListDate(dataPage.data)
+    }
 
-        setProductsList(dataPage.data)
+    async function getProductsByViews() {
+
+        const options = {
+            views: true,
+            page: 1
+        }
+
+        const products = new Products()
+        const dataPage = await products.search({ options })
+        setProductsListViews(dataPage.data)
     }
 
     useEffect(() => {
-
         document.title = 'Bazarshop'
-        getProducts()
+        getProductsByCreationDate()
+        getProductsByViews()
+        // getAddress()
     }, [])
 
 
     return (
         <>
-            <section className="section-products-home" style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-                {productsList ?
-                    productsList.length > 0 ?
-                        productsList.map(e => <ProductCard key={e.id} e={e} />) :
+            <section className="section-products-home" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                {productsListDate ?
+                    productsListDate.length > 0 ?
+                        productsListDate.map(e => <ProductCard key={e.id} e={e} />) :
                         <p>No hay productos en esta categoría</p>
                     : <Loading />}
             </section>
             <SectionCategoriesHome />
+            <section className="section-products-home" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                {productsListViews ?
+                    productsListViews.length > 0 ?
+                        productsListViews.map(e => <ProductCard key={e.id} e={e} />) :
+                        <p>No hay productos en esta categoría</p>
+                    : <Loading />}
+            </section>
         </>
     )
 }
