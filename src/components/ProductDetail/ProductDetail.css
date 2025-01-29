@@ -4,6 +4,7 @@
     align-items: start;
     justify-content: center;
     gap: 20px;
+    position: relative;
 }
 
 .container-images {
@@ -70,6 +71,14 @@ img.thumbnail-selected {
     flex-direction: column;
     gap: 20px;
     min-width: 400px;
+}
+
+.container-product-info .new-arrival {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: max-content;
+    font-size: 18px;
 }
 
 .container-product-info h1 span {
@@ -267,6 +276,13 @@ img.thumbnail-selected {
 
     .recommend {
         min-width: 100%;
+    }
+
+
+    .container-product-info .new-arrival {
+        position: absolute;
+        left: 10px;
+        top: 10px;
     }
 
 }

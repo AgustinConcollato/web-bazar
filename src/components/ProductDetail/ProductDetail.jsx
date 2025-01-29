@@ -11,6 +11,15 @@ export function ProductDetail({ product }) {
     const [thumbnails, setThumbnail] = useState([])
     const [position, setPosition] = useState(0)
 
+    const isNewArrival = (e) => {
+        const currentDate = new Date();
+        const creationDate = new Date(e.creation_date);
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(currentDate.getDate() - 30);
+
+        return creationDate >= thirtyDaysAgo;
+    };
+
     useEffect(() => {
         const images = JSON.parse(product.images)
         const thumbnails = JSON.parse(product.thumbnails)
@@ -44,6 +53,7 @@ export function ProductDetail({ product }) {
                 {product.status == 'active' ?
                     <>
                         <div className="container-product-info">
+                            {isNewArrival(product) && <span className="new-arrival">Nuevo Ingreso</span>}
                             <h1>{product.name} <span>Código referencia: {product.code}</span></h1>
                             {product.description && <p className="description">{product.description}</p>}
                             {product.discount ?
