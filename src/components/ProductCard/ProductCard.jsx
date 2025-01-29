@@ -1,9 +1,14 @@
 import { urlStorage } from "api-services";
 import { Link } from "react-router-dom";
 import { FormAddProductToCart } from "../FormAddProductToCart/FormAddProductToCart";
+import { useEffect, useState } from "react";
 import './ProductCard.css';
 
 export function ProductCard({ e }) {
+
+    const [images, setImages] = useState([]);
+    const [position, setPosition] = useState(0);
+    const [fade, setFade] = useState(true);
 
     const isNewArrival = () => {
         const currentDate = new Date();
@@ -14,11 +19,38 @@ export function ProductCard({ e }) {
         return creationDate >= thirtyDaysAgo;
     };
 
+    useEffect(() => {
+        if (images.length > 1) {
+            const interval = setInterval(() => {
+                setFade(false);
+                setTimeout(() => {
+                    setPosition((prev) => (prev + 1) % images.length);
+                    setFade(true);
+                }, 100);
+            }, 4000);
+
+            return () => clearInterval(interval);
+        }
+    }, [images]);
+
+    useEffect(() => {
+        setImages(JSON.parse(e.images))
+    }, [])
+
     return (
         <>
             <div className='product-card'>
                 <Link to={'/producto/' + e.id}>
-                    <img loading="lazy" src={urlStorage + '/' + JSON.parse(e.images)[0]} alt={e.name + e.description} />
+                    <div className="container-product-cart-images">
+                        {images.length > 0 && (
+                            <img
+                                className={`fade-image ${fade ? "visible" : "hidden"}`}
+                                loading="lazy"
+                                src={urlStorage + '/' + images[position]}
+                                alt={e.name + e.description}
+                            />
+                        )}
+                    </div>
                     <div>
                         <p>{e.name}</p>
                         <p className='description'>{e.description}</p>
