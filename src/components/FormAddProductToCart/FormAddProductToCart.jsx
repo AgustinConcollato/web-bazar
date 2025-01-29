@@ -55,6 +55,7 @@ export function FormAddProductToCart({ type, product }) {
 
         if (response) {
             setAddStatus(true)
+            e.target[0].value = ''
         }
     }
 
