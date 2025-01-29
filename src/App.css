@@ -145,6 +145,22 @@ section {
     outline: none;
 }
 
+.section-address-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-address-home p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    padding: 10px 15px;
+    font-size: 18px;
+}
+
 @media (max-width:1280px) {
     section {
         padding: 0 20px;
