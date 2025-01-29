@@ -73,4 +73,8 @@
         border: 1px solid #eee;
         box-shadow: 0 5px 20px #00000010;
     }
+
+    .filters ul li {
+        padding: 7px 10px;
+    }
 }
