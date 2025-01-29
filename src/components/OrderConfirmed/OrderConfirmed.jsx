@@ -26,7 +26,7 @@ export function OrderConfirmed() {
     }
 
     useEffect(() => {
-        sessionStorage.removeItem('address')
+        localStorage.removeItem('address')
         getOrder()
     }, [])
 
