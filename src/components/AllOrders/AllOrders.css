@@ -33,8 +33,19 @@
     border-radius: 10px;
 }
 
-.orders-list p {
+.orders-list p:last-child {
     text-align: end;
+}
+
+.orders-page .order-confirmed {
+    flex-direction: row-reverse;
+    align-items: start;
+    gap: 30px;
+}
+
+.orders-page .order-details {
+    position: sticky;
+    top: 10px;
 }
 
 .btn-view-products {
@@ -44,11 +55,12 @@
 .container-order-product-table {
     width: 100%;
     overflow-x: auto;
+    border-right: 1px solid #eee;
+    padding-right: 30px;
 }
 
 .order-product-table {
     width: 100%;
-    margin-top: 60px;
     min-width: 600px;
 }
 
@@ -96,4 +108,24 @@
 
 .order-product td .discount {
     justify-content: end;
+}
+
+@media (max-width: 1220px) {
+    .orders-page .order-confirmed {
+        flex-direction: column;
+        align-items: start;
+        gap: 60px;
+    }
+
+    .orders-page .order-details {
+        position: relative;
+        top: 0;
+        width: 100%;
+        max-width: none;
+    }    
+
+    .container-order-product-table {
+        border-right: none;
+        padding-right: 0;
+    }
 }
