@@ -37,6 +37,10 @@
 }
 
 .order-product-table th:first-child {
+    text-align: center;
+} 
+
+.order-product-table th:nth-child(2) {
     text-align: start;
 }
 
@@ -45,6 +49,11 @@
     margin-bottom: 5px;
     padding: 5px 0;
     text-align: end;
+}
+
+.order-product td:first-child {
+    text-align: center;
+    padding: 5px 10px 5px 0;
 }
 
 .order-product td a {
