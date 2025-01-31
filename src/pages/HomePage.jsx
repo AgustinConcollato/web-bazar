@@ -61,10 +61,10 @@ export function HomePage() {
         user && getAddress()
     }, [user])
 
-
     return (
         <>
-            {addresses.length == 0 &&
+            {user &&
+                addresses.length == 0 &&
                 <section className="section-address-home">
                     <p>Agrega una dirección para poder realizar tus pedidos <Link to={'/perfil'} className="btn btn-regular">Agrergar</Link></p>
                 </section>
