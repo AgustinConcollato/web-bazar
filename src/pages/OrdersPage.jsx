@@ -81,6 +81,7 @@ function Details() {
                                 <table className="order-product-table" cellSpacing={0}>
                                     <thead>
                                         <tr>
+                                            <th>#</th>
                                             <th>Producto</th>
                                             <th>Cantidad</th>
                                             <th>Precio</th>
@@ -88,8 +89,9 @@ function Details() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {products.map(product => (
+                                        {products.map((product, i) => (
                                             <tr className="order-product" key={product.product_id}>
+                                                <td>{i + 1}</td>
                                                 <td>
                                                     <Link to={`/producto/${product.product_id}`}>
                                                         <img
