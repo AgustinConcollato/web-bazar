@@ -10,13 +10,22 @@ export function AllOrders({ orders }) {
                 orders.length !== 0 ?
                     <div>
                         <h1>Mis pedidos</h1>
-                        <ul>
+                        <ul className="orders-list">
                             {orders.map(order => (
                                 <li key={order.id}>
+                                    {console.log(order)}
                                     <Link to={order.id}>
                                         <p>{formatDate(order.date)}</p>
-                                        <p>${order.total_amount}</p>
-                                        <p>{order.status}</p>
+                                        <p>{order.discount ?
+                                            <>
+                                                <p className="discount">
+                                                    <span>-{order.discount}%</span>
+                                                    <p className="price">${parseFloat(order.total_amount)}</p>
+                                                </p>
+                                                <p>${parseFloat(order.total_amount - (order.discount * order.total_amount) / 100)}</p>
+                                            </> :
+                                            <p>${parseFloat(order.total_amount)}</p>
+                                        }</p>
                                     </Link>
                                 </li>
                             ))}

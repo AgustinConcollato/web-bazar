@@ -3,7 +3,7 @@
     padding: 50px;
     border-radius: 10px;
     border: 1px solid #eee;
-    width: max-content;
+    max-width: 500px;
     margin: auto;
     margin-bottom: 30px;
     font-size: 18px;
@@ -13,6 +13,28 @@
     display: flex;
     width: max-content;
     margin: auto;
+}
+
+.orders-list {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.orders-list li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.orders-list li a:hover {
+    background: #eee;
+    border-radius: 10px;
+}
+
+.orders-list p {
+    text-align: end;
 }
 
 .btn-view-products {
@@ -38,7 +60,7 @@
 
 .order-product-table th:first-child {
     text-align: center;
-} 
+}
 
 .order-product-table th:nth-child(2) {
     text-align: start;
