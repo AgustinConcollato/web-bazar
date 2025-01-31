@@ -53,7 +53,7 @@ export function Footer() {
                         }
                     </div>
                 </div>
-                <Link to={'/'} className='btn-whatsapp'><FontAwesomeIcon icon={faWhatsapp} size='2x' /></Link>
+                <Link to={'https://web.whatsapp.com/send?phone=+543492209855'} target='_blank' rel='noopener noreferrer' className='btn-whatsapp'><FontAwesomeIcon icon={faWhatsapp} size='2x' /></Link>
             </div>
             {modal &&
                 <Modal onClose={setModal}>
