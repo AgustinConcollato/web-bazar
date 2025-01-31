@@ -37,7 +37,7 @@ export function OrderDetails({ order, address }) {
                             <b>${parseFloat(order.total_amount - (order.total_amount * order.discount) / 100)}</b>
                         </p>
                     </li> :
-                    <li>Precio<b>${order.total_amount}</b></li>
+                    <li>Precio<b>${parseFloat(order.total_amount)}</b></li>
                 }
             </ul>
         </div>
