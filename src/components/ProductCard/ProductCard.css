@@ -24,6 +24,7 @@
 .container-product-cart-images {
     height: 210px;
     width: 210px;
+    overflow: hidden;
 }
 
 .fade-image {
@@ -112,6 +113,10 @@
         width: calc(50% - 10px);
         height: 400px;
     }
+
+    .container-product-cart-images {
+        width: 100%;
+    }
 }
 
 @media (max-width: 520px) {
@@ -119,12 +124,6 @@
         width: calc(50% - 5px);
         height: 400px;
     }
-
-
-    .container-product-cart-images {
-        width: 100%;
-    }
-
 }
 
 @media (max-width: 350px) {
