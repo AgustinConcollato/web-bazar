@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { Order } from "api-services/ordersService"
 import { Loading } from "../Loading/Loading"
-import { formatDate } from "../../utils/formatDate"
 import './OrderConfirmed.css'
 import { OrderDetails } from "../OrderDetails/OrderDetails"
 
