@@ -10,6 +10,7 @@ import { ProductPage } from './pages/ProductPage'
 import { ProfilePage } from './pages/ProfilePage'
 import { ShoppingCartPage } from './pages/ShoppingCartPage'
 import { Footer } from './components/Footer/Footer'
+import { OrdersPage } from './pages/OrdersPage'
 
 export function App() {
 
@@ -25,6 +26,7 @@ export function App() {
         <Route path='/pedido/*' element={<ShoppingCartPage />} />
         <Route path='/producto/:productId' element={<ProductDetailPage />} />
         <Route path='/perfil' element={<ProfilePage />} />
+        <Route path='/compras/*' element={<OrdersPage />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
       <Footer />

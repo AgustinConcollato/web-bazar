@@ -161,6 +161,10 @@ section {
     font-size: 18px;
 }
 
+.orders-page {
+    min-height: calc(100vh - 375px);
+}
+
 @media (max-width:1280px) {
     section {
         padding: 0 20px;
