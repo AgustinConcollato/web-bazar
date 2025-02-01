@@ -40,6 +40,17 @@ export function Filters({ category }) {
         };
     }, [category])
 
+    useEffect(() => {
+        if (categoryData && subcategoryCode) {
+            const subcategory = categoryData.subcategories.find(e => e.subcategory_code === subcategoryCode)
+            const oldTitle = document.title.split(' - ')[0]
+            document.title = oldTitle
+            if (subcategory) document.title += ` - ${subcategory.subcategory_name}`
+        }
+
+        setHidden(true)
+    }, [subcategoryCode])
+
     return (
         <aside className="filters">
             {categoryData &&
@@ -50,7 +61,7 @@ export function Filters({ category }) {
                         {subcategoryCode && <Link to={'/productos/' + categoryCode} className="btn btn-error-thins" >Borrar filtro</Link>}
                     </div>
                     {!hidden &&
-                        <ul onClick={() => setHidden(window.innerWidth <= 850 && !hidden)}>
+                        <ul>
                             {categoryData.subcategories.map((e) =>
                                 <li key={e.subcategory_code}>
                                     <Link

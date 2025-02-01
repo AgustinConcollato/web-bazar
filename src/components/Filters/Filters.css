@@ -6,8 +6,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    height: 30px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 .filters div a {
@@ -31,10 +30,11 @@
 .filters ul li a {
     display: block;
     transition: .1s;
+    transform: translateX(5px);
 }
 
 .filters ul li a:hover {
-    transform: translateX(5px);
+    transform: translateX(10px);
 }
 
 .subcategorySelected {
