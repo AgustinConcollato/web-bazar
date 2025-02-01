@@ -53,6 +53,7 @@ export function Footer() {
                         }
                     </div>
                 </div>
+                <p>Hecho por <Link to={'https://concosw.netlify.app'} target='_blank' rel='noopener noreferrer'>Conco Soluciones Web</Link> </p>
                 <Link to={'https://web.whatsapp.com/send?phone=+543492209855'} target='_blank' rel='noopener noreferrer' className='btn-whatsapp'><FontAwesomeIcon icon={faWhatsapp} size='2x' /></Link>
             </div>
             {modal &&
