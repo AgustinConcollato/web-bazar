@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../context/authContext"
 import { Loading } from "../components/Loading/Loading"
-import { formatDate } from "../utils/formatDate"
-import { urlOrder, urlStorage } from "api-services"
+import { urlStorage } from "api-services"
 import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom"
 import { NotFoundPage } from "./NotFoundPage"
 import { Order } from "api-services/ordersService"
@@ -15,12 +14,13 @@ export function OrdersPage() {
 
     const { user } = useContext(AuthContext)
 
+    const order = new Order()
+
     const [orders, setOrders] = useState(null)
 
     async function getOrders() {
-        const response = await fetch(`${urlOrder}/user/${user.uid}`)
-        const orders = await response.json()
-
+        const userId = user.uid
+        const orders = await order.getAll(userId)
         setOrders(orders)
     }
 
@@ -30,21 +30,32 @@ export function OrdersPage() {
         }
     }, [user])
 
+    if (!user) {
+        document.title = 'Iniciar sesión para ver tus compras'
+
+        return (
+            <section className="orders-page">
+                <div className="shopping-cart-not-user">
+                    <p>Ingresa a tu cuenta para ver tus compras</p>
+                    <Link to={'/iniciar-sesion'} className="btn btn-regular">Ingresar</Link>
+                </div>
+            </section>
+        )
+    }
+
     return (
         <section className="orders-page">
-
             <Routes>
                 <Route path='' element={<AllOrders orders={orders} />} />
-                <Route path='/:id' element={<Details />} />
+                <Route path='/:id' element={<Details orders={order} />} />
                 <Route path='*' element={<NotFoundPage />} />
             </Routes >
         </section>
     )
 }
 
-function Details() {
+function Details({ orders }) {
 
-    const orders = new Order()
     const { id } = useParams()
     const navigate = useNavigate()
 
