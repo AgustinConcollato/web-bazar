@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
+import img from '../../assets/img/no_photo.jpg'
 import './UserMenu.css';
 
 export function UserMenu() {
@@ -8,7 +9,7 @@ export function UserMenu() {
     const { logOut, user } = useContext(AuthContext)
 
     const [hidden, setHidden] = useState(true)
-    const userImage = user.providerData[0].photoURL
+    const userImage = user.providerData[0].photoURL || img
 
     document.onclick = (e) => {
         (!e.target.closest('.btn-image') && !e.target.closest('.user-nav')) && setHidden(true)
