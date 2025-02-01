@@ -8,7 +8,6 @@
     gap: 10px;
     height: 30px;
     margin-bottom: 5px;
-    pointer-events: none;
 }
 
 .filters div a {
@@ -47,7 +46,6 @@
     .filters {
         width: 100%;
         display: flex;
-        align-items: center;
         justify-content: space-between;
         margin-bottom: 20px;
         position: relative;
@@ -55,11 +53,14 @@
 
     .filters div {
         margin-bottom: 0;
-        pointer-events: all;
+        justify-content: start;
+        flex-direction: column;
+        align-items: end;
     }
 
     .filters h1 {
         margin-bottom: 0;
+        text-wrap: nowrap;
     }
 
     .filters ul {
@@ -70,7 +71,7 @@
         z-index: 100;
         padding: 10px;
         background: #fff;
-        border: 1px solid #eee;
+        border: 1px solid #ccc;
         box-shadow: 0 5px 20px #00000010;
     }
 

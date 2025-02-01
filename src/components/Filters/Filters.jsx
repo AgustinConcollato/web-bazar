@@ -44,11 +44,11 @@ export function Filters({ category }) {
                 <>
                     <h1>{categoryData.category_name}</h1>
                     <div>
-                        <p onClick={() => setHidden(!hidden)}>Subcategorías </p>
+                        <p onClick={() => setHidden(window.innerWidth <= 850 && !hidden)}>Subcategorías </p>
                         {subcategoryCode && <Link to={'/productos/' + categoryCode} className="btn btn-error-thins" >Borrar filtro</Link>}
                     </div>
                     {!hidden &&
-                        <ul onClick={() => setHidden(!hidden)}>
+                        <ul onClick={() => setHidden(window.innerWidth <= 850 && !hidden)}>
                             {categoryData.subcategories.map((e) =>
                                 <li key={e.subcategory_code}>
                                     <Link
