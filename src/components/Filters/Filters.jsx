@@ -2,6 +2,8 @@ import { api } from "api-services"
 import { useEffect, useState } from "react"
 import './Filters.css'
 import { Link, useParams } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons"
 
 export function Filters({ category }) {
 
@@ -44,7 +46,7 @@ export function Filters({ category }) {
                 <>
                     <h1>{categoryData.category_name}</h1>
                     <div>
-                        <p onClick={() => setHidden(window.innerWidth <= 850 && !hidden)}>Subcategorías </p>
+                        <p onClick={() => setHidden(window.innerWidth <= 850 && !hidden)}>Subcategorías {window.innerWidth <= 850 && <FontAwesomeIcon icon={!hidden ? faAngleUp : faAngleDown} />}</p>
                         {subcategoryCode && <Link to={'/productos/' + categoryCode} className="btn btn-error-thins" >Borrar filtro</Link>}
                     </div>
                     {!hidden &&
