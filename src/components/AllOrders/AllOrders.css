@@ -2,7 +2,7 @@
     text-align: center;
     padding: 50px;
     border-radius: 10px;
-    border: 1px solid #eee;
+    border: 1px solid #ccc;
     max-width: 500px;
     margin: auto;
     margin-bottom: 30px;
@@ -25,7 +25,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ccc;
 }
 
 .orders-list li a:hover {
@@ -55,7 +55,7 @@
 .container-order-product-table {
     width: 100%;
     overflow-x: auto;
-    border-right: 1px solid #eee;
+    border-right: 1px solid #ccc;
     padding-right: 30px;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .order-product-table th {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ccc;
     padding: 10px 0;
     text-align: end;
 }
@@ -79,7 +79,7 @@
 }
 
 .order-product td {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ccc;
     margin-bottom: 5px;
     padding: 5px 0;
     text-align: end;

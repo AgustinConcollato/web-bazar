@@ -11,7 +11,7 @@
     font-size: 16px;
     padding: 10px;
     border-radius: 10px;
-    border: 1px solid #eee;
+    border: 1px solid #ccc;
     outline: none;
     margin-top: 10px;
 }
@@ -19,7 +19,7 @@
 .cart-detail-info {
     min-width: 350px;
     border-radius: 10px;
-    border: 1px solid #eee;
+    border: 1px solid #ccc;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -31,7 +31,7 @@
 
 .cart-detail-container-btn {
     padding-top: 20px;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #ccc;
 }
 
 .cart-detail-info .btn {
@@ -51,12 +51,12 @@
     font-weight: 500;
     padding-bottom: 20px;
     margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ccc;
 }
 
 .address-for-order {
     position: relative;
-    border: 1px solid #eee;
+    border: 1px solid #ccc;
     border-radius: 10px;
     overflow: hidden;
     padding: 10px;

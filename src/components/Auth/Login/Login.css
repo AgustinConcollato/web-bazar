@@ -24,7 +24,7 @@
 
 .div {
     height: 1px;
-    background: #eee;
+    background: #ccc;
     margin: 10px 0;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .btn-auth {
-    border: 1px solid #eee;
+    border: 1px solid #ccc;
     background: #fff;
     width: 100%;
     justify-content: center;

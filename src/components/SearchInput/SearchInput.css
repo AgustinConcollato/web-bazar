@@ -8,8 +8,8 @@
     top: calc(100% + 10px);
     left: -45px;
     right: 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background: #fff;
+    border: 1px solid #ccc;
     border-radius: 5px;
     z-index: 10;
     box-shadow: 0 5px 20px #00000010;

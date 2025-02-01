@@ -16,7 +16,7 @@
     padding: 20px;
     width: calc(100% / 4 - 10px);
     border-radius: 10px;
-    border: 1px solid #eee;
+    border: 1px solid #ccc;
 }
 
 .div-cateogry:hover {

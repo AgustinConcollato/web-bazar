@@ -26,7 +26,7 @@
 .container-btn a {
     text-align: center;
     background: #fff;
-    border: 1px solid #eee
+    border: 1px solid #ccc;
 }
 
 @media (max-width: 450px) {
