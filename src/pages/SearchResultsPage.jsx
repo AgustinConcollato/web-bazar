@@ -10,8 +10,8 @@ export function SearchResultsPage() {
     const { productName } = useParams()
 
     const [productList, setProductList] = useState(null)
-    const [pageData, setPageDate] = useState(null)
-    const [page, setPage] = useState(null)
+    const [pageData, setPageData] = useState(null)
+    const [page, setPage] = useState(1)
 
     async function getProducts() {
 
@@ -26,15 +26,22 @@ export function SearchResultsPage() {
             });
 
             setProductList(response.data)
-            setPageDate(response)
+            setPageData(response)
         } catch (error) {
 
         }
     }
 
     useEffect(() => {
+        setPageData(null)
+        setProductList(null)
         getProducts()
+        window.scrollTo(0, 0)
     }, [productName, page])
+
+    useEffect(() => {
+        setPage(1)
+    }, [productName])
 
     return (
         <section>
