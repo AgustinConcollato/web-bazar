@@ -11,6 +11,7 @@ import { ProfilePage } from './pages/ProfilePage'
 import { ShoppingCartPage } from './pages/ShoppingCartPage'
 import { Footer } from './components/Footer/Footer'
 import { OrdersPage } from './pages/OrdersPage'
+import { SearchResultsPage } from './pages/SearchResultsPage'
 
 export function App() {
 
@@ -22,7 +23,7 @@ export function App() {
         <Route path='/iniciar-sesion' element={<Login />} />
         <Route path='/registrarse' element={<Register />} />
         <Route path='/productos/:categoryCode/*' element={<ProductPage />} />
-        <Route path='/buscador/:productName' element={<></>} />
+        <Route path='/buscador/:productName' element={<SearchResultsPage />} />
         <Route path='/pedido/*' element={<ShoppingCartPage />} />
         <Route path='/producto/:productId' element={<ProductDetailPage />} />
         <Route path='/perfil' element={<ProfilePage />} />
