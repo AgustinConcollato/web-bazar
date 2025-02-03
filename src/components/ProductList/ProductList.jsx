@@ -37,6 +37,7 @@ export function ProductList() {
         setProductList(null)
         getProducts(categoryCode, subcategoryCode)
 
+        window.scrollTo(0, 0)
     }, [categoryCode, page, subcategoryCode])
 
     useEffect(() => {
