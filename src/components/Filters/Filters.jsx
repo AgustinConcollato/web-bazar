@@ -19,7 +19,7 @@ export function Filters({ category }) {
         const response = await categories.get({ code: category })
 
         setCategoryData(response)
-        document.title = `Productos de ${response.category_name}`
+        document.title = `${response.category_name}`
     }
 
 
@@ -48,7 +48,7 @@ export function Filters({ category }) {
             if (subcategory) document.title += ` - ${subcategory.subcategory_name}`
         }
 
-        setHidden(true)
+        window.innerWidth <= 850 && setHidden(true)
     }, [subcategoryCode])
 
     return (
