@@ -44,7 +44,7 @@ export function SearchResultsPage() {
     }, [productName])
 
     return (
-        <section>
+        <section style={{ minHeight: 'calc(100vh - 375px)' }}>
             <h1 style={{ fontWeight: '500', fontSize: '20px', marginBottom: '20px' }}>Resultados de "{productName}"</h1>
             {productList ?
                 productList.length != 0 ?
