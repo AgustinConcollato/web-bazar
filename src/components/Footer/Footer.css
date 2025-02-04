@@ -82,13 +82,28 @@ footer p {
     margin-top: 30px;
 }
 
-footer p a{
+footer p a {
     color: #fff;
 }
 
 footer p a:hover {
     text-decoration: underline;
-} 
+}
+
+.terms-conditions ul {
+    margin-top: 20px;
+    list-style: inside;
+}
+
+.terms-conditions ul ul {
+    margin-top: 5px;
+    list-style: circle;
+    padding-left: 40px;
+}
+
+.terms-conditions ul li {
+    margin-bottom: 10px;
+}
 
 @media (max-width: 620px) {
 

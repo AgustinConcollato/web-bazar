@@ -27,7 +27,6 @@ export function Footer() {
                             <li><button onClick={() => setModal(1)}>Compras y envios</button></li>
                             <li><button onClick={() => setModal(2)}>Medios de pago</button></li>
                             <li><button onClick={() => setModal(3)}>Devoluciones</button></li>
-                            <li><button onClick={() => setModal(4)}>Cancelar pedido</button></li>
                         </ul>
                     </div>
                     <div className='footer-list'>
@@ -65,20 +64,36 @@ export function Footer() {
             {modal &&
                 <Modal onClose={setModal}>
                     {modal == 1 ?
-                        <div>
+                        <div className='terms-conditions'>
                             <h3>Compras y envios</h3>
-                            <p> Venta únicamente mayorista</p>
-                            <p> Envío a todo el país por transporte de preferencia. El costo del envío queda a cargo del cliente.</p>
+                            <ul>
+                                <li>Venta únicamente mayorista.</li>
+                                <li>Envío a todo el país por transporte de preferencia. El costo del envío queda a cargo del cliente.</li>
+                            </ul>
                         </div> :
                         modal == 2 ?
-                            <div>
+                            <div className='terms-conditions'>
                                 <h3>Medios de pago</h3>
-                                <p>Depósitos y transferencias</p>
-                                <p>Efectivo</p>
+                                <ul>
+                                    <li>Depósitos y transferencias.</li>
+                                    <li>Efectivo.</li>
+                                </ul>
                             </div> :
-                            modal == 3 ?
-                                <div>3</div> :
-                                <div>4</div>
+                            <div className='terms-conditions'>
+                                <h3>Devoluciones</h3>
+                                <ul>
+                                    <li>Requisitos sobre el Estado del Producto</li>
+                                    <ul>
+                                        <li>El producto debe tener sus embalajes originales (incluyendo interiores) y encontrarse en perfectas condiciones.</li>
+                                        <li>Debe estar completo, con todos sus accesorios, manuales y/o certificados correspondientes.</li>
+                                        <li>En caso de cambio por falla, el producto debe haberse utilizado correctamente. No se aceptarán cambios si se constata mal uso del producto.</li>
+                                    </ul>
+                                    <li>Plazos</li>
+                                    <ul>
+                                        <li>El plazo para realizar reclamos, es de 72 hs recibido el pedido.</li>
+                                    </ul>
+                                </ul>
+                            </div>
                     }
                 </Modal>
             }
