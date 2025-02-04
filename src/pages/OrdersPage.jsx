@@ -78,6 +78,7 @@ function Details({ orders }) {
     useEffect(() => {
         setOrder(null)
         getOrder()
+        document.title = 'Detalle del pedido'
     }, [id])
 
     return (

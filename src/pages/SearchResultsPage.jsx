@@ -41,6 +41,7 @@ export function SearchResultsPage() {
 
     useEffect(() => {
         setPage(1)
+        document.title = `Resultados de "${productName}" - Bazarshop`
     }, [productName])
 
     return (
