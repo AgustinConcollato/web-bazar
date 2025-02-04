@@ -96,10 +96,10 @@ export function CartProduct({ e, onDelete, setProductList }) {
             </form>
             {!product.discount ?
                 <div className="cart-product-price">
-                    <p>${price}</p>
+                    <p>${price % 1 !== 0 ? price.toFixed(2) : price}</p>
                 </div> :
                 <div className="cart-product-discount">
-                    <div><span>-{product.discount}% </span><p>${price}</p></div>
+                    <div><span>-{product.discount}% </span><p>${price % 1 !== 0 ? price.toFixed(2) : price}</p></div>
                     <p>${discountedPrice % 1 === 0 ? discountedPrice : discountedPrice.toFixed(2)}</p>
                 </div>
             }
