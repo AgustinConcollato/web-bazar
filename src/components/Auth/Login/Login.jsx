@@ -25,6 +25,7 @@ export function Login() {
 
     useEffect(() => {
         user !== null && navigate('/')
+        document.title = 'Ingresar'
     }, [user])
 
     return (

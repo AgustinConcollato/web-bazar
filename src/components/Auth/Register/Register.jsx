@@ -99,6 +99,7 @@ export const Register = () => {
 
     useEffect(() => {
         user !== null && navigate('/')
+        document.title = 'Registrarse'
     }, [user])
 
     return (
