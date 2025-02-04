@@ -2,7 +2,7 @@ import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AuthContext } from '../../context/AuthContext'
+import { AuthContext } from '../../context/authContext'
 import { CategoriesContext } from '../../context/CategoriesContext'
 import { Modal } from '../Modal/Modal'
 import { usePlatform } from '../../hooks/usePlatform'
@@ -55,9 +55,9 @@ export function Footer() {
                         }
                     </div>
                 </div>
-                <p>Hecho por <Link to={'https://concosw.netlify.app'} target='_blank' data-action="share/whatsapp/share" rel='noopener noreferrer'>Conco Soluciones Web</Link> </p>
+                <p>Hecho por <Link to={'https://concosw.netlify.app'} target='_blank' rel='noopener noreferrer'>Conco Soluciones Web</Link> </p>
                 {mobile ?
-                    <Link to={'whatsapp://send?phone=+543492209855'} target='_blank' rel='noopener noreferrer' className='btn-whatsapp'><FontAwesomeIcon icon={faWhatsapp} size='2x' /></Link> :
+                    <Link to={'whatsapp://send?phone=+543492209855'} data-action="share/whatsapp/share" className='btn-whatsapp'><FontAwesomeIcon icon={faWhatsapp} size='2x' /></Link> :
                     <Link to={'https://web.whatsapp.com/send?phone=+543492209855'} target='_blank' rel='noopener noreferrer' className='btn-whatsapp'><FontAwesomeIcon icon={faWhatsapp} size='2x' /></Link>
                 }
             </div>
