@@ -1,13 +1,16 @@
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState } from 'react'
-import './Footer.css'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthContext'
 import { CategoriesContext } from '../../context/CategoriesContext'
 import { Modal } from '../Modal/Modal'
-import { AuthContext } from '../../context/AuthContext'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
+import { usePlatform } from '../../hooks/usePlatform'
+import './Footer.css'
 
 export function Footer() {
+
+    const mobile = usePlatform()
 
     const { categories } = useContext(CategoriesContext)
     const { user, logOut } = useContext(AuthContext)
@@ -53,8 +56,11 @@ export function Footer() {
                         }
                     </div>
                 </div>
-                <p>Hecho por <Link to={'https://concosw.netlify.app'} target='_blank' rel='noopener noreferrer'>Conco Soluciones Web</Link> </p>
-                <Link to={'https://web.whatsapp.com/send?phone=+543492209855'} target='_blank' rel='noopener noreferrer' className='btn-whatsapp'><FontAwesomeIcon icon={faWhatsapp} size='2x' /></Link>
+                <p>Hecho por <Link to={'https://concosw.netlify.app'} target='_blank' data-action="share/whatsapp/share" rel='noopener noreferrer'>Conco Soluciones Web</Link> </p>
+                {mobile ?
+                    <Link to={'whatsapp://send?phone=+543492209855'} target='_blank' rel='noopener noreferrer' className='btn-whatsapp'><FontAwesomeIcon icon={faWhatsapp} size='2x' /></Link> :
+                    <Link to={'https://web.whatsapp.com/send?phone=+543492209855'} target='_blank' rel='noopener noreferrer' className='btn-whatsapp'><FontAwesomeIcon icon={faWhatsapp} size='2x' /></Link>
+                }
             </div>
             {modal &&
                 <Modal onClose={setModal}>
