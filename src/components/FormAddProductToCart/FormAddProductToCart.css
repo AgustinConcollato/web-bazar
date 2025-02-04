@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: center;
     animation: fade-message 5s 1 forwards;
+    z-index: 1000;
 }
 
 .message-not-auth p {
