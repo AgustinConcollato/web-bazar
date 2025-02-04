@@ -9,7 +9,7 @@ export function SearchInput() {
 
     const [query, setQuery] = useState('')
     const [filteredOptions, setFilteredOptions] = useState([])
-    const [highlightedIndex, setHighlightedIndex] = useState(0)
+    const [highlightedIndex, setHighlightedIndex] = useState(-1)
     const [isLoading, setIsLoading] = useState(false)
     const [hidden, setHidden] = useState(true)
     const [total, setTotal] = useState(0)
@@ -69,17 +69,20 @@ export function SearchInput() {
             }
         }
 
-        setHighlightedIndex(0)
+        setHighlightedIndex(-1)
     }
 
     function handleKeyDown(event) {
         if (event.key === 'ArrowDown') {
             setHighlightedIndex((prevIndex) =>
-                Math.min(prevIndex + 1, filteredOptions.length - 1)
+                prevIndex === -1 ? 0 : Math.min(prevIndex + 1, filteredOptions.length - 1)
             )
         } else if (event.key === 'ArrowUp') {
-            setHighlightedIndex((prevIndex) => Math.max(prevIndex - 1, 0))
+            setHighlightedIndex((prevIndex) => Math.max(prevIndex - 1, -1))
         } else if (event.key === 'Enter') {
+
+            if (highlightedIndex < 0) return
+
             event.preventDefault()
             const selectedOption = filteredOptions[highlightedIndex]
             if (selectedOption) {
