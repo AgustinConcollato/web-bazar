@@ -30,8 +30,10 @@ export function Header() {
                 <Search />
                 {user ?
                     <div>
-                        <span>{quantity != 0 ? quantity : ''}</span>
-                        <Link className="btn-order" to={'/pedido'}><FontAwesomeIcon icon={faBasketShopping} /></Link>
+                        <Link className="btn-order" to={'/pedido'}>
+                            {quantity != 0 && <span>{quantity}</span>}
+                            <FontAwesomeIcon icon={faBasketShopping} />
+                        </Link>
                         <UserMenu />
                     </div> :
                     <div>

@@ -34,10 +34,22 @@ header>div>div:last-child {
     align-items: center;
     height: 35px;
     width: 35px;
+    position: relative;
+    background: #eee;
 }
 
-.btn-order:hover {
-    background: #eee;
+.btn-order:hover {}
+
+.btn-order span {
+    font-size: 10px;
+    color: #fff;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -30%;
+    background: var(--color-primary);
+    padding: 3px 5px;
+    border-radius: 10px;
 }
 
 @media (max-width:1280px) {
