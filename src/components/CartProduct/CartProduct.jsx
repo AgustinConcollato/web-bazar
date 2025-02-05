@@ -6,12 +6,14 @@ import { faCheck, faCircleNotch } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import './CartProduct.css'
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons"
+import { CartContext } from "../../context/CartContext"
 
 export function CartProduct({ e, onDelete, setProductList }) {
 
     const { user } = useContext(AuthContext)
+    const { updateProductCart } = useContext(CartContext)
+
     const { product, quantity: q } = e
-    const { ShoppingCart } = api
 
     const [thumbnails, setThumbnails] = useState(JSON.parse(product.thumbnails))
     const [newQuantity, setNewQuantity] = useState(q)
@@ -25,8 +27,6 @@ export function CartProduct({ e, onDelete, setProductList }) {
 
         if (newQuantity == quantity) return
 
-        const shoppingCart = new ShoppingCart()
-
         try {
             setDisabled(true)
 
@@ -36,7 +36,7 @@ export function CartProduct({ e, onDelete, setProductList }) {
                 user_id: user.uid
             }
 
-            const response = await shoppingCart.update(data)
+            const response = await updateProductCart(data)
 
             if (response) {
                 setNewQuantity(response.quantity)

@@ -1,19 +1,18 @@
-import { api } from "api-services"
 import { useContext, useEffect, useState } from "react"
 import { Link, Route, Routes } from "react-router-dom"
 import { CartDetail } from "../components/CartDetail/CartDetail"
 import { CartProduct } from "../components/CartProduct/CartProduct"
 import { Loading } from "../components/Loading/Loading"
 import { NavBar } from "../components/NavBar/NavBar"
-import { AuthContext } from "../context/authContext"
-import { NotFoundPage } from "./NotFoundPage"
 import { OrderConfirmed } from "../components/OrderConfirmed/OrderConfirmed"
+import { AuthContext } from "../context/authContext"
+import { CartContext } from "../context/CartContext"
+import { NotFoundPage } from "./NotFoundPage"
 
 export function ShoppingCartPage() {
 
     const { user } = useContext(AuthContext)
-    const { ShoppingCart } = api
-    const shoppingCart = new ShoppingCart()
+    const { getCart, deleteProductCart } = useContext(CartContext)
 
     const [productList, setProductList] = useState(null)
     const [loading, setLoading] = useState(null)
@@ -21,7 +20,7 @@ export function ShoppingCartPage() {
     async function getShoppingCart() {
         document.title = 'Tu pedido'
 
-        const response = await shoppingCart.get(user.uid)
+        const response = await getCart()
 
         if (response.length == 0 && sessionStorage.getItem('address')) {
             sessionStorage.removeItem('address')
@@ -34,7 +33,7 @@ export function ShoppingCartPage() {
         setLoading(true)
 
         try {
-            const response = await shoppingCart.delete(data)
+            const response = await deleteProductCart(data)
 
             setProductList(current => {
                 if (current.length == 1 && sessionStorage.getItem('address')) {

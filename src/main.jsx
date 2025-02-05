@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { App } from './App.jsx';
 import { AuthProvider } from './context/authContext.jsx';
 import { CategoriesProvider } from "./context/CategoriesContext.jsx";
+import { CartProvider } from "./context/CartContext.jsx";
 
 const {
   VITE_FIREBASE_API_KEY,
@@ -27,9 +28,11 @@ initializeApp(firebaseConfig);
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <AuthProvider>
-      <CategoriesProvider>
-        <App />
-      </CategoriesProvider>
+      <CartProvider>
+        <CategoriesProvider>
+          <App />
+        </CategoriesProvider>
+      </CartProvider>
     </AuthProvider>
   </BrowserRouter>
 )

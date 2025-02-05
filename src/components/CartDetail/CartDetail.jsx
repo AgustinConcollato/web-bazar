@@ -1,9 +1,10 @@
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { api, url } from "api-services";
+import { url } from "api-services";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
+import { CartContext } from "../../context/CartContext";
 import { generateId } from "../../utils/generateId";
 import { Addresses } from "../Addresses/Addresses";
 import { Modal } from "../Modal/Modal";
@@ -12,6 +13,8 @@ import './CartDetail.css';
 export function CartDetail({ productList }) {
 
     const { user } = useContext(AuthContext)
+    const { confirmCart } = useContext(CartContext)
+
     const navigate = useNavigate()
 
     const [comment, setComment] = useState(null)
@@ -47,7 +50,7 @@ export function CartDetail({ productList }) {
 
     }
 
-    async function confirmCart() {
+    async function confirm() {
 
         if (!address) {
             setMessage('No hay un dirección seleccionada para el pedido')
@@ -63,11 +66,8 @@ export function CartDetail({ productList }) {
             address
         }
 
-        const { ShoppingCart } = api
-        const shoppingCart = new ShoppingCart()
-
         try {
-            const order_id = await shoppingCart.confirm(data)
+            const order_id = await confirmCart(data)
 
             navigate('/pedido/confirmado/' + order_id)
         } catch (error) {
@@ -154,7 +154,7 @@ export function CartDetail({ productList }) {
                         </div>
                     }
                     <div className="cart-detail-container-btn">
-                        <button onClick={confirmCart} className="btn btn-solid">Confirmar pedido</button>
+                        <button onClick={confirm} className="btn btn-solid">Confirmar pedido</button>
                         <Link to={'/'} className="btn btn-regular">Seguir comprando</Link>
                     </div>
                 </div>

@@ -1,16 +1,24 @@
 import { faBasketShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import { NavBar } from "../NavBar/NavBar";
 import { UserMenu } from "../UserMenu/UserMenu";
 import { Search } from "../Search/Search";
 import './Header.css';
+import { CartContext } from "../../context/CartContext";
 
 export function Header() {
 
     const { user } = useContext(AuthContext)
+    const { cart } = useContext(CartContext)
+
+    const [quantity, setQuantity] = useState(0)
+
+    useEffect(() => {
+        setQuantity(cart.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue.quantity), 0))
+    }, [cart])
 
     return (
         <header>
@@ -22,6 +30,7 @@ export function Header() {
                 <Search />
                 {user ?
                     <div>
+                        <span>{quantity != 0 ? quantity : ''}</span>
                         <Link className="btn-order" to={'/pedido'}><FontAwesomeIcon icon={faBasketShopping} /></Link>
                         <UserMenu />
                     </div> :

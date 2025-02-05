@@ -1,14 +1,16 @@
 import { faBasketShopping, faCircleNotch, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import './FormAddProductToCart.css';
 import { Link } from "react-router-dom";
 import { api } from "api-services";
+import { CartContext } from "../../context/CartContext";
 
 export function FormAddProductToCart({ type, product }) {
 
     const { user } = useContext(AuthContext)
+    const { addProductCart } = useContext(CartContext)
 
     const [hidden, setHidden] = useState(true)
     const [error, setError] = useState(false)
@@ -42,12 +44,9 @@ export function FormAddProductToCart({ type, product }) {
             return
         }
 
-        const { ShoppingCart } = api
-
-        const shoppingCart = new ShoppingCart()
-
         setAddStatus(false)
-        const response = await shoppingCart.add({
+
+        const response = await addProductCart({
             quantity,
             user_id: user.uid,
             product_id: product.id
