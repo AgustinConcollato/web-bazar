@@ -24,7 +24,7 @@ export function Header() {
         <header>
             <div>
                 <div>
-                    <Link to={'/'}><img src="" alt="logo" /></Link>
+                    <Link to={'/'}><h1><span>BAZAR</span>SHOP</h1></Link>
                     <NavBar />
                 </div>
                 <Search />

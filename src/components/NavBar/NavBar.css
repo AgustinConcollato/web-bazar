@@ -28,6 +28,9 @@
     background: #eee;
 }
 
-@media (max-width: 1280px) {
-    
+@media (max-width: 500px) {
+    header .container-categories nav {
+        left: 0;
+        transform: translateX(0);
+    }
 }

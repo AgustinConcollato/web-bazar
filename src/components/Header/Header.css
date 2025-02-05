@@ -5,6 +5,14 @@ header {
     justify-content: center;
 }
 
+header h1 {
+    font-size: 18px;
+}
+
+header h1 span {
+    color: var(--color-primary);
+}
+
 header>div {
     display: flex;
     max-width: 1250px;
@@ -37,8 +45,6 @@ header>div>div:last-child {
     position: relative;
     background: #eee;
 }
-
-.btn-order:hover {}
 
 .btn-order span {
     font-size: 10px;
@@ -87,5 +93,26 @@ header>div>div:last-child {
 
     header>div>div .btn.btn-solid:last-child {
         display: none;
+    }
+}
+
+@media (max-width:500px) {
+
+    header>div {
+        gap: 10px;
+        height: 140px;
+        align-content: flex-end;
+        padding-bottom: 10px;
+    }
+
+    header>div>div:first-child>a {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 10px;
+    }
+
+    header h1 {
+        font-size: 16px;
     }
 }
