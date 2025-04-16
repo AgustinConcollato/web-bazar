@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom"
 import { ProductDetail } from "../components/ProductDetail/ProductDetail"
 import { useEffect, useState } from "react"
-import { api } from "api-services"
+import { api } from "../services/api"
 import { Loading } from "../components/Loading/Loading"
 import { RelatedProducts } from "../components/RelatedProducts/RelatedProducts"
 

@@ -1,4 +1,4 @@
-import { urlStorage } from "api-services"
+import { urlStorage } from "../../services/api"
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { CategoriesContext } from "../../context/CategoriesContext"
@@ -87,13 +87,13 @@ function RecommendCategories({ product }) {
     return (
         (categories && categories.length != 0) &&
         categories.map(e =>
-            e.category_code == product.category_id &&
+            e.code == product.category_code &&
             <div className="recommend">
                 <p>Ver mas productos relacionados</p>
                 <ul>
-                    <li><Link to={'/productos/' + e.category_code}>{e.category_name}</Link></li>
-                    {product.subcategory &&
-                        e.subcategories.filter(sub => product.subcategory.includes(sub.subcategory_code)).map(sub =>
+                    <li><Link to={'/productos/' + e.code}>{e.name}</Link></li>
+                    {product.subcategory_code &&
+                        e.subcategories.filter(sub => product.subcategory_code.includes(sub.subcategory_code)).map(sub =>
                             <li>
                                 <Link to={'/productos/' + sub.category_code + '/' + sub.subcategory_code}>
                                     {sub.subcategory_name}

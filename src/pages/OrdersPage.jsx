@@ -1,10 +1,9 @@
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../context/authContext"
 import { Loading } from "../components/Loading/Loading"
-import { urlStorage } from "api-services"
+import { urlStorage, api } from "../services/api"
 import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom"
 import { NotFoundPage } from "./NotFoundPage"
-import { Order } from "api-services/ordersService"
 import { OrderDetails } from "../components/OrderDetails/OrderDetails"
 import { AllOrders } from "../components/AllOrders/AllOrders"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -14,6 +13,7 @@ export function OrdersPage() {
 
     const { user } = useContext(AuthContext)
 
+    const { Order } = api
     const order = new Order()
 
     const [orders, setOrders] = useState(null)

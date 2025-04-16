@@ -2,9 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { Loading } from "../components/Loading/Loading";
 import { SectionCategoriesHome } from "../components/SectionCategoriesHome/SectionCategoriesHome";
 import { ProductCard } from "../components/ProductCard/ProductCard";
-import { api } from "api-services";
+import { api } from "../services/api";
 import { AuthContext } from "../context/authContext";
-import { Address } from "api-services/addressService";
 import { Link } from "react-router-dom";
 
 export function HomePage() {
@@ -45,6 +44,7 @@ export function HomePage() {
     }
 
     async function getAddress() {
+        const { Address } = api
         const address = new Address(user.uid)
 
         const response = await address.get()

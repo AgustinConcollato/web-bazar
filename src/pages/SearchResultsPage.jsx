@@ -1,4 +1,4 @@
-import { Products } from "api-services/productsService"
+import { Products } from "../services/productsService";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { Loading } from "../components/Loading/Loading";

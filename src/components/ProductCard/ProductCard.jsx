@@ -1,4 +1,4 @@
-import { urlStorage } from "api-services";
+import { urlStorage } from "../../services/api";
 import { Link } from "react-router-dom";
 import { FormAddProductToCart } from "../FormAddProductToCart/FormAddProductToCart";
 import { useEffect, useState } from "react";
@@ -46,7 +46,8 @@ export function ProductCard({ e }) {
                             <img
                                 className={`fade-image ${fade ? "visible" : "hidden"}`}
                                 loading="lazy"
-                                src={urlStorage + '/' + images[position]}
+                                src={'https://api.bazarrshop.com/storage' + '/' + images[position]}
+                                // src={urlStorage + '/' + images[position]}
                                 alt={e.name + e.description}
                             />
                         )}

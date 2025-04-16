@@ -1,4 +1,4 @@
-import { api } from "api-services"
+import { api } from "../../services/api"
 import { useEffect, useState } from "react"
 import './Filters.css'
 import { Link, useParams } from "react-router-dom"
@@ -19,7 +19,7 @@ export function Filters({ category }) {
         const response = await categories.get({ code: category })
 
         setCategoryData(response)
-        document.title = `${response.category_name}`
+        document.title = `${response.name}`
     }
 
 
@@ -55,7 +55,7 @@ export function Filters({ category }) {
         <aside className="filters">
             {categoryData &&
                 <>
-                    <h1>{categoryData.category_name}</h1>
+                    <h1>{categoryData.name}</h1>
                     <div>
                         <p onClick={() => setHidden(window.innerWidth <= 850 && !hidden)}>Subcategorías {window.innerWidth <= 850 && <FontAwesomeIcon icon={!hidden ? faAngleUp : faAngleDown} />}</p>
                         {subcategoryCode && <Link to={'/productos/' + categoryCode} className="btn btn-error-thins" >Borrar filtro</Link>}

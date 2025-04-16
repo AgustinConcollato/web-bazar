@@ -1,8 +1,8 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
 import { Loading } from "../Loading/Loading";
-import './AllOrders.css'
-import { useEffect } from "react";
+import './AllOrders.css';
 
 export function AllOrders({ orders }) {
 

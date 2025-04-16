@@ -1,7 +1,7 @@
 import { faAngleUp, faLocationDot } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Address } from "api-services/addressService"
 import { useEffect, useState } from "react"
+import { Address } from "../../services/addressService"
 import { Loading } from "../Loading/Loading"
 import { NewAddress } from "../NewAddress/NewAddress"
 import './Addresses.css'

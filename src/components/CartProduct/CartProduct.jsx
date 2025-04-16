@@ -1,12 +1,12 @@
-import { api, urlStorage } from "api-services"
-import { useContext, useEffect, useState } from "react"
-import { AuthContext } from "../../context/authContext"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCheck, faCircleNotch } from "@fortawesome/free-solid-svg-icons"
-import { Link } from "react-router-dom"
-import './CartProduct.css'
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons"
+import { faCheck, faCircleNotch } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useContext, useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { AuthContext } from "../../context/authContext"
 import { CartContext } from "../../context/CartContext"
+import { urlStorage } from "../../services/api"
+import './CartProduct.css'
 
 export function CartProduct({ e, onDelete, setProductList }) {
 
@@ -66,7 +66,7 @@ export function CartProduct({ e, onDelete, setProductList }) {
     return (
         <div className="cart-product">
             <Link to={'/producto/' + product.id}>
-                <img src={urlStorage + '/' + thumbnails[0]} alt="" />
+                <img src={urlStorage + '/' + thumbnails[0]} alt={product.name} />
                 <p>
                     {product.name}
                 </p>

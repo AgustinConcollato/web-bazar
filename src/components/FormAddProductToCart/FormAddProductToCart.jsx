@@ -1,11 +1,10 @@
-import { faBasketShopping, faCircleNotch, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBasketShopping, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/authContext";
-import './FormAddProductToCart.css';
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { api } from "api-services";
+import { AuthContext } from "../../context/authContext";
 import { CartContext } from "../../context/CartContext";
+import './FormAddProductToCart.css';
 
 export function FormAddProductToCart({ type, product }) {
 

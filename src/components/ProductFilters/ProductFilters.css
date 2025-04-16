@@ -1,0 +1,21 @@
+.container-filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.filter span {
+    font-size: 14px;
+}
+
+.filter .input {
+    padding: 10px 15px;
+}

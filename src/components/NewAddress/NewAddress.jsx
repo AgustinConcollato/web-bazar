@@ -4,7 +4,7 @@ import { generateId } from "../../utils/generateId";
 import { InputCity } from "./InputCity";
 import { InputStreet } from "./InputStreet";
 import './NewAddress.css';
-import { Address } from "api-services/addressService";
+import { Address } from "../../services/addressService";
 
 export function NewAddress({ setAddresses, total, onClose }) {
 

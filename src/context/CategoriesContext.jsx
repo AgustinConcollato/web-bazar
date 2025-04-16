@@ -1,4 +1,4 @@
-import { api } from "api-services";
+import { api } from "../services/api";
 import { createContext, useEffect, useState } from "react";
 
 export const CategoriesContext = createContext()

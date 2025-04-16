@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import { Order } from "api-services/ordersService"
+import { Order } from "../../services/ordersService"
 import { Loading } from "../Loading/Loading"
-import './OrderConfirmed.css'
 import { OrderDetails } from "../OrderDetails/OrderDetails"
+import './OrderConfirmed.css'
 
 export function OrderConfirmed() {
 
