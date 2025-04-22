@@ -1,11 +1,7 @@
-import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { url } from "../../services/api";
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
-import { CartContext } from "../../context/CartContext";
-import { generateId } from "../../utils/generateId";
+import { url } from "../../services/api";
 import { Addresses } from "../Addresses/Addresses";
 import { Modal } from "../Modal/Modal";
 import './CartDetail.css';
@@ -13,12 +9,7 @@ import './CartDetail.css';
 export function CartDetail({ productList }) {
 
     const { user } = useContext(AuthContext)
-    const { confirmCart } = useContext(CartContext)
 
-    const navigate = useNavigate()
-
-    const [comment, setComment] = useState(null)
-    const [addComment, setAddComment] = useState(null)
     const [totalPrice, setTotalPrice] = useState(null)
     const [address, setAddress] = useState(null)
     const [addresses, setAddresses] = useState(null)
@@ -48,31 +39,6 @@ export function CartDetail({ productList }) {
             e.status && setAddress(e)
         })
 
-    }
-
-    async function confirm() {
-
-        if (!address) {
-            setMessage('No hay un dirección seleccionada para el pedido')
-            return
-        }
-
-        const data = {
-            id: generateId(),
-            user_id: user.uid,
-            user_name: user.displayName,
-            date: new Date().getTime(),
-            comment,
-            address
-        }
-
-        try {
-            const order_id = await confirmCart(data)
-
-            navigate('/pedido/confirmado/' + order_id)
-        } catch (error) {
-            console.log(error)
-        }
     }
 
     useEffect(() => {
@@ -135,26 +101,13 @@ export function CartDetail({ productList }) {
                             </div>
                         </div>
                     }
-                    <div>
-                        <button className="btn" onClick={() => setAddComment(!addComment)}>
-                            Agregar comentario
-                            <FontAwesomeIcon icon={addComment ? faAngleUp : faAngleDown} />
-                        </button>
-                        {addComment &&
-                            <textarea
-                                onChange={(e) => setComment(e.target.value)}
-                                placeholder="Agrega un comentario al pedido"
-                            >
-                            </textarea>
-                        }
-                    </div>
                     {message &&
                         <div>
                             <p className="message-error">{message}</p>
                         </div>
                     }
                     <div className="cart-detail-container-btn">
-                        <button onClick={confirm} className="btn btn-solid">Confirmar pedido</button>
+                        <Link to={'/pedido/confirmar'} className="btn btn-solid">Continuar con el pedido</Link>
                         <Link to={'/'} className="btn btn-regular">Seguir comprando</Link>
                     </div>
                 </div>

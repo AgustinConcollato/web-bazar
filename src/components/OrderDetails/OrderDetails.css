@@ -32,6 +32,10 @@
     align-items: end;
 }
 
+.order-details ul li p .method:first-child{
+    margin-bottom: 10px;
+}
+
 .order-details ul li p span.discount {
     text-decoration: line-through;
 }

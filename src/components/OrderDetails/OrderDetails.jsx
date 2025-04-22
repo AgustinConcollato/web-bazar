@@ -7,13 +7,25 @@ export function OrderDetails({ order, address }) {
             <h2>Resumen del pedido</h2>
             <ul>
                 <li>Código<b>{order.id}</b></li>
-                <li>Fecha<b>{formatDate(order.date)}</b></li>
+                <li>Fecha<b>{formatDate(order.created_at)}</b></li>
             </ul>
             <ul>
                 <li>Enviar
                     <p>
                         <b>{address.address} {address.address_number}</b>
                         <span>{address.city}, {address.province}</span>
+                    </p>
+                </li>
+            </ul>
+            <ul>
+                <li>Métodos de pago
+                    <p>
+                        {order.payments.map(e =>
+                            <p className='method'>
+                                <b>${e.expected_amount}</b>
+                                {e.method == 'transfer' ? 'Transferencia' : e.method == 'cash' ? 'Efectivo' : 'Cheque'}
+                            </p>
+                        )}
                     </p>
                 </li>
             </ul>

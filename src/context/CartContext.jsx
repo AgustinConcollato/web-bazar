@@ -11,7 +11,7 @@ export function CartProvider({ children }) {
     const { ShoppingCart } = api
     const shoppingCart = new ShoppingCart()
 
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useState(null);
 
     async function getCart() {
         const response = await shoppingCart.get(user.uid)

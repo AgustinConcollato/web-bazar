@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { FormAddProductToCart } from "../FormAddProductToCart/FormAddProductToCart";
 import { useEffect, useState } from "react";
 import './ProductCard.css';
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export function ProductCard({ e }) {
 
@@ -42,14 +44,36 @@ export function ProductCard({ e }) {
             <div className='product-card'>
                 <Link to={'/producto/' + e.id}>
                     <div className="container-product-cart-images">
+                        {(images.length > 1 && position > 0) && (
+                            <button
+                                className="image-nav prev"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setPosition((prev) => (prev - 1 + images.length) % images.length);
+                                }}
+                            >
+                                <FontAwesomeIcon icon={faAngleLeft} />
+                            </button>
+                        )}
                         {images.length > 0 && (
                             <img
                                 className={`fade-image ${fade ? "visible" : "hidden"}`}
                                 loading="lazy"
-                                src={'https://api.bazarrshop.com/storage' + '/' + images[position]}
-                                // src={urlStorage + '/' + images[position]}
+                                // src={'https://api.bazarrshop.com/storage' + '/' + images[position]}
+                                src={urlStorage + '/' + images[position]}
                                 alt={e.name + e.description}
                             />
+                        )}
+                        {(images.length > 1 && position < images.length - 1) && (
+                            <button
+                                className="image-nav next"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setPosition((prev) => (prev + 1) % images.length);
+                                }}
+                            >
+                                <FontAwesomeIcon icon={faAngleRight} />
+                            </button>
                         )}
                     </div>
                     <div>

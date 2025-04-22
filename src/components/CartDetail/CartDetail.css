@@ -3,19 +3,6 @@
     top: 10px;
 }
 
-.cart-detail textarea {
-    min-width: 100%;
-    max-width: 100%;
-    min-height: 150px;
-    max-height: 150px;
-    font-size: 16px;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    outline: none;
-    margin-top: 10px;
-}
-
 .cart-detail-info {
     min-width: 350px;
     border-radius: 10px;
@@ -67,7 +54,6 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    align-items: start;
 }
 
 .address-for-order p:nth-child(2) {

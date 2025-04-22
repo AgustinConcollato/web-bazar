@@ -8,6 +8,7 @@ import { OrderConfirmed } from "../components/OrderConfirmed/OrderConfirmed"
 import { AuthContext } from "../context/authContext"
 import { CartContext } from "../context/CartContext"
 import { NotFoundPage } from "./NotFoundPage"
+import { ConfirmOrder } from "../components/ConfirmOrder/ConfirmOrder"
 
 export function ShoppingCartPage() {
 
@@ -89,6 +90,7 @@ export function ShoppingCartPage() {
                     }
                 </section >
             } />
+            <Route path='/confirmar' element={<ConfirmOrder user={user} />} />
             <Route path='/confirmado/:id' element={<OrderConfirmed />} />
             <Route path='*' element={<NotFoundPage />} />
         </Routes>

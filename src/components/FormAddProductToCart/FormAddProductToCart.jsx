@@ -64,14 +64,14 @@ export function FormAddProductToCart({ type, product }) {
                     <>
                         <input type="number" name="quantity" min={1} className="input" placeholder='Cantidad' />
                         <div>
-                            <button type='submit' className="btn btn-regular">{addStatus ? <FontAwesomeIcon icon={faBasketShopping} /> : <FontAwesomeIcon icon={faCircleNotch} spin />}</button>
+                            <button type='submit' disabled={!addStatus} className="btn btn-regular">{addStatus ? <FontAwesomeIcon icon={faBasketShopping} /> : <FontAwesomeIcon icon={faCircleNotch} spin />}</button>
                             <span>Agregar al pedido</span>
                         </div>
                     </> :
                     <>
                         <input type="number" name="quantity" min={1} className="input" placeholder='Cantidad' onChange={() => setError(false)} />
                         <div>
-                            <button type='submit' className="btn btn-solid">{addStatus ? 'Agregar al pedido' : <FontAwesomeIcon icon={faCircleNotch} spin />}</button>
+                            <button type='submit' disabled={!addStatus} className="btn btn-solid">{addStatus ? 'Agregar al pedido' : <FontAwesomeIcon icon={faCircleNotch} spin />}</button>
                         </div>
                     </>
                 }

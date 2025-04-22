@@ -19,9 +19,8 @@ export function AllOrders({ orders }) {
                         <ul className="orders-list">
                             {orders.map(order => (
                                 <li key={order.id}>
-                                    {console.log(order)}
                                     <Link to={order.id}>
-                                        <p>{formatDate(order.date)}</p>
+                                        <p>{formatDate(order.updated_at)}</p>
                                         <p>{order.discount ?
                                             <>
                                                 <p className="discount">

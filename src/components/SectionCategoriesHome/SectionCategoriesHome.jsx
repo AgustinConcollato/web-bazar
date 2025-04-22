@@ -28,10 +28,10 @@ export function SectionCategoriesHome() {
             <h2>Categorías</h2>
             {categories ?
                 categories.map((e, i) =>
-                    <Link key={e.category_code} to={`/productos/${e.category_code}`} className="div-cateogry">
+                    <Link key={e.code} to={`/productos/${e.code}`} className="div-cateogry">
                         <div>
-                            <p>{e.category_name}</p>
-                            <img src={icons[i]} alt={"icono de la categoría " + e.category_name} />
+                            <p>{e.name}</p>
+                            <img src={icons[i]} alt={"icono de la categoría " + e.name} />
                         </div>
                     </Link>
                 ) :

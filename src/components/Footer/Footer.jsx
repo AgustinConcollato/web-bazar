@@ -34,8 +34,8 @@ export function Footer() {
                         <ul>
                             {(categories && categories.length != 0) &&
                                 categories.map(e =>
-                                    <li key={e.category_name}>
-                                        <Link to={'/productos/' + e.category_code}>{e.category_name}</Link>
+                                    <li key={e.name}>
+                                        <Link to={'/productos/' + e.code}>{e.name}</Link>
                                     </li>
                                 )}
                         </ul>

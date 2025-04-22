@@ -55,7 +55,7 @@ export function ProductDetail({ product }) {
                         <div className="container-product-info">
                             {isNewArrival(product) && <span className="new-arrival">Nuevo Ingreso</span>}
                             <h1>{product.name} <span>Código referencia: {product.code}</span></h1>
-                            {product.description && <p className="description">{product.description}</p>}
+                            {product.description && <pre className="description">{product.description}</pre>}
                             {product.discount ?
                                 <>
                                     <p className="discount">

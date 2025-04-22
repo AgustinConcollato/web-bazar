@@ -34,7 +34,7 @@ export function NewAddress({ setAddresses, total, onClose }) {
 
         try {
             const addressCreated = await a.add({
-                user_id: user.uid,
+                client_id: user.uid,
                 province,
                 city,
                 address,

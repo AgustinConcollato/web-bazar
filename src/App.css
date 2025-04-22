@@ -40,6 +40,20 @@ section {
     background: var(--color-error-200);
     color: var(--color-error);
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 30px;
+    text-wrap: pretty;
+}
+
+.message-error svg {
+    cursor: pointer;
+}
+
+.message-error svg path {
+    color: var(--color-error);
+    cursor: pointer;
 }
 
 .message-notification {
@@ -53,7 +67,7 @@ section {
 
 .btn {
     border-radius: 10px;
-    padding: 7px 15px;
+    padding: 15px 15px;
     cursor: pointer;
     transition: .1s;
     display: inline-flex;
@@ -62,7 +76,6 @@ section {
     justify-content: center;
     background: #f0f0f0;
     border: none;
-    height: 40px;
     font-size: 16px;
 }
 
@@ -83,7 +96,7 @@ section {
 
 .btn-regular {
     color: var(--color-primary);
-    border: 1px solid var(--color-primary);
+    /* border: 1px solid var(--color-primary); */
     background: var(--color-primary-100);
 }
 
@@ -120,7 +133,7 @@ section {
 
 .btn-error-regular {
     color: var(--color-error);
-    border: 1px solid var(--color-error);
+    /* border: 1px solid var(--color-error); */
     background: var(--color-error-200);
 }
 

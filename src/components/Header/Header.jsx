@@ -17,7 +17,7 @@ export function Header() {
     const [quantity, setQuantity] = useState(0)
 
     useEffect(() => {
-        setQuantity(cart.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue.quantity), 0))
+        cart && setQuantity(cart.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue.quantity), 0))
     }, [cart])
 
     return (

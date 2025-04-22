@@ -1,0 +1,101 @@
+.section-confirm-order {
+    display: flex;
+    align-items: start;
+    gap: 20px;
+}
+
+.section-confirm-order h3 {
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.confirm-order-info {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    max-width: 800px;
+    min-width: 400px;
+}
+
+
+.order-comment {
+    position: relative;
+}
+
+.order-comment span {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.order-comment textarea {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 150px;
+    max-height: 150px;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    margin-top: 10px;
+}
+
+.confirm-order {
+    position: sticky;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    max-width: 430px;
+    width: 100%;
+}
+
+.confirm-order-price p {
+    font-size: 20px;
+}
+
+.confirm-order-price p span {
+    font-size: 16px;
+    display: block;
+}
+
+.accept-terms-conditions p {
+    font-size: 14px;
+    color: #aaa;
+    text-align: center;
+}
+
+.accept-terms-conditions a {
+    font-weight: 600;
+    text-wrap: nowrap;
+    color: #7c7c7c;
+}
+
+.accept-terms-conditions a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width:1000px) {
+
+    .section-confirm-order {
+        flex-wrap: wrap;
+    }
+
+    .confirm-order-info {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+    }
+
+    .confirm-order {
+        max-width: 100%;
+    }
+}
