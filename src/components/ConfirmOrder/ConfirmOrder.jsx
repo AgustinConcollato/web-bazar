@@ -140,7 +140,6 @@ export function ConfirmOrder({ user }) {
                     </div>
                     <div className="payment-methods">
                         <h3>Métodos de pago</h3>
-                        <p>Puede seleccionar dos métodos para un pago combinado</p>
                         <PaymentOption
                             totalAmount={totalAmount.toFixed(2)}
                             onChange={setPaymentAmounts}

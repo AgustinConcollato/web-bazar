@@ -65,24 +65,26 @@ export function PaymentOption({ totalAmount, onChange, allowTwoMethods, setAllow
 
     return (
         <div className='payment-method-controls'>
-            <div>
-                <label className={allowTwoMethods ? 'btn btn-regular' : 'btn'}>
-                    <input
-                        type="checkbox"
-                        checked={allowTwoMethods}
-                        onChange={() => {
-                            setAllowTwoMethods(!allowTwoMethods);
-                            setSelectedMethods([]);
-                            setPaymentAmounts({});
-                        }}
-                    />
-                    Usar dos métodos de pago
-                </label>
-            </div>
+            <p>Puede pagar el pedido con dos métodos diferentes</p>
+            <label className="allowTwoMethods">
+                <input
+                    type="checkbox"
+                    checked={allowTwoMethods}
+                    onChange={() => {
+                        setAllowTwoMethods(!allowTwoMethods);
+                        setSelectedMethods([]);
+                        setPaymentAmounts({});
+                    }}
+                />
+                <span>Usar dos métodos de pago</span>
+                <div className={allowTwoMethods ? 'true' : 'false'}>
+                    <div className="circle"></div>
+                </div>
+            </label>
 
             {paymentOptions.map(method => (
-                <div key={method}>
-                    <label className='methods'>
+                <div key={method} className='methods'>
+                    <label>
                         <input
                             type="checkbox"
                             checked={selectedMethods.includes(method)}
@@ -112,7 +114,7 @@ export function PaymentOption({ totalAmount, onChange, allowTwoMethods, setAllow
                 </div>
             ))}
             {selectedMethods.length === 2 && (
-                <button onClick={divideEqually}>Dividir en partes iguales</button>
+                <button onClick={divideEqually} className='btn btn-regular'>Dividir en partes iguales</button>
             )}
         </div>
     );
