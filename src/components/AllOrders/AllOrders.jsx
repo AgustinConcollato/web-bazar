@@ -20,7 +20,19 @@ export function AllOrders({ orders }) {
                             {orders.map(order => (
                                 <li key={order.id}>
                                     <Link to={order.id}>
-                                        <p>{formatDate(order.updated_at)}</p>
+                                        <div>
+                                            <p>{formatDate(order.updated_at)}</p>
+                                            {order.status === "completed" ?
+                                                <p className="status-completed">Completado</p> :
+                                                order.status === "pending" ?
+                                                    <p className="status-pending">Pendiente</p> :
+                                                    order.status === "accepted" ?
+                                                        <p className="status-preparation">En preparación</p> :
+                                                        order.status === "rejected" ?
+                                                            <p className="status-rejected">Rechazado</p> :
+                                                            <p className="status-cancelled">Cancelado</p>
+                                            }
+                                        </div>
                                         <p>{order.discount ?
                                             <>
                                                 <p className="discount">
