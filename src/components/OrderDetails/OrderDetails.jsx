@@ -4,7 +4,19 @@ import './OrderDetails.css';
 export function OrderDetails({ order, address }) {
     return (
         <div className="order-details">
-            <h2>Resumen del pedido</h2>
+            <div>
+                <h2>Resumen del pedido</h2>
+                {order.status === "completed" ?
+                    <p className="status-completed">Completado</p> :
+                    order.status === "pending" ?
+                        <p className="status-pending">Pendiente</p> :
+                        order.status === "accepted" ?
+                            <p className="status-preparation">En preparación</p> :
+                            order.status === "rejected" ?
+                                <p className="status-rejected">Rechazado</p> :
+                                <p className="status-cancelled">Cancelado</p>
+                }
+            </div>
             <ul>
                 <li>Código<b>{order.id}</b></li>
                 <li>Fecha<b>{formatDate(order.created_at)}</b></li>

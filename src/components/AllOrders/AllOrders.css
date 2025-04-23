@@ -28,12 +28,6 @@
     border-bottom: 1px solid #ccc;
 }
 
-.orders-list li a div {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
 .orders-list li a:hover {
     background: #eee;
     border-radius: 10px;
@@ -41,6 +35,85 @@
 
 .orders-list p:last-child {
     text-align: end;
+}
+
+.orders-page .order-confirmed {
+    flex-direction: row-reverse;
+    align-items: start;
+    gap: 30px;
+}
+
+.orders-page .order-details {
+    position: sticky;
+    top: 10px;
+}
+
+.btn-view-products {
+    margin: 40px 0;
+}
+
+.container-order-product-table {
+    width: 100%;
+    overflow-x: auto;
+    border-right: 1px solid #ccc;
+    padding-right: 30px;
+}
+
+.order-product-table {
+    width: 100%;
+    min-width: 600px;
+}
+
+.order-product-table th {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    text-align: end;
+}
+
+.order-product-table th:first-child {
+    text-align: center;
+}
+
+.order-product-table th:nth-child(2) {
+    text-align: start;
+}
+
+.order-product td {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 5px;
+    padding: 5px 0;
+    text-align: end;
+}
+
+.order-product td:first-child {
+    text-align: center;
+    padding: 5px 10px 5px 0;
+}
+
+.order-product td a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.order-product td a:hover {
+    text-decoration: underline;
+}
+
+.product-image {
+    object-fit: contain;
+    height: 60px;
+    width: 60px;
+}
+
+.order-product td .discount {
+    justify-content: end;
+}
+
+.orders-list li a div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .status-completed {
@@ -98,4 +171,23 @@
     width: max-content;
 }
 
-@media (max-width: 1220px) {}
+
+@media (max-width: 1220px) {
+    .orders-page .order-confirmed {
+        flex-direction: column;
+        align-items: start;
+        gap: 60px;
+    }
+
+    .orders-page .order-details {
+        position: relative;
+        top: 0;
+        width: 100%;
+        max-width: none;
+    }    
+
+    .container-order-product-table {
+        border-right: none;
+        padding-right: 0;
+    }
+}
