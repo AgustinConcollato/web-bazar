@@ -24,6 +24,11 @@
     align-items: start;
     justify-content: space-between;
     padding: 3px 0;
+    gap: 20px;
+}
+
+.order-details ul li b {
+    text-align: end;
 }
 
 .order-details ul li p {

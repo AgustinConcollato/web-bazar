@@ -93,6 +93,7 @@ img.thumbnail-selected {
     border-radius: 10px;
     background: #eee;
     padding: 10px;
+    text-wrap: wrap;
 }
 
 .container-product-info .price {
