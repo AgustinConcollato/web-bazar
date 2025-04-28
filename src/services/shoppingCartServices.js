@@ -29,16 +29,23 @@ export class ShoppingCart {
         return await response.json()
     }
 
-    async get(userId) {
+    async get(clientId) {
 
-        const response = await fetch(`${urlShoppingCart}/${userId}`)
+        const response = await fetch(`${urlShoppingCart}/${clientId}`)
 
         return await response.json()
     }
 
-    async delete({ userId, productId }) {
+    async getDetail(clientId) {
 
-        const response = await fetch(`${urlShoppingCart}/${userId}/${productId}`, {
+        const response = await fetch(`${urlShoppingCart}/detail/${clientId}`)
+
+        return await response.json()
+    }
+
+    async delete({ clientId, productId }) {
+
+        const response = await fetch(`${urlShoppingCart}/${clientId}/${productId}`, {
             method: 'DELETE'
         })
 

@@ -1,8 +1,9 @@
-import { urlAddress } from "./api"
+import { url, urlAddress } from "./api"
 
 export class Address {
     constructor(userId) {
         this.userId = userId
+        this.token = localStorage.getItem('token')
     }
 
     async add(address) {
@@ -46,7 +47,7 @@ export class Address {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ code: address.code })
+                body: JSON.stringify({ id: address.id })
             })
 
             if (!response.ok) {
@@ -57,6 +58,26 @@ export class Address {
 
         } catch (error) {
             throw new Error(error)
+        }
+    }
+
+    async delete(id) {
+        try {
+            const response = await fetch(`${url}/address/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${this.token}`
+                },
+            })
+
+            if (!response.ok) {
+                const error = await response.json()
+                throw error
+            }
+
+            return await response.json()
+        } catch (error) {
+            throw error
         }
     }
 }
