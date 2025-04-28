@@ -1,4 +1,4 @@
-import { faAngleUp, faLocationDot } from "@fortawesome/free-solid-svg-icons"
+import { faLocationDot, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import { Address } from "../../services/addressService"
@@ -6,9 +6,9 @@ import { Loading } from "../Loading/Loading"
 import { NewAddress } from "../NewAddress/NewAddress"
 import './Addresses.css'
 
-export function Addresses({ user, type, onChange }) {
+export function Addresses({ client, type, onChange }) {
 
-    const address = new Address(user.uid)
+    const address = new Address(client.id)
 
     const [addresses, setAddresses] = useState(null)
     const [selected, setSelected] = useState(0)
@@ -22,7 +22,7 @@ export function Addresses({ user, type, onChange }) {
             response.forEach((e) => {
                 if (type == 'MODAL' && localStorage.getItem('address')) {
                     const sessionAddress = localStorage.getItem('address')
-                    e.code == JSON.parse(sessionAddress).code && setSelected(e)
+                    e.id == JSON.parse(sessionAddress).id && setSelected(e)
                     return
                 }
 
@@ -46,14 +46,23 @@ export function Addresses({ user, type, onChange }) {
         }
     }
 
+    async function deleteAddress(e) {
+        try {
+            const response = await address.delete(e)
+            setAddresses(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
-        getAddress(user.uid)
+        getAddress(client.id)
     }, [])
 
     return (
         addresses ?
             <div className="addresses">
-                <h4>Tus direcciones</h4>
+                <h4>Direcciones</h4>
                 {addresses.length != 0 ?
                     <div className="container-address">
                         {addresses.map(e =>
@@ -71,13 +80,14 @@ export function Addresses({ user, type, onChange }) {
                         )}
                     </div> :
                     <div className="not-addresses">
-                        <p>no hay direcciones registradas</p>
+                        <p>No hay direcciones registradas</p>
                     </div>
                 }
+                {/* {addresses.length > 1 && */}
                 <div className="container-btn-change-address">
                     {addresses.map(e =>
                         <>
-                            {(e.status != 'selected' && e.code == selected.code) &&
+                            {(e.status != 'selected' && e.id == selected.id) &&
                                 <button
                                     style={{ order: 0 }}
                                     className="btn btn-solid"
@@ -89,8 +99,8 @@ export function Addresses({ user, type, onChange }) {
                                     Cambiar dirección principal
                                 </button>
                             }
-                            {(e.code == selected.code && type == 'MODAL') &&
-                                JSON.parse(localStorage.getItem('address'))?.code != selected.code &&
+                            {(e.id == selected.id && type == 'MODAL') &&
+                                JSON.parse(localStorage.getItem('address'))?.id != selected.id &&
                                 <button
                                     style={{ order: 1 }}
                                     className="btn"
@@ -102,9 +112,20 @@ export function Addresses({ user, type, onChange }) {
                                     Cambiar solo para este pedido
                                 </button>
                             }
+                            {(e.id == selected.id && type == 'PROFILE') &&
+                                <button
+                                    style={{ order: 2 }}
+                                    className="btn btn-error-regular"
+                                    onClick={() => deleteAddress(e.id)}
+                                >
+                                    Eliminar dirección
+                                </button>
+                            }
+
                         </>
                     )}
                 </div>
+
                 {formNewAddress &&
                     <NewAddress
                         setAddresses={setAddresses}
@@ -113,11 +134,11 @@ export function Addresses({ user, type, onChange }) {
                     />
                 }
                 <button
-                    className="btn btn-new-address"
+                    className={formNewAddress ? "btn btn-new-address" : 'btn'}
                     onClick={() => setFormNewAddress(!formNewAddress)}
                 >
                     {formNewAddress ?
-                        <FontAwesomeIcon icon={faAngleUp} /> :
+                        'Cancelar' :
                         'Agregar nueva dirección'
                     }
                 </button>
@@ -129,10 +150,10 @@ export function Addresses({ user, type, onChange }) {
 function AddressListProfile({ e, selected, setSelected }) {
     return (
         <div
-            key={e.code}
+            key={e.id}
             onClick={() => setSelected(e)}
             className={
-                selected.code == e.code ?
+                selected.id == e.id ?
                     'address address-selected' :
                     'address'
             }
@@ -149,12 +170,12 @@ function AddressListProfile({ e, selected, setSelected }) {
 function AddressListModal({ e, selected, setSelected }) {
     return (
         <div
-            key={e.code}
+            key={e.id}
             onClick={() => setSelected(e)}
             className={
-                (selected.code == e.code && !localStorage.getItem('address')) ?
+                (selected.id == e.id && !localStorage.getItem('address')) ?
                     'address address-selected' :
-                    (e.code == selected.code) ?
+                    (e.id == selected.id) ?
                         'address address-selected' :
                         'address'
             }

@@ -6,10 +6,10 @@ import './UserMenu.css';
 
 export function UserMenu() {
 
-    const { logOut, user } = useContext(AuthContext)
+    const { logOut, client } = useContext(AuthContext)
 
     const [hidden, setHidden] = useState(true)
-    const userImage = user.providerData[0].photoURL || img
+    const clientImage = img
 
     document.onclick = (e) => {
         (!e.target.closest('.btn-image') && !e.target.closest('.user-nav')) && setHidden(true)
@@ -17,13 +17,12 @@ export function UserMenu() {
 
     return (
         <div className="container-user-nav">
-            <img className="btn-image" src={userImage} onClick={() => setHidden(!hidden)} alt="foto de perdil del usuario" />
+            <img className="btn-image" src={clientImage} onClick={() => setHidden(!hidden)} alt="foto de perdil del usuario" />
             {!hidden &&
                 <nav className="user-nav">
                     <div className="user-info">
-                        <img src={userImage} alt="" />
                         <div>
-                            <p>{user.displayName} <span>{user.email}</span></p>
+                            <p>{client.name} <span>{client.email}</span></p>
                         </div>
                     </div>
                     <div className="div"></div>

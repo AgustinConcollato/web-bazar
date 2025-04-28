@@ -12,7 +12,7 @@ import { ConfirmOrder } from "../components/ConfirmOrder/ConfirmOrder"
 
 export function ShoppingCartPage() {
 
-    const { user } = useContext(AuthContext)
+    const { client } = useContext(AuthContext)
     const { getCart, deleteProductCart } = useContext(CartContext)
 
     const [productList, setProductList] = useState(null)
@@ -50,10 +50,10 @@ export function ShoppingCartPage() {
     }
 
     useEffect(() => {
-        user && getShoppingCart()
-    }, [user])
+        client && getShoppingCart()
+    }, [client])
 
-    if (!user) {
+    if (!client) {
 
         document.title = 'Iniciar sesión para ver tu pedido'
 
@@ -90,7 +90,7 @@ export function ShoppingCartPage() {
                     }
                 </section >
             } />
-            <Route path='/confirmar' element={<ConfirmOrder user={user} />} />
+            <Route path='/confirmar' element={<ConfirmOrder client={client} />} />
             <Route path='/confirmado/:id' element={<OrderConfirmed />} />
             <Route path='*' element={<NotFoundPage />} />
         </Routes>

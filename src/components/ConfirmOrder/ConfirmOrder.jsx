@@ -10,7 +10,7 @@ import './ConfirmOrder.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faXmark } from "@fortawesome/free-solid-svg-icons"
 
-export function ConfirmOrder({ user }) {
+export function ConfirmOrder({ client }) {
 
     const { confirmCart, cart } = useContext(CartContext)
 
@@ -60,8 +60,8 @@ export function ConfirmOrder({ user }) {
         }
 
         const data = {
-            client_id: user.uid,
-            user_name: user.displayName,
+            client_id: client.id,
+            user_name: client.name,
             comment,
             address,
             payment_methods: paymentAmounts,
@@ -93,7 +93,7 @@ export function ConfirmOrder({ user }) {
     }
 
     useEffect(() => {
-        !address && getAddress(user.uid)
+        !address && getAddress(client.id)
         setChangeAddress(false)
     }, [address])
 
@@ -134,7 +134,7 @@ export function ConfirmOrder({ user }) {
                         </div>
                         {changeAddress &&
                             <Modal onClose={setChangeAddress}>
-                                <Addresses user={user} type={'MODAL'} onChange={setAddress} />
+                                <Addresses client={client} type={'MODAL'} onChange={setAddress} />
                             </Modal>
                         }
                     </div>

@@ -97,7 +97,7 @@ export function InputStreet({ url, province, city, setAddress }) {
                 value={query}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
-                placeholder="Drección"
+                placeholder="Calle"
                 className="input"
                 autoComplete="off"
                 required

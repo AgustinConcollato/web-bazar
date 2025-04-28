@@ -8,7 +8,7 @@ import './FormAddProductToCart.css';
 
 export function FormAddProductToCart({ type, product }) {
 
-    const { user } = useContext(AuthContext)
+    const { client } = useContext(AuthContext)
     const { addProductCart } = useContext(CartContext)
 
     const [hidden, setHidden] = useState(true)
@@ -19,7 +19,7 @@ export function FormAddProductToCart({ type, product }) {
     async function addCart(e) {
         e.preventDefault()
 
-        if (!user) {
+        if (!client) {
             if (hidden) {
                 setHidden(false);
 
@@ -47,7 +47,7 @@ export function FormAddProductToCart({ type, product }) {
 
         const response = await addProductCart({
             quantity,
-            user_id: user.uid,
+            client_id: client.id,
             product_id: product.id
         })
 

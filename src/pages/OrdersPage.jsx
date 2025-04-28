@@ -11,7 +11,7 @@ import { faAngleLeft } from "@fortawesome/free-solid-svg-icons"
 
 export function OrdersPage() {
 
-    const { user } = useContext(AuthContext)
+    const { client } = useContext(AuthContext)
 
     const { Order } = api
     const order = new Order()
@@ -19,18 +19,17 @@ export function OrdersPage() {
     const [orders, setOrders] = useState(null)
 
     async function getOrders() {
-        const userId = user.uid
-        const orders = await order.getAll(userId)
+        const orders = await order.getAll(client.id)
         setOrders(orders)
     }
 
     useEffect(() => {
-        if (user) {
+        if (client) {
             getOrders()
         }
-    }, [user])
+    }, [client])
 
-    if (!user) {
+    if (!client) {
         document.title = 'Iniciar sesión para ver tus compras'
 
         return (
@@ -66,7 +65,6 @@ function Details({ orders }) {
     async function getOrder() {
         try {
             const response = await orders.get(id)
-
             setAddress(JSON.parse(response.address))
             setOrder(response)
             setProducts(response.products)

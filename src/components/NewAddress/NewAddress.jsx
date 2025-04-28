@@ -10,7 +10,7 @@ export function NewAddress({ setAddresses, total, onClose }) {
 
     const urlApiLocation = 'https://apis.datos.gob.ar/georef/api'
 
-    const { user } = useContext(AuthContext)
+    const { client } = useContext(AuthContext)
 
     const [provinceList, setProvinceList] = useState([])
     const [province, setProvince] = useState()
@@ -30,11 +30,11 @@ export function NewAddress({ setAddresses, total, onClose }) {
     async function addAddress(e) {
         e.preventDefault()
 
-        const a = new Address(user.uid)
+        const a = new Address(client.id)
 
         try {
             const addressCreated = await a.add({
-                client_id: user.uid,
+                client_id: client.id,
                 province,
                 city,
                 address,

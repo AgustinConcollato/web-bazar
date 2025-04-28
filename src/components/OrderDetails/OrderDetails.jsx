@@ -2,6 +2,9 @@ import { formatDate } from '../../utils/formatDate';
 import './OrderDetails.css';
 
 export function OrderDetails({ order, address }) {
+
+    console.log(address)
+
     return (
         <div className="order-details">
             <div>

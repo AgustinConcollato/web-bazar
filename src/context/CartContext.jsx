@@ -6,7 +6,7 @@ export const CartContext = createContext()
 
 export function CartProvider({ children }) {
 
-    const { user } = useContext(AuthContext)
+    const { client } = useContext(AuthContext)
 
     const { ShoppingCart } = api
     const shoppingCart = new ShoppingCart()
@@ -14,7 +14,14 @@ export function CartProvider({ children }) {
     const [cart, setCart] = useState(null);
 
     async function getCart() {
-        const response = await shoppingCart.get(user.uid)
+        const response = await shoppingCart.get(client.id)
+        setCart(response)
+
+        return response
+    }
+
+    async function getCartDetail() {
+        const response = await shoppingCart.getDetail(client.id)
         setCart(response)
 
         return response
@@ -67,8 +74,8 @@ export function CartProvider({ children }) {
     }
 
     useEffect(() => {
-        user && getCart()
-    }, [user])
+        client && getCartDetail()
+    }, [client])
 
     return (
         <CartContext.Provider value={{

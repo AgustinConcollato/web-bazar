@@ -8,7 +8,7 @@ import './CartDetail.css';
 
 export function CartDetail({ productList }) {
 
-    const { user } = useContext(AuthContext)
+    const { client } = useContext(AuthContext)
 
     const [totalPrice, setTotalPrice] = useState(null)
     const [address, setAddress] = useState(null)
@@ -16,8 +16,8 @@ export function CartDetail({ productList }) {
     const [message, setMessage] = useState(null)
     const [changeAddress, setChangeAddress] = useState(null)
 
-    async function getAddress(userId) {
-        const response = await fetch(`${url}/user/${userId}`)
+    async function getAddress(clientId) {
+        const response = await fetch(`${url}/user/${clientId}`)
 
         if (!response.ok) {
             setAddresses([])
@@ -36,9 +36,15 @@ export function CartDetail({ productList }) {
         }
 
         addresses.forEach(e => {
-            e.status && setAddress(e)
-        })
+            if (e.status) {
+                setAddress(e)
+                return
+            }
+        });
 
+        if (!address) {
+            setAddress(addresses[0])
+        }
     }
 
     useEffect(() => {
@@ -51,12 +57,11 @@ export function CartDetail({ productList }) {
             }, 0)
         )
 
-        getAddress(user.uid)
     }, [productList])
 
     useEffect(() => {
-        user && getAddress(user.uid)
-    }, [user])
+        client && getAddress(client.id)
+    }, [client])
 
     useEffect(() => {
         setAddress(changeAddress)
@@ -80,7 +85,7 @@ export function CartDetail({ productList }) {
                                         <p className="order-address-selected">
                                             {address.address} {address.address_number}
                                             <BtnChangeAddress
-                                                user={user}
+                                                client={client}
                                                 text={'Cambiar'}
                                                 onChange={setChangeAddress}
                                                 change={changeAddress}
@@ -91,7 +96,7 @@ export function CartDetail({ productList }) {
                                     <div className="address-for-order">
                                         <p>No hay direcciones registradas</p>
                                         <BtnChangeAddress
-                                            user={user}
+                                            client={client}
                                             text={'Agregar nueva dirección'}
                                             onChange={setChangeAddress}
                                             change={changeAddress}
@@ -116,7 +121,7 @@ export function CartDetail({ productList }) {
     )
 }
 
-function BtnChangeAddress({ text, user, onChange, change }) {
+function BtnChangeAddress({ text, client, onChange, change }) {
 
     const [modal, setModal] = useState(null)
 
@@ -133,7 +138,7 @@ function BtnChangeAddress({ text, user, onChange, change }) {
             </button>
             {modal &&
                 <Modal onClose={setModal}>
-                    <Addresses user={user} type={'MODAL'} onChange={onChange} />
+                    <Addresses client={client} type={'MODAL'} onChange={onChange} />
                 </Modal>
             }
         </>

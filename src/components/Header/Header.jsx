@@ -3,15 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
-import { NavBar } from "../NavBar/NavBar";
-import { UserMenu } from "../UserMenu/UserMenu";
-import { Search } from "../Search/Search";
-import './Header.css';
 import { CartContext } from "../../context/CartContext";
+import { NavBar } from "../NavBar/NavBar";
+import { Search } from "../Search/Search";
+import { UserMenu } from "../UserMenu/UserMenu";
+import './Header.css';
 
 export function Header() {
 
-    const { user } = useContext(AuthContext)
+    const { client } = useContext(AuthContext)
     const { cart } = useContext(CartContext)
 
     const [quantity, setQuantity] = useState(0)
@@ -28,7 +28,7 @@ export function Header() {
                     <NavBar />
                 </div>
                 <Search />
-                {user ?
+                {client ?
                     <div>
                         <Link className="btn-order" to={'/pedido'}>
                             {quantity != 0 && <span>{quantity}</span>}

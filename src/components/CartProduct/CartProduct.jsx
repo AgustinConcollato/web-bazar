@@ -10,7 +10,7 @@ import './CartProduct.css'
 
 export function CartProduct({ e, onDelete, setProductList }) {
 
-    const { user } = useContext(AuthContext)
+    const { client } = useContext(AuthContext)
     const { updateProductCart } = useContext(CartContext)
 
     const { product, quantity: q } = e
@@ -33,7 +33,7 @@ export function CartProduct({ e, onDelete, setProductList }) {
             const data = {
                 quantity: parseInt(quantity),
                 product_id: product.id,
-                user_id: user.uid
+                client_id: client.id
             }
 
             const response = await updateProductCart(data)
@@ -105,7 +105,7 @@ export function CartProduct({ e, onDelete, setProductList }) {
             }
             <div>
                 <button
-                    onClick={() => onDelete({ userId: user.uid, productId: product.id })}
+                    onClick={() => onDelete({ clientId: client.id, productId: product.id })}
                     className="btn btn-error-thins"
                 >
                     <FontAwesomeIcon icon={faTrashAlt} />

@@ -1,123 +1,186 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { faCircleNotch, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/authContext";
 import './Register.css';
 
-import { getAuth, validatePassword } from "firebase/auth";
-import { AuthProviderButtons } from "../AuthProviderButtons";
-
 export const Register = () => {
 
+    const passwordRules = [
+        { rule: 'Debe contener al menos 8 caracteres', check: value => value.length >= 8 },
+        { rule: 'Debe contener al menos una letra mayúscula', check: value => /[A-Z]/.test(value) },
+        { rule: 'Debe contener al menos un número', check: value => /\d/.test(value) },
+        { rule: 'Debe contener al menos un carácter especial', check: value => /[!@#$%^&*(),.?":{}|<>]/.test(value) },
+    ];
+
+    const { register, client } = useContext(AuthContext)
     const navigate = useNavigate()
-    const { register, user } = useContext(AuthContext)
-    const passwordRef = useRef()
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [name, setName] = useState('')
-    const [error, setError] = useState('')
-    const [requirements, setRequirements] = useState([])
+    const [passwordVisibility, setPasswordVisibility] = useState(false)
+    const [passwordRulesVisibility, setPasswordRulesVisibility] = useState(null)
+    const [loading, setLoading] = useState(false)
+    const [errorMessage, setErrorMessage] = useState(null)
+    const [rulesStatus, setRulesStatus] = useState(passwordRules.map(() => false));
 
-    function validateForm(e) {
+    async function registerClient(e) {
         e.preventDefault()
+        setLoading(true)
 
-        if (requirements.length == 0) {
-            if (email !== '' && password !== '' && name !== '') {
-                const dataRegister = {
-                    email,
-                    password,
-                    name
-                }
-                register(dataRegister, setError)
-            } else {
-                setError('Completa todos los campos')
-            }
-        } else {
-            setError('Completa con todos los requisitos de la contraseña')
-        }
-    }
-
-    function validateName(e) {
-        const value = e.target.value.trim()
-        setError('')
-
-        const expresionNombre = /^[a-zA-Z ]+$/
-        if (expresionNombre.test(value)) {
-            setName(value)
-            setError('')
-        } else {
-            setName('')
-            setError('El nombre no debe contener números ni símbolos')
-        }
-
-        value === '' && setError('')
-    }
-
-    function validateEmail(e) {
-        const value = e.target.value.trim()
-        setError('')
-
-        const expresionCorreo = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        if (expresionCorreo.test(value)) {
-            setEmail(value)
-            setError('')
-        } else {
-            setEmail('')
-            setError('La dirección de correo no tiene el formato requerido')
-        }
-
-        value === '' && setError('')
-    }
-
-    async function checkPassword(e) {
-        const password = e.target.value.trim()
-        setError('')
-        setRequirements([]);
+        const data = new FormData(e.target)
 
         try {
-            const result = await validatePassword(getAuth(), password);
-            if (result.isValid) {
-                setError('')
-                setRequirements([]);
-                setPassword(password)
-            } else {
-                const requirements = [];
-                if (password) {
+            const client = await register(data)
+            setLoading(false)
 
-                    if (!result.meetsMinPasswordLength) requirements.push("Debe tener al menos 8 caracteres.");
-                    if (!result.containsUppercaseLetter) requirements.push("Debe contener al menos una letra mayúscula.");
-                    if (!result.containsNumericCharacter) requirements.push("Debe contener al menos un número.");
-                    if (!result.containsNonAlphanumericCharacter) requirements.push("Debe contener al menos un carácter especial.");
+            client && navigate('/verificar-correo')
 
-                    setRequirements(requirements);
+        } catch (error) {
+
+            setLoading(false)
+            setPasswordRulesVisibility(false)
+
+            const { email, name, password } = error.errors
+
+            const typeErrors = {
+                email: [
+                    'The email has already been taken.',
+                    'The email field is required.'
+                ],
+                password: [
+                    'The password field confirmation does not match.',
+                    'The password field must contain at least one symbol.',
+                    'The password field must contain at least one number.',
+                    'The password field must contain at least one uppercase and one lowercase letter.',
+                    'The password field must be at least 8 characters.',
+                    'The password field is required.'
+                ],
+                name: [
+                    'The name field is required.'
+                ]
+            }
+
+            if (name && typeErrors.name[0] == name[0]) {
+                return setErrorMessage('Completa con tu nombre')
+            }
+
+            if (email) {
+                if (typeErrors.email[0] == email[0]) {
+                    return setErrorMessage('El correo electrónico está en uso')
+                }
+
+                if (typeErrors.email[1] == email[0]) {
+                    return setErrorMessage('Completa con tu correo electrónico')
                 }
             }
-        } catch (error) {
-            console.error("Error al validar la contraseña:", error);
+
+            if (password) {
+                if (typeErrors.password[5] == password[0]) {
+                    return setErrorMessage('Completa la contraseña')
+                }
+
+                if (typeErrors.password[0] == password[0]) {
+                    return setErrorMessage('Las contraseñas son distintas')
+                }
+
+                if (typeErrors.password[3] == password[0]) {
+                    return setErrorMessage('La contraseña debe contener al menos una letra mayúscula')
+                }
+
+                if (typeErrors.password[2] == password[0]) {
+                    return setErrorMessage('Las contraseñas debe contener al menos un número')
+
+                }
+
+                if (typeErrors.password[1] == password[0]) {
+                    return setErrorMessage('Debe contener al menos un carácter especial')
+                }
+
+                if (typeErrors.password[4] == password[0]) {
+                    return setErrorMessage('Debe contener al menos 8 caracteres')
+                }
+            }
         }
     }
 
+    function changePassword(e) {
+
+        changeInput()
+        setPasswordRulesVisibility(true)
+
+        const newRulesStatus = passwordRules.map(rule => rule.check(e.target.value));
+        setRulesStatus(newRulesStatus)
+    }
+
+    function changeInput() {
+        setErrorMessage(null)
+    }
+
+
     useEffect(() => {
-        user !== null && navigate('/')
+        client !== null && navigate('/')
         document.title = 'Registrarse'
-    }, [user])
+    }, [client])
 
     return (
         <section className="register">
-            <p>Crear cuenta con correo electrónco</p>
-            <form onSubmit={validateForm}>
-                <input onChange={validateName} className="input" type="text" placeholder="Nombre y Apellido" autoComplete="off" />
-                <input onChange={validateEmail} className="input" type="email" placeholder="Correo electrónico" />
-                <input onChange={checkPassword} ref={passwordRef} className="input" type="password" placeholder="Contraseña" />
-                <button type="submit" className="btn btn-solid">Registrarse</button>
+            <h3>Crear cuenta</h3>
+            <form onSubmit={registerClient}>
+                <input
+                    className="input"
+                    autoComplete="off"
+                    type="text"
+                    name="name"
+                    placeholder="Nombre"
+                    onChange={changeInput}
+                />
+                <input
+                    className="input"
+                    autoComplete="off"
+                    type="email"
+                    name="email"
+                    placeholder="Correo electrónico"
+                    onChange={changeInput}
+                />
+
+                <input
+                    className="input"
+                    autoComplete="off"
+                    type="tel"
+                    name="phone_number"
+                    placeholder="Número de teléfono (opcional)"
+                    onChange={changeInput}
+                />
+                <input
+                    className="input"
+                    autoComplete="off"
+                    type={passwordVisibility ? "text" : "password"}
+                    placeholder="Contraseña"
+                    name="password"
+                    onChange={changePassword}
+                    onFocus={() => setPasswordRulesVisibility(true)}
+                    onBlur={() => setPasswordRulesVisibility(false)}
+                />
+                <div>
+                    <input
+                        className="input"
+                        autoComplete="off"
+                        type={passwordVisibility ? "text" : "password"}
+                        name="password_confirmation"
+                        placeholder="Confirmar contraseña"
+                        onChange={changeInput}
+                    />
+                    <label><input type="checkbox" onChange={() => setPasswordVisibility(!passwordVisibility)} /> Mostrar constraseñas </label>
+                </div>
+                <button type="submit" className="btn btn-solid" disabled={loading}>{loading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Crear cuenta'}</button>
+                <div className="password-rules">
+                    {passwordRulesVisibility && passwordRules.map((rule, index) =>
+                        <p key={index} style={rulesStatus[index] ? { color: '#66b819' } : {}}>{rule.rule}</p>
+                    )}
+                </div>
+                {errorMessage && <p className="message-error">{errorMessage} <FontAwesomeIcon icon={faXmark} onClick={() => setErrorMessage(null)} /></p>}
             </form>
-            {error && <p className="message-error"> {error} </p>}
-            <div>
-                {requirements && requirements.map((e) => <p className="message-notification"> {e} </p>)}
-            </div>
             <div className="div"></div>
-            <p>Crear cuenta con</p>
-            <AuthProviderButtons setError={setError} />
             <Link to={'/iniciar-sesion'} className="btn btn-auth">Iniciar sesión</Link>
         </section>
     )
