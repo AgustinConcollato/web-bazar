@@ -3,7 +3,7 @@ import { Link, Route, Routes } from "react-router-dom"
 import { CartDetail } from "../components/CartDetail/CartDetail"
 import { CartProduct } from "../components/CartProduct/CartProduct"
 import { Loading } from "../components/Loading/Loading"
-import { NavBar } from "../components/NavBar/NavBar"
+import { BtnNavBar } from "../components/BtnNavBar/BtnNavBar"
 import { OrderConfirmed } from "../components/OrderConfirmed/OrderConfirmed"
 import { AuthContext } from "../context/authContext"
 import { CartContext } from "../context/CartContext"
@@ -13,7 +13,7 @@ import { ConfirmOrder } from "../components/ConfirmOrder/ConfirmOrder"
 export function ShoppingCartPage() {
 
     const { client } = useContext(AuthContext)
-    const { getCart, deleteProductCart } = useContext(CartContext)
+    const { getCart, deleteProductCart, cart } = useContext(CartContext)
 
     const [productList, setProductList] = useState(null)
     const [loading, setLoading] = useState(null)
@@ -53,6 +53,10 @@ export function ShoppingCartPage() {
         client && getShoppingCart()
     }, [client])
 
+    useEffect(() => {
+        cart?.length == 0 && setProductList([])
+    }, [cart])
+
     if (!client) {
 
         document.title = 'Iniciar sesión para ver tu pedido'
@@ -80,13 +84,13 @@ export function ShoppingCartPage() {
                                 </div> :
                                 <div className="shopping-cart-empty">
                                     <h2>Todavía no tiene productos</h2>
-                                    <p>Agrega lo que más te guste de las diferentes categorías <NavBar /></p>
+                                    <p>Agrega lo que más te guste de las diferentes categorías <BtnNavBar /></p>
                                 </div> :
                             <Loading />
                         }
                     </div>
                     {(productList && productList.length != 0) &&
-                        <CartDetail productList={productList} />
+                        <CartDetail productList={productList} cart={productList} />
                     }
                 </section >
             } />

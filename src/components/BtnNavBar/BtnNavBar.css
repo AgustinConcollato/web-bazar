@@ -1,0 +1,36 @@
+.container-categories {
+    position: relative;
+}
+
+.container-categories nav {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.container-categories nav ul {
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    box-shadow: 0 5px 20px #00000010;
+}
+
+.container-categories nav ul li a {
+    display: inline-block;
+    padding: 10px 20px;
+    width: 200px;
+    background: #fff;
+}
+
+.container-categories nav ul li a:hover {
+    background: #eee;
+}
+
+@media (max-width: 500px) {
+    header .container-categories nav {
+        left: 0;
+        transform: translateX(0);
+    }
+}

@@ -1,14 +1,16 @@
-import { api } from "../../services/api"
-import { useEffect, useState } from "react"
-import './Filters.css'
-import { Link, useParams } from "react-router-dom"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useEffect, useState } from "react"
+import { Link, useNavigate, useParams } from "react-router-dom"
+import { api } from "../../services/api"
+import './Filters.css'
 
 export function Filters({ category }) {
 
     const { Categories, } = api
     const { subcategoryCode, categoryCode } = useParams()
+
+    const navigate = useNavigate();
 
     const [categoryData, setCategoryData] = useState(null)
     const [hidden, setHidden] = useState(false)
@@ -22,6 +24,11 @@ export function Filters({ category }) {
         document.title = `${response.name}`
     }
 
+
+    const handleChange = (e) => {
+        const selectedSubcategory = e.target.value;
+        navigate(`/productos/${categoryCode}/${selectedSubcategory}`);
+    };
 
     useEffect(() => {
         getCategories()
@@ -57,7 +64,17 @@ export function Filters({ category }) {
                 <>
                     <h1>{categoryData.name}</h1>
                     <div>
-                        <p onClick={() => setHidden(window.innerWidth <= 850 && !hidden)}>Subcategorías {window.innerWidth <= 850 && <FontAwesomeIcon icon={!hidden ? faAngleUp : faAngleDown} />}</p>
+                        {window.innerWidth <= 850 ?
+                            <select value={subcategoryCode || ''} onChange={handleChange}>
+                                <option value="" disabled hidden>Subcategoría</option>
+                                {categoryData.subcategories.map((e) => (
+                                    <option key={e.subcategory_code} value={e.subcategory_code}>
+                                        {e.subcategory_name}
+                                    </option>
+                                ))}
+                            </select> :
+                            <p>Subcategorías {window.innerWidth <= 850 && <FontAwesomeIcon icon={!hidden ? faAngleUp : faAngleDown} />}</p>
+                        }
                         {subcategoryCode && <Link to={'/productos/' + categoryCode} className="btn btn-error-thins" >Borrar filtro</Link>}
                     </div>
                     {!hidden &&

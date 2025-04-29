@@ -1,0 +1,22 @@
+.terms-and-conditions-page h1 {
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.terms-and-conditions-page h3 {
+    font-weight: 500;
+    margin: 20px 0 5px;
+}
+
+.terms-and-conditions-page p {
+    margin-bottom: 10px;
+}
+
+.terms-and-conditions-page>ul ul {
+    margin-left: 40px;
+    list-style: circle;
+}
+
+.terms-and-conditions-page ul li {
+    margin-bottom: 5px;
+}

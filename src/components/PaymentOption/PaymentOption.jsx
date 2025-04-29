@@ -96,8 +96,8 @@ export function PaymentOption({ totalAmount, onChange, allowTwoMethods, setAllow
                             }
                         />
                         {method === 'transfer' && 'Transferencia'}
-                        {method === 'cash' && 'Efectivo'}
-                        {method === 'check' && 'Cheque'}
+                        {method === 'cash' && 'Efectivo (contra rembolso)'}
+                        {method === 'check' && 'Cheque (contra rembolso)'}
                     </label>
 
                     {/* Mostrar input solo si hay más de un método seleccionado */}

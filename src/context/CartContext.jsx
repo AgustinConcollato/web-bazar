@@ -20,13 +20,6 @@ export function CartProvider({ children }) {
         return response
     }
 
-    async function getCartDetail() {
-        const response = await shoppingCart.getDetail(client.id)
-        setCart(response)
-
-        return response
-    }
-
     async function addProductCart(product) {
         const response = await shoppingCart.add(product)
 
@@ -68,13 +61,14 @@ export function CartProvider({ children }) {
     async function confirmCart(data) {
         const response = await shoppingCart.confirm(data)
 
+        alert()
         setCart([])
 
         return response
     }
 
     useEffect(() => {
-        client && getCartDetail()
+        client && getCart()
     }, [client])
 
     return (

@@ -12,6 +12,21 @@
     flex-direction: column;
 }
 
+.cart-detail-info p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-detail-info h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 17px;
+    margin-top: 20px;
+}
+
 .cart-detail-info>div {
     margin-top: 20px;
 }

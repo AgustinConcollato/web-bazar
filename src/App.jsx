@@ -13,6 +13,7 @@ import { ProfilePage } from './pages/ProfilePage/ProfilePage'
 import { SearchResultsPage } from './pages/SearchResultsPage'
 import { ShoppingCartPage } from './pages/ShoppingCartPage'
 import { VerifyEmailPage } from './pages/VerifyEmailPage/VerifyEmailPage'
+import { TermsAndConditionsPage } from './pages/TermsAndConditionsPage/TermsAndConditionsPage'
 
 export function App() {
   return (
@@ -29,6 +30,7 @@ export function App() {
         <Route path='/producto/:productId' element={<ProductDetailPage />} />
         <Route path='/perfil' element={<ProfilePage />} />
         <Route path='/compras/*' element={<OrdersPage />} />
+        <Route path='/terminos-condiciones' element={<TermsAndConditionsPage />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
       <Footer />

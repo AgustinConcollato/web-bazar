@@ -1,3 +1,5 @@
+import { faXmark } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { CartContext } from "../../context/CartContext"
@@ -7,8 +9,6 @@ import { Loading } from "../Loading/Loading"
 import { Modal } from "../Modal/Modal"
 import { PaymentOption } from "../PaymentOption/PaymentOption"
 import './ConfirmOrder.css'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faXmark } from "@fortawesome/free-solid-svg-icons"
 
 export function ConfirmOrder({ client }) {
 
@@ -23,7 +23,7 @@ export function ConfirmOrder({ client }) {
     const [totalAmount, setTotalAmount] = useState(0)
     const [paymentAmounts, setPaymentAmounts] = useState({});
     const [allowTwoMethods, setAllowTwoMethods] = useState(false);
-
+    const [send, setSend] = useState(false)
 
     async function confirm() {
 
@@ -63,8 +63,15 @@ export function ConfirmOrder({ client }) {
             client_id: client.id,
             user_name: client.name,
             comment,
-            address,
             payment_methods: paymentAmounts,
+        }
+
+        if (send) {
+            data.address = {
+                transport: true
+            }
+        } else {
+            data.address = address
         }
 
         try {
@@ -98,13 +105,14 @@ export function ConfirmOrder({ client }) {
     }, [address])
 
     useEffect(() => {
-        cart && cart.length != 0 &&
+        if (cart && cart.length > 0) {
             setTotalAmount(
                 cart.reduce((acc, item) => {
                     const price = item.product.discount ? item.product.price - (item.product.price * item.product.discount / 100) : item.product.price;
                     return acc + item.quantity * price;
                 }, 0)
             )
+        }
     }, [cart])
 
     return (
@@ -115,27 +123,46 @@ export function ConfirmOrder({ client }) {
                         <h2>Confirmar pedido</h2>
                         <p>Por favor, confirma los datos de tu pedido</p>
                     </div>
-                    <div className="confirm-order-address">
-                        <h3>Dirección de envío</h3>
-                        <div className="address-for-order">
-                            {address ?
-                                <>
-                                    <p className="order-address-selected">
-                                        {address.address + ' ' + address.address_number}
-                                        <button className="btn-change-address" onClick={() => setChangeAddress(!changeAddress)}>Cambiar</button>
-                                    </p>
-                                    <p>{address ? address.city : ''}</p>
-                                </> :
-                                <>
-                                    <p>No hay direcciones registradas</p>
-                                    <button className="btn-change-address" onClick={() => setChangeAddress(!changeAddress)}>Agregar nueva dirección</button>
-                                </>
-                            }
+                    <div className="order-delivery-options">
+                        <h3>¿Cómo querés recibir tu pedido?</h3>
+                        <div className="delivery-options-buttons">
+                            <button
+                                className={send ? "btn" : "btn btn-regular"}
+                                onClick={() => setSend(false)}
+                            >
+                                Enviar a domicilio
+                            </button>
+                            <button
+                                className={send ? "btn btn-regular" : "btn"}
+                                onClick={() => setSend(true)}
+                            >
+                                Retirar
+                            </button>
                         </div>
-                        {changeAddress &&
-                            <Modal onClose={setChangeAddress}>
-                                <Addresses client={client} type={'MODAL'} onChange={setAddress} />
-                            </Modal>
+                        {!send &&
+                            <div className="confirm-order-address">
+                                <h3>Dirección de envío</h3>
+                                <div className="address-for-order">
+                                    {address ?
+                                        <>
+                                            <p className="order-address-selected">
+                                                {address.address + ' ' + address.address_number}
+                                                <button className="btn-change-address" onClick={() => setChangeAddress(!changeAddress)}>Cambiar</button>
+                                            </p>
+                                            <p>{address ? address.city : ''}</p>
+                                        </> :
+                                        <>
+                                            <p>No hay direcciones registradas</p>
+                                            <button className="btn-change-address" onClick={() => setChangeAddress(!changeAddress)}>Agregar nueva dirección</button>
+                                        </>
+                                    }
+                                </div>
+                                {changeAddress &&
+                                    <Modal onClose={setChangeAddress}>
+                                        <Addresses client={client} type={'MODAL'} onChange={setAddress} />
+                                    </Modal>
+                                }
+                            </div>
                         }
                     </div>
                     <div className="payment-methods">
@@ -167,12 +194,11 @@ export function ConfirmOrder({ client }) {
                         Precio total: ${totalAmount}
                         <span>El precio no incluye el costo del envio</span>
                     </p>
-
                 </div>
                 {message && <p className="message-error">{message} <FontAwesomeIcon icon={faXmark} onClick={() => setMessage('')} /></p>}
                 <button onClick={confirm} className="btn btn-solid">Confirmar pedido</button>
                 <div className="accept-terms-conditions">
-                    <p>Al confirmar el pedido estás aceptando los <Link to={'/terminos-condiciones-compra'}>términos y condiciones</Link> de compra.</p>
+                    <p>Al confirmar el pedido estás aceptando los <Link to={'/terminos-condiciones'} target="_blank" >términos y condiciones</Link>.</p>
                 </div>
             </div>
         </section>

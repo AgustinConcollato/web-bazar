@@ -13,7 +13,7 @@ export function Footer() {
     const mobile = usePlatform()
 
     const { categories } = useContext(CategoriesContext)
-    const { user, logOut } = useContext(AuthContext)
+    const { client, logOut } = useContext(AuthContext)
 
     const [modal, setModal] = useState(null)
 
@@ -42,7 +42,7 @@ export function Footer() {
                     </div>
                     <div className='footer-list'>
                         <h4>Mi cuenta</h4>
-                        {user ?
+                        {client ?
                             <ul>
                                 <li><Link to={'/perfil'}>Mi perfil</Link></li>
                                 <li><Link to={'/compras'}>Mis pedidos</Link></li>

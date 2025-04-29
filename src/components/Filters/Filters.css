@@ -63,8 +63,9 @@
         text-wrap: nowrap;
     }
 
-    .filters div p {
-        padding: 5px 10px;
+    .filters div select {
+        max-width: 170px;
+        padding: 10px;
         border-radius: 5px;
         border: 1px solid #ccc;
         background: #f5f5f5;

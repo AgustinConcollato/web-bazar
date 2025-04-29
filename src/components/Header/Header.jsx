@@ -22,25 +22,27 @@ export function Header() {
 
     return (
         <header>
-            <div>
+            <div className="header-container">
                 <div>
-                    <Link to={'/'}><h1><span>BAZAR</span>SHOP</h1></Link>
-                    <NavBar />
+                    <Link to={'/'} className="logo">
+                        <img src="/logo.svg" alt="Logo bazarshop mayorista" />
+                    </Link>
+                    <Search />
+                    {client ?
+                        <div className="btns-header">
+                            <Link className="btn-order" to={'/pedido'}>
+                                {quantity != 0 && <span>{quantity}</span>}
+                                <FontAwesomeIcon icon={faBasketShopping} />
+                            </Link>
+                            <UserMenu />
+                        </div> :
+                        <div className="btns-header">
+                            <Link to={'/iniciar-sesion'} className="btn btn-regular">Ingresar</Link>
+                            <Link to={'/registrarse'} className="btn btn-solid">Registrarse </Link>
+                        </div>
+                    }
                 </div>
-                <Search />
-                {client ?
-                    <div>
-                        <Link className="btn-order" to={'/pedido'}>
-                            {quantity != 0 && <span>{quantity}</span>}
-                            <FontAwesomeIcon icon={faBasketShopping} />
-                        </Link>
-                        <UserMenu />
-                    </div> :
-                    <div>
-                        <Link to={'/iniciar-sesion'} className="btn btn-regular">Ingresar</Link>
-                        <Link to={'/registrarse'} className="btn btn-solid">Registrarse </Link>
-                    </div>
-                }
+                <NavBar />
             </div>
         </header>
     )
