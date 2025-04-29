@@ -1,10 +1,10 @@
-import { urlStorage } from "../../services/api";
-import { Link } from "react-router-dom";
-import { FormAddProductToCart } from "../FormAddProductToCart/FormAddProductToCart";
-import { useEffect, useState } from "react";
-import './ProductCard.css';
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { urlStorage } from "../../services/api";
+import { FormAddProductToCart } from "../FormAddProductToCart/FormAddProductToCart";
+import './ProductCard.css';
 
 export function ProductCard({ e }) {
 
@@ -59,7 +59,6 @@ export function ProductCard({ e }) {
                             <img
                                 className={`fade-image ${fade ? "visible" : "hidden"}`}
                                 loading="lazy"
-                                // src={'https://api.bazarrshop.com/storage' + '/' + images[position]}
                                 src={urlStorage + '/' + images[position]}
                                 alt={e.name + e.description}
                             />
@@ -89,7 +88,7 @@ export function ProductCard({ e }) {
                             </p>
                             <p>${parseFloat(e.price - (e.discount * e.price) / 100)}</p>
                         </> :
-                        <p>${parseFloat(e.price)}</p>
+                        <p className="price">${parseFloat(e.price)}</p>
                     }
                 </Link>
                 <FormAddProductToCart type={'CARD'} product={e} />
