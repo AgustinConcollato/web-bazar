@@ -29,7 +29,7 @@ export function ConfirmOrder({ client }) {
 
         setMessage('');
 
-        if (!address) {
+        if (!address && !send) {
             setMessage('No hay un dirección seleccionada para el pedido')
             return
         }
@@ -112,7 +112,11 @@ export function ConfirmOrder({ client }) {
                     return acc + item.quantity * price;
                 }, 0)
             )
+        } else {
+            navigate('/pedido')
         }
+
+        scrollTo(0, 0)
     }, [cart])
 
     return (
