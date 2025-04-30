@@ -20,6 +20,11 @@
 
 .product-card a div p:first-child {
     margin-bottom: 5px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
 .product-card:hover .image-nav {
@@ -94,6 +99,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     word-wrap: break-word;
+    margin-bottom: 5px;
 }
 
 .new-arrival {
