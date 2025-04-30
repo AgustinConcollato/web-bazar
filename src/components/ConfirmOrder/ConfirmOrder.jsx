@@ -195,7 +195,7 @@ export function ConfirmOrder({ client }) {
             <div className="confirm-order">
                 <div className="confirm-order-price">
                     <p>
-                        Precio total: ${totalAmount}
+                        Precio total: ${totalAmount.toFixed(2)}
                         <span>El precio no incluye el costo del envio</span>
                     </p>
                 </div>
