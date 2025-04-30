@@ -54,6 +54,8 @@
         justify-content: space-between;
         margin-bottom: 20px;
         position: relative;
+        flex-wrap: wrap;
+        gap: 10px;
     }
 
     .filters div {

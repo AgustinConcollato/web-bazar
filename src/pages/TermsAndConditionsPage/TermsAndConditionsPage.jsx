@@ -5,6 +5,7 @@ export function TermsAndConditionsPage() {
 
     useEffect(() => {
         document.title = 'Términos y Condiciones - Bazarshop'
+        scrollTo(0, 0)
     }, [])
 
     return (

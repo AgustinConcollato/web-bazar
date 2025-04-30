@@ -18,15 +18,22 @@ footer>div h4 {
     margin-bottom: 10px;
 }
 
-footer>div .btn {
-    color: #fff;
-    margin-left: 10px;
-    background: transparent;
-    border: 1px solid #aaa;
+.container-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-footer>div .btn:hover {
-    background: #ffffff10;
+.container-footer>div:first-child {
+    display: flex;
+    justify-content: center;
+}
+
+.container-footer img {
+    width: 200px;
 }
 
 .container-footer-list {
@@ -80,6 +87,8 @@ footer>div .btn:hover {
 footer p {
     color: #aaa;
     margin-top: 30px;
+    text-align: center;
+    text-wrap: pretty;
 }
 
 footer p a {
@@ -109,8 +118,16 @@ footer p a:hover {
 
     .container-footer-list {
         width: 100%;
-        justify-content: space-between;
         flex-wrap: wrap;
-        gap: 30px;
+        gap: 50px;
     }
+
+    .container-footer {
+        gap: 40px;
+    }
+
+    .container-footer>div:first-child {
+        width: 100%;
+    }
+
 }

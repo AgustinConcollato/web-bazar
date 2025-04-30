@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import { CartContext } from "../../context/CartContext";
 import { NavBar } from "../NavBar/NavBar";
+import { BtnNavBar } from "../BtnNavBar/BtnNavBar";
 import { Search } from "../Search/Search";
 import { UserMenu } from "../UserMenu/UserMenu";
 import './Header.css';
@@ -15,6 +16,14 @@ export function Header() {
     const { cart } = useContext(CartContext)
 
     const [quantity, setQuantity] = useState(0)
+    const [width, setWidth] = useState(window.innerWidth)
+
+    const handleResize = () => {
+        setWidth(window.innerWidth)
+    }
+
+    document.addEventListener('resize', handleResize)
+    window.addEventListener('resize', handleResize)
 
     useEffect(() => {
         cart && setQuantity(cart.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue.quantity), 0))
@@ -30,7 +39,7 @@ export function Header() {
                     <Search />
                     {client ?
                         <div className="btns-header">
-                            <Link className="btn-order" to={'/pedido'}>
+                            <Link className="btn btn-order" to={'/pedido'}>
                                 {quantity != 0 && <span>{quantity}</span>}
                                 <FontAwesomeIcon icon={faBasketShopping} />
                             </Link>
@@ -42,7 +51,10 @@ export function Header() {
                         </div>
                     }
                 </div>
-                <NavBar />
+                {width >= 800 ?
+                    <NavBar /> :
+                    <BtnNavBar />
+                }
             </div>
         </header>
     )

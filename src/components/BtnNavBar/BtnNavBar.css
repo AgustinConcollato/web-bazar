@@ -8,6 +8,8 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
+    background: #fff;
+    border-radius: 10px;
 }
 
 .container-categories nav ul {
@@ -20,12 +22,20 @@
 .container-categories nav ul li a {
     display: inline-block;
     padding: 10px 20px;
-    width: 200px;
     background: #fff;
+    width: 100%;
+    min-width: 200px;
 }
 
 .container-categories nav ul li a:hover {
     background: #eee;
+}
+
+@media (max-width: 800px) {
+    header .container-categories nav {
+        top: calc(100% + 5px);
+        width: 100%;
+    }
 }
 
 @media (max-width: 500px) {

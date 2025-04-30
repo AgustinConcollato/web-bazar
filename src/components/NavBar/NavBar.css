@@ -12,7 +12,7 @@
 .nav-bar ul li a {
     text-wrap: none;
     display: inline-block;
-    padding: 10px;
+    padding: 10px 15px;
     border-radius: 10px;
 }
 

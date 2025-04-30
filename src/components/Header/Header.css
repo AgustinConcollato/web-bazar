@@ -11,14 +11,14 @@ header {
     flex-direction: column;
     max-width: 1250px;
     width: 100%;
-    gap: 10px;
+    gap: 20px;
 }
 
 .header-container>div {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 20px;
 }
 
 .btns-header {
@@ -43,8 +43,8 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 35px;
-    width: 35px;
+    height: 40px;
+    width: 40px;
     position: relative;
     background: #eee;
 }

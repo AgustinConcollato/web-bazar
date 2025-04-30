@@ -73,7 +73,7 @@ export function Filters({ category }) {
                                     </option>
                                 ))}
                             </select> :
-                            <p>Subcategorías {window.innerWidth <= 850 && <FontAwesomeIcon icon={!hidden ? faAngleUp : faAngleDown} />}</p>
+                            <p>Subcategorías</p>
                         }
                         {subcategoryCode && <Link to={'/productos/' + categoryCode} className="btn btn-error-thins" >Borrar filtro</Link>}
                     </div>
