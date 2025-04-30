@@ -120,6 +120,7 @@ export const Register = () => {
     useEffect(() => {
         client !== null && navigate('/')
         document.title = 'Registrarse'
+        scrollTo(0, 0)
     }, [client])
 
     return (

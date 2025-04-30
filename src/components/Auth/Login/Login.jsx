@@ -53,6 +53,8 @@ export function Login() {
     useEffect(() => {
         client !== null && navigate('/')
         document.title = 'Ingresar a tu cuenta'
+        scrollTo(0, 0)
+
     }, [client])
 
     return (

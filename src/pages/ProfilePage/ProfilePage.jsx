@@ -47,6 +47,7 @@ export function ProfilePage() {
         if (client) {
             document.title = 'Tu perfil - ' + client.name
         }
+        scrollTo(0, 0)
     }, [client])
 
 

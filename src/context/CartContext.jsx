@@ -60,8 +60,6 @@ export function CartProvider({ children }) {
 
     async function confirmCart(data) {
         const response = await shoppingCart.confirm(data)
-
-        alert()
         setCart([])
 
         return response

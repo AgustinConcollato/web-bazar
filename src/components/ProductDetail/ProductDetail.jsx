@@ -31,6 +31,7 @@ export function ProductDetail({ product }) {
 
     useEffect(() => {
         document.title = product?.name || 'Bazar Shop'
+        scrollTo(0, 0)
     }, [product])
 
     return (

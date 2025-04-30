@@ -77,6 +77,7 @@ function Details({ orders }) {
         setOrder(null)
         getOrder()
         document.title = 'Detalle del pedido'
+        scrollTo(0, 0)
     }, [id])
 
     return (

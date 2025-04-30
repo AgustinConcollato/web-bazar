@@ -8,6 +8,7 @@ export function AllOrders({ orders }) {
 
     useEffect(() => {
         document.title = 'Tus pedidos'
+        scrollTo(0, 0)
     }, [])
 
     return (

@@ -59,6 +59,7 @@ export function HomePage() {
 
     useEffect(() => {
         user && getAddress()
+        scrollTo(0, 0)
     }, [user])
 
     return (
