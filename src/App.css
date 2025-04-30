@@ -89,6 +89,10 @@ section {
     fill: #fff;
 }
 
+.btn-disabled {
+    filter: grayscale(.5);
+}
+
 .btn-regular svg path,
 .btn-thins svg path {
     fill: var(--color-primary);

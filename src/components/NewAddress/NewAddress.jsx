@@ -119,15 +119,13 @@ export function NewAddress({ setAddresses, total, onClose }) {
                         autoComplete="off"
                     />
                 </div>}
-            {/* {(province && city && address && number) && */}
             <button
                 type="submit"
                 disabled={!province || !city || !address || !number}
-                className={"btn btn-solid" + (!province || !city || !address || !number ? ' btn-solid-disabled' : '')}
+                className={"btn btn-solid" + (!province || !city || !address || !number ? ' btn-disabled' : '')}
             >
                 Agregar
             </button>
-            {/* } */}
         </form>
     )
 }
