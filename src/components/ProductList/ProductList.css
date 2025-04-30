@@ -2,7 +2,7 @@
     max-width: 1250px;
     display: flex;
     align-items: start;
-    gap: 10px;
+    gap: 30px;
     margin: auto;
     padding: 60px 0 120px 0;
     min-height: calc(100vh - 375px);
@@ -15,7 +15,6 @@
 .product-list {
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: end; */
     gap: 10px;
     margin-bottom: 40px;
 }
