@@ -1,30 +1,56 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
-import { generateId } from "../../utils/generateId";
-import { InputCity } from "./InputCity";
-import { InputStreet } from "./InputStreet";
-import './NewAddress.css';
 import { Address } from "../../services/addressService";
+import { generateId } from "../../utils/generateId";
+import './NewAddress.css';
 
 export function NewAddress({ setAddresses, total, onClose }) {
 
-    const urlApiLocation = 'https://apis.datos.gob.ar/georef/api'
+    const provinceList = [
+        "Ciudad Autónoma de Buenos Aires",
+        "Neuquén",
+        "San Luis",
+        "Santa Fe",
+        "La Rioja",
+        "Catamarca",
+        "Tucumán",
+        "Chaco",
+        "Formosa",
+        "Santa Cruz",
+        "Chubut",
+        "Mendoza",
+        "Entre Ríos",
+        "San Juan",
+        "Jujuy",
+        "Santiago del Estero",
+        "Río Negro",
+        "Corrientes",
+        "Misiones",
+        "Salta",
+        "Córdoba",
+        "Buenos Aires",
+        "La Pampa",
+        "Tierra del Fuego, Antártida e Islas del Atlántico Sur"
+    ]
 
     const { client } = useContext(AuthContext)
 
-    const [provinceList, setProvinceList] = useState([])
-    const [province, setProvince] = useState()
-    const [city, setCity] = useState()
-    const [address, setAddress] = useState()
-    const [number, setNumber] = useState()
+    const [province, setProvince] = useState(null)
+    const [city, setCity] = useState(null)
+    const [address, setAddress] = useState(null)
+    const [number, setNumber] = useState(null)
 
-    async function getProvinces() {
-        const response = await fetch(urlApiLocation + '/provincias')
-        const { provincias } = await response.json()
-        setProvinceList(provincias)
-    }
     function selectProvince(e) {
-        setProvince(e.target.value)
+        const value = e.target.value
+
+        setProvince(null)
+        setTimeout(() => {
+            setProvince(value)
+        }, 10)
+
+        setCity(null)
+        setAddress(null)
+        setNumber(null)
     }
 
     async function addAddress(e) {
@@ -56,29 +82,52 @@ export function NewAddress({ setAddresses, total, onClose }) {
     return (
         <form onSubmit={addAddress} className="form-new-address">
             <h4>Nueva dirección</h4>
-            <select className="input" name="province" onFocus={getProvinces} onChange={selectProvince}>
+            <select className="input" name="province" onChange={selectProvince}>
                 <option value="">Selecciona una provincia</option>
-                {provinceList.map(e => <option key={e.id} value={e.nombre}>{e.nombre}</option>)}
+                {provinceList.map(e => <option key={e} value={e}>{e}</option>)}
             </select>
-            {province && <InputCity url={urlApiLocation} province={province} setCity={setCity} />}
+            {province &&
+                <div className="input-address">
+                    <input
+                        type="text"
+                        onChange={(e) => setCity(e.target.value)}
+                        placeholder="Localidad"
+                        className="input"
+                        autoComplete="off"
+                        required
+                    />
+                </div>
+            }
             {city &&
                 <div className="div-street">
-                    <InputStreet
-                        url={urlApiLocation}
-                        setAddress={setAddress}
-                        province={province}
-                        city={city}
-                    />
+                    <div className="input-address">
+                        <input
+                            type="text"
+                            onChange={(e) => setAddress(e.target.value)}
+                            placeholder="Calle"
+                            className="input"
+                            autoComplete="off"
+                            required
+                        />
+                    </div>
                     <input
                         type="text"
                         placeholder="Altura"
                         onChange={({ target }) => setNumber(target.value)}
                         className="input"
+                        required
+                        autoComplete="off"
                     />
                 </div>}
-            {(province && city && address && number) &&
-                <button type="submit" className="btn btn-solid">Agregar</button>
-            }
+            {/* {(province && city && address && number) && */}
+            <button
+                type="submit"
+                disabled={!province || !city || !address || !number}
+                className={"btn btn-solid" + (!province || !city || !address || !number ? ' btn-solid-disabled' : '')}
+            >
+                Agregar
+            </button>
+            {/* } */}
         </form>
     )
 }
