@@ -56,13 +56,16 @@ export function ProductPage() {
 
 
     return (
-        product ?
-            <section className="product-page">
-                <RecommendCategories product={product} />
-                <ProductDetail product={product} />
-                {/* <RelatedProducts product={product} /> */}
-            </section> :
-            <Loading />
+        <section className="product-page">
+            {product ?
+                <>
+                    <RecommendCategories product={product} />
+                    <ProductDetail product={product} />
+                    <RelatedProducts product={product} />
+                </> :
+                <Loading />
+            }
+        </section>
 
     )
 }

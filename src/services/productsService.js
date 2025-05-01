@@ -34,6 +34,22 @@ export class Products {
         return await response.json();
     }
 
+    async related(id) {
+        try {
+            const response = await fetch(`${url}/related/${id}`);
+
+            if (!response.ok) {
+                const error = await response.json()
+                throw error
+            }
+
+            return await response.json();
+
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async add({ data }) {
         try {
             const response = await fetch(url, {
