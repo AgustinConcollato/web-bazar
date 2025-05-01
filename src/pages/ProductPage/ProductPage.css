@@ -1,0 +1,26 @@
+.product-page {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.product-not-found {
+    min-height: calc(100vh - 375px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.product-not-found p {
+    text-align: center;
+    border-radius: 10px;
+    padding: 50px;
+    width: 100%;
+    max-width: 400px;
+    font-size: 18px;
+    color: var(--color-error);
+    background: var(--color-error-200);
+}

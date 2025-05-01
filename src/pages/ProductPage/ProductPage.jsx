@@ -1,11 +1,13 @@
 import { Link, useParams } from "react-router-dom"
-import { ProductDetail } from "../components/ProductDetail/ProductDetail"
+import { ProductDetail } from "../../components/ProductDetail/ProductDetail"
 import { useEffect, useState } from "react"
-import { api } from "../services/api"
-import { Loading } from "../components/Loading/Loading"
-import { RelatedProducts } from "../components/RelatedProducts/RelatedProducts"
+import { api } from "../../services/api"
+import { Loading } from "../../components/Loading/Loading"
+import { RelatedProducts } from "../../components/RelatedProducts/RelatedProducts"
+import { RecommendCategories } from "../../components/RecommendCategories/RecommendCategories"
+import './ProductPage.css'
 
-export function ProductDetailPage() {
+export function ProductPage() {
 
     const { productId } = useParams()
 
@@ -34,6 +36,7 @@ export function ProductDetailPage() {
     useEffect(() => {
         setProduct(null)
         getProduct(productId)
+        scrollTo(0, 0)
     }, [productId])
 
 
@@ -54,11 +57,11 @@ export function ProductDetailPage() {
 
     return (
         product ?
-            <>
+            <section className="product-page">
+                <RecommendCategories product={product} />
                 <ProductDetail product={product} />
-                {/* <RelatedProducts product={product} type={'NAME'} /> */}
-                {/* <RelatedProducts product={product} type={'CATEGORY'} /> */}
-            </> :
+                {/* <RelatedProducts product={product} /> */}
+            </section> :
             <Loading />
 
     )

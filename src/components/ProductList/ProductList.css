@@ -1,4 +1,4 @@
-.product-page {
+.product-list-page {
     max-width: 1250px;
     display: flex;
     align-items: start;
@@ -34,13 +34,13 @@
 }
 
 @media (max-width: 1280px) {
-    .product-page {
+    .product-list-page {
         padding: 60px 20px 120px;
     }
 }
 
 @media (max-width: 850px) {
-    .product-page {
+    .product-list-page {
         flex-direction: column;
     }
 }

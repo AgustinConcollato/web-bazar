@@ -59,11 +59,11 @@ export function ProductList() {
     }, [categoryCode, subcategoryCode])
 
     return (
-        <>
+        <section className='product-list-page'>
             <Filters category={categoryCode} />
             <div className='container-product-list'>
                 <div>
-                    <ProductFilters totalProducts={pageData?.total}/>
+                    <ProductFilters totalProducts={pageData?.total} />
                 </div>
                 {pageData ?
                     productList.length != 0 ?
@@ -85,7 +85,7 @@ export function ProductList() {
                     <Loading />
                 }
             </div >
-        </>
+        </section>
 
     )
 }

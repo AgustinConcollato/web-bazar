@@ -1,5 +1,5 @@
 .product-card {
-    width: 305px;
+    width: calc(25% - 8px);
     border-radius: 10px;
     border: 1px solid #ccc;
     display: flex;
@@ -65,7 +65,7 @@
 
 .container-product-cart-images {
     height: 210px;
-    width: 285px;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -165,15 +165,20 @@
     opacity: 1;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
     .image-nav {
         display: block;
     }
+
+    .product-card {
+        width: calc(33% - 5px);
+    }
+
 }
 
 @media (max-width: 750px) {
     .product-card {
-        width: calc(50% - 10px);
+        width: calc(50% - 5px);
     }
 
     .container-product-cart-images {

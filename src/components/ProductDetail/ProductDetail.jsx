@@ -1,7 +1,5 @@
+import { useEffect, useState } from "react"
 import { urlStorage } from "../../services/api"
-import { useContext, useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import { CategoriesContext } from "../../context/CategoriesContext"
 import { FormAddProductToCart } from "../FormAddProductToCart/FormAddProductToCart"
 import './ProductDetail.css'
 
@@ -31,11 +29,10 @@ export function ProductDetail({ product }) {
 
     useEffect(() => {
         document.title = product?.name || 'Bazar Shop'
-        scrollTo(0, 0)
     }, [product])
 
     return (
-        <section className="product-page">
+        <div>
             <div className="product-detail" >
                 <div className="container-images">
                     <img src={urlStorage + '/' + images[position]} alt={product.name} />
@@ -68,41 +65,13 @@ export function ProductDetail({ product }) {
                                 <p className="price">${parseFloat(product.price)}</p>
                             }
                             <FormAddProductToCart type={'DETAIL'} product={product} />
-                            <RecommendCategories product={product} />
                         </div>
                     </> :
                     <div className="product-inactive">
                         <p>Este producto no está disponible en este momento</p>
-                        <RecommendCategories product={product} />
                     </div>
                 }
             </div>
-        </section>
-    )
-}
-
-
-function RecommendCategories({ product }) {
-    const { categories } = useContext(CategoriesContext)
-
-    return (
-        (categories && categories.length != 0) &&
-        categories.map(e =>
-            e.code == product.category_code &&
-            <div className="recommend">
-                <p>Ver mas productos relacionados</p>
-                <ul>
-                    <li><Link to={'/productos/' + e.code}>{e.name}</Link></li>
-                    {product.subcategory_code &&
-                        e.subcategories.filter(sub => product.subcategory_code.includes(sub.subcategory_code)).map(sub =>
-                            <li>
-                                <Link to={'/productos/' + sub.category_code + '/' + sub.subcategory_code}>
-                                    {sub.subcategory_name}
-                                </Link>
-                            </li>
-                        )}
-                </ul>
-            </div>
-        )
+        </div>
     )
 }

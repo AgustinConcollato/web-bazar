@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react"
 import { CategoriesContext } from "../../context/CategoriesContext"
 import { ProductCard } from "../ProductCard/ProductCard"
 
-export function RelatedProducts({ product, type }) {
+export function RelatedProducts({ product }) {
     const { categories } = useContext(CategoriesContext)
     const { Products } = api
 
@@ -16,9 +16,8 @@ export function RelatedProducts({ product, type }) {
         const products = new Products()
 
         const options = {
-            name: type == product.name.split(' ')[0],
+            name: type == product.name,
             page: 1,
-            category: type == product.category_id,
         }
 
         try {
@@ -59,9 +58,10 @@ export function RelatedProducts({ product, type }) {
     }
 
     return (
-        <section className="related-products">
+        productList && productList.length > 0 &&
+        <div className="related-products">
             <div>
-                <h3>Relacionados de <span>{type == 'NAME' ? product.name : category.category_name}</span></h3>
+                <h3>Productos relacionados</h3>
                 {productList && productList.length > 5 &&
                     <div className="scroll-buttons">
                         <button onClick={() => scroll('left')}>⬅️</button>
@@ -72,8 +72,8 @@ export function RelatedProducts({ product, type }) {
             <div className="container-related-products" ref={containerRef}>
                 {productList && productList.length > 1
                     ? productList.map(e => e.id != product.id && <ProductCard e={e} />)
-                    : <p>No hay productos relacionados por nombre</p>}
+                    : <p>No hay productos relacionados</p>}
             </div>
-        </section>
+        </div>
     )
 }

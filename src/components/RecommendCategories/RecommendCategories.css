@@ -1,0 +1,25 @@
+.recommend ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.recommend {
+    align-items: start;
+    display: flex;
+    gap: 20px;
+}
+
+.recommend p {
+    margin-bottom: 7px;
+    font-weight: 300;
+}
+
+.recommend ul li a {
+    display: block;
+    padding: 5px 10px;
+    background: #f5f5f5;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+}
