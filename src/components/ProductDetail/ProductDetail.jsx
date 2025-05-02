@@ -11,7 +11,7 @@ export function ProductDetail({ product }) {
 
     const isNewArrival = (e) => {
         const currentDate = new Date();
-        const creationDate = new Date(e.creation_date);
+        const creationDate = new Date(e.created_at);
         const thirtyDaysAgo = new Date();
         thirtyDaysAgo.setDate(currentDate.getDate() - 30);
 
