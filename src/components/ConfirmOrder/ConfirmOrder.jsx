@@ -1,4 +1,4 @@
-import { faXmark } from "@fortawesome/free-solid-svg-icons"
+import { faCircleNotch, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
@@ -24,6 +24,7 @@ export function ConfirmOrder({ client }) {
     const [paymentAmounts, setPaymentAmounts] = useState({});
     const [allowTwoMethods, setAllowTwoMethods] = useState(false);
     const [send, setSend] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     async function confirm() {
 
@@ -74,12 +75,22 @@ export function ConfirmOrder({ client }) {
             data.address = address
         }
 
+        setLoading(true)
+
         try {
             const order_id = await confirmCart(data)
 
             navigate('/pedido/confirmado/' + order_id)
         } catch (error) {
-            console.log(error)
+
+            if (error.errors?.payment_methods[0] == "The payment methods field is required.") {
+                setMessage('Seleccioná un método de pago');
+                return
+            }
+
+            setMessage(error.error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -200,7 +211,7 @@ export function ConfirmOrder({ client }) {
                     </p>
                 </div>
                 {message && <p className="message-error">{message} <FontAwesomeIcon icon={faXmark} onClick={() => setMessage('')} /></p>}
-                <button onClick={confirm} className="btn btn-solid">Confirmar pedido</button>
+                <button onClick={confirm} className="btn btn-solid" disabled={loading}>{loading ? <FontAwesomeIcon icon={faCircleNotch} spin/> : 'Confirmar pedido'}</button>
                 <div className="accept-terms-conditions">
                     <p>Al confirmar el pedido estás aceptando los <Link to={'/terminos-condiciones'} target="_blank" >términos y condiciones</Link>.</p>
                 </div>
