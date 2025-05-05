@@ -30,32 +30,35 @@ export function Header() {
     }, [cart])
 
     return (
-        <header>
-            <div className="header-container">
-                <div>
-                    <Link to={'/'} className="logo">
-                        <img src="/logo.svg" alt="Logo bazarshop mayorista" />
-                    </Link>
-                    <Search />
-                    {client ?
-                        <div className="btns-header">
-                            <Link className="btn btn-order" to={'/pedido'}>
-                                {quantity != 0 && <span>{quantity}</span>}
-                                <FontAwesomeIcon icon={faBasketShopping} />
-                            </Link>
-                            <UserMenu />
-                        </div> :
-                        <div className="btns-header">
-                            <Link to={'/iniciar-sesion'} className="btn btn-regular">Ingresar</Link>
-                            <Link to={'/registrarse'} className="btn btn-solid">Registrarse </Link>
-                        </div>
+        <>
+            <p className="min-purchase">Compra mínima por la web $150000</p>
+            <header>
+                <div className="header-container">
+                    <div>
+                        <Link to={'/'} className="logo">
+                            <img src="/logo.svg" alt="Logo bazarshop mayorista" />
+                        </Link>
+                        <Search />
+                        {client ?
+                            <div className="btns-header">
+                                <Link className="btn btn-order" to={'/pedido'}>
+                                    {quantity != 0 && <span>{quantity}</span>}
+                                    <FontAwesomeIcon icon={faBasketShopping} />
+                                </Link>
+                                <UserMenu />
+                            </div> :
+                            <div className="btns-header">
+                                <Link to={'/iniciar-sesion'} className="btn btn-regular">Ingresar</Link>
+                                <Link to={'/registrarse'} className="btn btn-solid">Registrarse </Link>
+                            </div>
+                        }
+                    </div>
+                    {width >= 800 ?
+                        <NavBar /> :
+                        <BtnNavBar />
                     }
                 </div>
-                {width >= 800 ?
-                    <NavBar /> :
-                    <BtnNavBar />
-                }
-            </div>
-        </header>
+            </header>
+        </>
     )
 }

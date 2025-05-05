@@ -1,9 +1,23 @@
+.min-purchase {
+    font-size: 14px;
+    background: var(--color-primary);
+    color: #fff;
+    padding: 10px 20px;
+    width: 100%;
+    text-align: center;
+}
+
 header {
     border-bottom: 1px solid #ccc;
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     padding: 20px 20px 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
 }
 
 .header-container {
