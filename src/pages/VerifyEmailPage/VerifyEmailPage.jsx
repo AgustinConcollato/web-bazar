@@ -1,4 +1,4 @@
-import { faXmark } from "@fortawesome/free-solid-svg-icons"
+import { faCircleNotch, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useEffect, useState } from "react"
 import { Loading } from "../../components/Loading/Loading"
@@ -16,9 +16,11 @@ export function VerifyEmailPage() {
     const [emailSent, setEmailSent] = useState(false)
     const [code, setCode] = useState(false)
     const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [loadingResend, setLoadingResend] = useState(false)
 
     async function sendEmailVerification() {
-
+        setLoading(true)
         try {
             const response = await mail.verify(client.email)
 
@@ -29,10 +31,26 @@ export function VerifyEmailPage() {
         } catch (error) {
             console.log(error)
             setEmailSent(true)
+        } finally {
+            setLoading(false)
         }
 
     }
 
+    async function resendCode() {
+        setLoadingResend(true)
+        try {
+            const response = await mail.verify(client.email)
+
+            if (response) {
+                setEmailSent(true)
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoadingResend(false)
+        }
+    }
 
     async function verifyCode(e) {
         e.preventDefault()
@@ -80,7 +98,7 @@ export function VerifyEmailPage() {
 
     return (
         <section className="section-verify-email">
-            {client ?
+            {client && !loading ?
                 <div>
                     <div>
                         <h2>Verifica tu correo electrónico</h2>
@@ -103,11 +121,15 @@ export function VerifyEmailPage() {
                     {error && <p className="message-error">{error} <FontAwesomeIcon icon={faXmark} onClick={() => setError('')} /> </p>}
                     <div>
                         <p>Si no encuentras el correo, revisa tu carpeta de spam o intenta nuevamente</p>
-                        <button onClick={sendEmailVerification} className="btn btn-regular">Reenviar código</button>
+                        <button onClick={resendCode} className="btn btn-regular" disabled={loadingResend}>{loadingResend ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Reenviar código'}</button>
                     </div>
 
                 </div> :
-                <Loading />}
+                <div className="loading-container">
+                    <p>Enviando correo de verificación...</p>
+                    <Loading />
+                </div>
+            }
         </section>
     )
 }
