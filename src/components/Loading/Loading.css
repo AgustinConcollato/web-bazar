@@ -4,6 +4,8 @@
     border-radius: 50%;
     width: 30px;
     height: 30px;
+    max-width: 30px;
+    max-height: 30px;
     animation: spin 2s linear infinite;
   }
   
