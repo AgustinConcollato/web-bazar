@@ -1,4 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { Address } from "../../services/addressService";
 import { generateId } from "../../utils/generateId";
@@ -37,8 +39,10 @@ export function NewAddress({ setAddresses, total, onClose }) {
 
     const [province, setProvince] = useState(null)
     const [city, setCity] = useState(null)
+    const [postalCode, setPostalCode] = useState(null)
     const [address, setAddress] = useState(null)
     const [number, setNumber] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     function selectProvince(e) {
         const value = e.target.value
@@ -51,12 +55,15 @@ export function NewAddress({ setAddresses, total, onClose }) {
         setCity(null)
         setAddress(null)
         setNumber(null)
+        setPostalCode(null)
     }
 
     async function addAddress(e) {
         e.preventDefault()
 
         const a = new Address(client.id)
+
+        setLoading(true)
 
         try {
             const addressCreated = await a.add({
@@ -65,6 +72,7 @@ export function NewAddress({ setAddresses, total, onClose }) {
                 city,
                 address,
                 address_number: number,
+                zip_code: postalCode,
                 status: total == 0 ? 'selected' : null,
                 code: generateId()
             })
@@ -76,6 +84,8 @@ export function NewAddress({ setAddresses, total, onClose }) {
 
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -87,18 +97,44 @@ export function NewAddress({ setAddresses, total, onClose }) {
                 {provinceList.map(e => <option key={e} value={e}>{e}</option>)}
             </select>
             {province &&
-                <div className="input-address">
-                    <input
-                        type="text"
-                        onChange={(e) => setCity(e.target.value)}
-                        placeholder="Localidad"
-                        className="input"
-                        autoComplete="off"
-                        required
-                    />
+                <div className="div-street">
+                    <div className="input-address">
+                        <input
+                            type="text"
+                            onChange={(e) => {
+                                if (e.target.value == '') {
+                                    setNumber(null)
+                                    setAddress(null)
+                                }
+                                setCity(e.target.value)
+                            }
+                            }
+                            placeholder="Localidad"
+                            className="input"
+                            autoComplete="off"
+                            required
+                        />
+                    </div>
+                    <div className="input-address">
+                        <input
+                            type="text"
+                            onChange={(e) => {
+                                if (e.target.value == '') {
+                                    setNumber(null)
+                                    setAddress(null)
+                                }
+                                setPostalCode(e.target.value)
+                            }
+                            }
+                            placeholder="Código Postal"
+                            className="input"
+                            autoComplete="off"
+                            required
+                        />
+                    </div>
                 </div>
             }
-            {city &&
+            {city && postalCode &&
                 <div className="div-street">
                     <div className="input-address">
                         <input
@@ -110,21 +146,23 @@ export function NewAddress({ setAddresses, total, onClose }) {
                             required
                         />
                     </div>
-                    <input
-                        type="text"
-                        placeholder="Altura"
-                        onChange={({ target }) => setNumber(target.value)}
-                        className="input"
-                        required
-                        autoComplete="off"
-                    />
+                    <div className="input-address">
+                        <input
+                            type="text"
+                            placeholder="Altura"
+                            onChange={({ target }) => setNumber(target.value)}
+                            className="input"
+                            required
+                            autoComplete="off"
+                        />
+                    </div>
                 </div>}
             <button
                 type="submit"
-                disabled={!province || !city || !address || !number}
-                className={"btn btn-solid" + (!province || !city || !address || !number ? ' btn-disabled' : '')}
+                disabled={!province || !city || !address || !number || !postalCode}
+                className={"btn btn-solid" + (!province || !city || !address || !number || !postalCode ? ' btn-disabled' : '')}
             >
-                Agregar
+                {loading ? <FontAwesomeIcon icon={faCircleNotch} spin/> : 'Agregar'}
             </button>
         </form>
     )

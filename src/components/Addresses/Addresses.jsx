@@ -1,4 +1,4 @@
-import { faLocationDot, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faCircleNotch, faLocationDot, faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import { Address } from "../../services/addressService"
@@ -13,6 +13,7 @@ export function Addresses({ client, type, onChange }) {
     const [addresses, setAddresses] = useState(null)
     const [selected, setSelected] = useState(0)
     const [formNewAddress, setFormNewAddress] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     async function getAddress() {
 
@@ -47,11 +48,14 @@ export function Addresses({ client, type, onChange }) {
     }
 
     async function deleteAddress(e) {
+        setLoading(true)
         try {
             const response = await address.delete(e)
             setAddresses(response)
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -83,7 +87,6 @@ export function Addresses({ client, type, onChange }) {
                         <p>No hay direcciones registradas</p>
                     </div>
                 }
-                {/* {addresses.length > 1 && */}
                 <div className="container-btn-change-address">
                     {addresses.map(e =>
                         <>
@@ -118,7 +121,7 @@ export function Addresses({ client, type, onChange }) {
                                     className="btn btn-error-regular"
                                     onClick={() => deleteAddress(e.id)}
                                 >
-                                    Eliminar dirección
+                                    {loading ? <FontAwesomeIcon icon={faCircleNotch} spin/> : 'Eliminar dirección'}
                                 </button>
                             }
 
