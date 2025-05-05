@@ -27,14 +27,22 @@ export function CartProduct({ e, onDelete, setProductList }) {
 
         if (newQuantity == quantity) return
 
+        const q = parseInt(quantity) || 1
+
+        if (quantity < 1) {
+            setQuantity(q)
+            setNewQuantity(q)
+            return
+        }
+
+        const data = {
+            quantity: q,
+            product_id: product.id,
+            client_id: client.id
+        }
+
         try {
             setDisabled(true)
-
-            const data = {
-                quantity: parseInt(quantity),
-                product_id: product.id,
-                client_id: client.id
-            }
 
             const response = await updateProductCart(data)
 
@@ -77,7 +85,7 @@ export function CartProduct({ e, onDelete, setProductList }) {
                         className="input"
                         type="number"
                         value={newQuantity != quantity ? quantity : newQuantity}
-                        onChange={(e) => setQuantity(e.target.value || 1)}
+                        onChange={(e) => setQuantity(e.target.value)}
                         min={1}
                         disabled={disabled}
                     />
