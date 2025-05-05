@@ -102,7 +102,7 @@ export function SearchInput() {
     return (
         <div className="search" ref={dropdownRef}>
             <input
-                type="text"
+                type="search"
                 id='search'
                 ref={inputRef}
                 value={query}
