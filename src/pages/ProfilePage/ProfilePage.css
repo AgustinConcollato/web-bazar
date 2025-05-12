@@ -71,6 +71,26 @@
     width: 100%;
 }
 
+.update-email { 
+    width: 400px;
+}
+
+.update-email div {
+    display: flex;
+    gap: 10px;
+}
+
+.update-email {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.update-email .message-error {
+    text-align: start;
+}
+
 .phone-number {
     display: flex;
     flex-direction: column;

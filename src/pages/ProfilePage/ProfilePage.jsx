@@ -1,11 +1,12 @@
+import { faCircleNotch, faXmark } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { Addresses } from "../../components/Addresses/Addresses"
-import { AuthContext } from "../../context/authContext"
-import './ProfilePage.css'
 import { Loading } from "../../components/Loading/Loading"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faXmark } from "@fortawesome/free-solid-svg-icons"
+import { AuthContext } from "../../context/authContext"
+import { Auth } from "../../services/authService"
+import './ProfilePage.css'
 
 export function ProfilePage() {
 
@@ -13,7 +14,10 @@ export function ProfilePage() {
 
     const [updatePhoneNumber, setUpdatePhoneNumber] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [loadingEmail, setLoadingEmail] = useState(false)
     const [error, setError] = useState(false)
+    const [errorEmail, setErrorEmail] = useState(false)
+    const [updateEmail, setUpdateEmail] = useState(false)
 
     async function handlePhoneNumberChange(e) {
         e.preventDefault()
@@ -40,6 +44,42 @@ export function ProfilePage() {
         } finally {
 
             setLoading(false)
+        }
+    }
+
+    async function handleEmailChange(e) {
+        e.preventDefault()
+
+        const email = { email: e.target.email.value }
+
+        // comprobar si el nuevo correo electrónico es igual al actual
+        if (email.email == client.email) {
+            setErrorEmail('El correo electrónico es el mismo que el actual')
+            return
+        }
+
+
+        setErrorEmail('')
+        const auth = new Auth()
+
+        try {
+            setLoadingEmail(true)
+            const response = await auth.updateEmail(email)
+            if (response) {
+                setUpdateEmail(false)
+                client.email = response.email
+                client.email_verified_at = response.email_verified_at
+            }
+        } catch (error) {
+            if (error.errors.email[0] == 'The email has already been taken.') {
+                setErrorEmail('El correo electrónico ya está en uso')
+            }
+
+            if (error.errors.email[0] == "The email field is required.") {
+                setErrorEmail('Completa con el correo electrónico')
+            }
+        } finally {
+            setLoadingEmail(false)
         }
     }
 
@@ -97,6 +137,18 @@ export function ProfilePage() {
                                 </div>
                             </>
                         }
+                        {updateEmail &&
+                            <form onSubmit={handleEmailChange} className="update-email">
+                                <input type="email" className="input" name="email" placeholder="Correo electrónico" />
+                                <div>
+                                    <button className="btn" type="button" onClick={() => setUpdateEmail(false)}>Cancelar</button>
+                                    <button type="submit" className="btn btn-solid" disabled={loadingEmail}>{loadingEmail ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Actualizar'}</button>
+                                </div>
+                                {errorEmail && <p className="message-error">{errorEmail} <FontAwesomeIcon icon={faXmark} onClick={() => setErrorEmail('')} /> </p>}
+
+                            </form>
+                        }
+                        {!updateEmail && <button className="btn" onClick={() => setUpdateEmail(true)}>Actualizar correo electrónico</button>}
                     </div>
                 </div>
                 <div>
@@ -115,23 +167,18 @@ export function ProfilePage() {
                                     className="input"
                                     autoComplete="off"
                                 />
-                                {!loading ?
-                                    <>
-                                        <button className="btn btn-solid">Actualizar</button>
-                                        <button className="btn" type="button" onClick={() => {
-                                            setError('')
-                                            setUpdatePhoneNumber(false)
-                                        }} >Cancelar</button>
-                                    </> :
-                                    <Loading />
-                                }
+                                <button className="btn" type="button" onClick={() => {
+                                    setError('')
+                                    setUpdatePhoneNumber(false)
+                                }} >Cancelar</button>
+                                <button className="btn btn-solid" disabled={loading}>{loading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Actualizar'}</button>
                             </form>
                         }
                         {error && <p className="message-error">{error} <FontAwesomeIcon icon={faXmark} onClick={() => setError('')} /> </p>}
                         {!updatePhoneNumber && <button className="btn" onClick={() => setUpdatePhoneNumber(true)}>{client.phone_number ? 'Actualizar número de teléfono' : 'Agregar número de teléfono'}</button>}
                     </div>
                 </div>
-                <Addresses client={client} type={'PROFILE'} />
+                <Addresses client={client} type={'PROFILE'} onChange={() => { }} />
             </div>
         </section>
 
