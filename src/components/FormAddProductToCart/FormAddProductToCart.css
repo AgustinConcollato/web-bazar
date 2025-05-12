@@ -34,19 +34,19 @@
 
 @keyframes fade-message {
     0% {
-        top: -100%;
+        bottom: -100%;
     }
 
     10% {
-        top: 10px;
+        bottom: 30px;
     }
 
     90% {
-        top: 10px;
+        bottom: 30px;
     }
 
     100% {
-        top: -100%;
+        bottom: -100%;
     }
 }
 
