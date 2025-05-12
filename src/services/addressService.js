@@ -31,12 +31,13 @@ export class Address {
             const response = await fetch(`${urlAddress}/${this.userId}`)
 
             if (!response.ok) {
-                throw new Error('Error al obtener las direcciones')
+                const error = await response.json()
+                throw error
             }
 
             return await response.json()
         } catch (error) {
-            throw new Error(error)
+            throw error
         }
     }
 
