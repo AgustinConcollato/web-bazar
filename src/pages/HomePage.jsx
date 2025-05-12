@@ -1,19 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Loading } from "../components/Loading/Loading";
-import { SectionCategoriesHome } from "../components/SectionCategoriesHome/SectionCategoriesHome";
 import { ProductCard } from "../components/ProductCard/ProductCard";
+import { SectionCategoriesHome } from "../components/SectionCategoriesHome/SectionCategoriesHome";
 import { api } from "../services/api";
-import { AuthContext } from "../context/authContext";
-import { Link } from "react-router-dom";
 
 export function HomePage() {
 
     const { Products } = api
-    const { user } = useContext(AuthContext)
 
     const [productsListDate, setProductsListDate] = useState(null);
     const [productsListViews, setProductsListViews] = useState(null);
-    const [addresses, setAddresses] = useState([]);
 
     async function getProductsByCreationDate() {
 
@@ -43,33 +39,15 @@ export function HomePage() {
         setProductsListViews(dataPage.data)
     }
 
-    async function getAddress() {
-        const { Address } = api
-        const address = new Address(user.uid)
-
-        const response = await address.get()
-        setAddresses(response)
-    }
-
     useEffect(() => {
         document.title = 'Bazarshop'
         getProductsByCreationDate()
         getProductsByViews()
-    }, [])
-
-    useEffect(() => {
-        user && getAddress()
         scrollTo(0, 0)
-    }, [user])
+    }, [])
 
     return (
         <>
-            {user &&
-                addresses.length == 0 &&
-                <section className="section-address-home">
-                    <p>Agrega una dirección para poder realizar tus pedidos <Link to={'/perfil'} className="btn btn-regular">Agrergar</Link></p>
-                </section>
-            }
             <section className="section-products-home">
                 <h2 style={{ flex: 'none' }}>Más relevantes</h2>
                 {productsListViews ?
