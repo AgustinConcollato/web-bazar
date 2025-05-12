@@ -1,4 +1,3 @@
-import { json } from 'react-router-dom';
 import { urlClients as url } from './api'
 
 export class Auth {
@@ -27,7 +26,7 @@ export class Auth {
 
     async register(data) {
         try {
-            const response = await fetch(`${url}/register`, {
+            const response = await fetch(`${url}/register/web`, {
                 method: 'POST',
                 body: data
             })
@@ -92,7 +91,28 @@ export class Auth {
         } catch (error) {
             throw error
         }
+    }
 
+    async updateEmail(email) {
+        try {
+            const response = await fetch(`${url}/update/email`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${this.token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(email)
+            })
+
+            if (!response.ok) {
+                const error = await response.json()
+                throw error
+            }
+
+            return await response.json()
+        } catch (error) {
+            throw error
+        }
     }
 
 }
