@@ -14,6 +14,7 @@ export function Addresses({ client, type, onChange }) {
     const [selected, setSelected] = useState(0)
     const [formNewAddress, setFormNewAddress] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [confirmOrder, setConfirmOrder] = useState(false)
 
     async function getAddress() {
 
@@ -29,6 +30,8 @@ export function Addresses({ client, type, onChange }) {
 
                 e.status && setSelected(e)
             });
+
+            setConfirmOrder(response.length == 1)
 
             setAddresses(response)
         } catch (error) {
@@ -62,6 +65,12 @@ export function Addresses({ client, type, onChange }) {
     useEffect(() => {
         getAddress(client.id)
     }, [])
+
+    useEffect(() => {
+        if (addresses && addresses.length === 1) {
+            !confirmOrder && onChange(addresses[0])
+        }
+    }, [addresses])
 
     return (
         addresses ?
@@ -121,7 +130,7 @@ export function Addresses({ client, type, onChange }) {
                                     className="btn btn-error-regular"
                                     onClick={() => deleteAddress(e.id)}
                                 >
-                                    {loading ? <FontAwesomeIcon icon={faCircleNotch} spin/> : 'Eliminar dirección'}
+                                    {loading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Eliminar dirección'}
                                 </button>
                             }
 
