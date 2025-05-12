@@ -17,7 +17,7 @@ export function ConfirmOrder({ client }) {
     const navigate = useNavigate()
 
     const [changeAddress, setChangeAddress] = useState(false)
-    const [address, setAddress] = useState(localStorage.getItem('address') ? JSON.parse(localStorage.getItem('address')) : null)
+    const [address, setAddress] = useState(null)
     const [comment, setComment] = useState(null)
     const [message, setMessage] = useState('')
     const [totalAmount, setTotalAmount] = useState(0)
@@ -104,6 +104,21 @@ export function ConfirmOrder({ client }) {
 
         const addresses = await response.json()
 
+        // comprobar si la direccion de localstorage existe en el array de direcciones
+        // si existe, que la direccion sea la de localstorage
+        // si no existe, que se la que tenga el valor de status en 'selected'
+
+        if (localStorage.getItem('address')) {
+            const addressExists = addresses.some(addr => addr.id === JSON.parse(localStorage.getItem('address')).id);
+            if (addressExists) {
+                setAddress(JSON.parse(localStorage.getItem('address')))
+                return
+            } else {
+                localStorage.removeItem('address')
+
+            }
+        }
+
         addresses.forEach(e => {
             e.status && setAddress(e)
         })
@@ -114,6 +129,10 @@ export function ConfirmOrder({ client }) {
         !address && getAddress(client.id)
         setChangeAddress(false)
     }, [address])
+
+    useEffect(() => {
+        address && getAddress(client.id)
+    }, [])
 
     useEffect(() => {
         if (cart && cart.length > 0) {
@@ -211,7 +230,7 @@ export function ConfirmOrder({ client }) {
                     </p>
                 </div>
                 {message && <p className="message-error">{message} <FontAwesomeIcon icon={faXmark} onClick={() => setMessage('')} /></p>}
-                <button onClick={confirm} className="btn btn-solid" disabled={loading}>{loading ? <FontAwesomeIcon icon={faCircleNotch} spin/> : 'Confirmar pedido'}</button>
+                <button onClick={confirm} className="btn btn-solid" disabled={loading}>{loading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Confirmar pedido'}</button>
                 <div className="accept-terms-conditions">
                     <p>Al confirmar el pedido estás aceptando los <Link to={'/terminos-condiciones'} target="_blank" >términos y condiciones</Link>.</p>
                 </div>
