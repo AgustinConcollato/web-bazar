@@ -39,12 +39,37 @@
     font-weight: 400;
 }
 
+.btn-change-email {
+    text-align: center;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+}
+
+.btn-change-email:hover {
+    text-decoration: underline;
+}
+
+.update-email form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.update-email form div {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 10px;
+}
+
 @media (max-width: 630px) {
     .section-verify-email form {
         flex-direction: column;
     }
 }
-    
+
 .loading-container {
     display: flex;
     flex-direction: column;
