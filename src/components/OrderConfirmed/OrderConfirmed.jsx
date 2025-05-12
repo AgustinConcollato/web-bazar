@@ -15,7 +15,7 @@ export function OrderConfirmed() {
 
     async function getOrder() {
         try {
-            const data = await orders.get(id)
+            const data = await orders.detail(id)
 
             setAddress(JSON.parse(data.address))
             setOrder(data)
@@ -27,6 +27,7 @@ export function OrderConfirmed() {
     useEffect(() => {
         localStorage.removeItem('address')
         getOrder()
+        scrollTo(0, 0)
     }, [])
 
     return (
