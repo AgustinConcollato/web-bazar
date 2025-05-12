@@ -13,22 +13,6 @@ export function OrdersPage() {
 
     const { client } = useContext(AuthContext)
 
-    const { Order } = api
-    const order = new Order()
-
-    const [orders, setOrders] = useState(null)
-
-    async function getOrders() {
-        const orders = await order.getAll(client.id)
-        setOrders(orders)
-    }
-
-    useEffect(() => {
-        if (client) {
-            getOrders()
-        }
-    }, [client])
-
     if (!client) {
         document.title = 'Iniciar sesión para ver tus compras'
 
@@ -45,28 +29,31 @@ export function OrdersPage() {
     return (
         <section className="orders-page">
             <Routes>
-                <Route path='' element={<AllOrders orders={orders} />} />
-                <Route path='/:id' element={<Details orders={order} />} />
+                <Route path='' element={<AllOrders client={client} />} />
+                <Route path='/:id' element={<Details />} />
                 <Route path='*' element={<NotFoundPage />} />
             </Routes >
         </section>
     )
 }
 
-function Details({ orders }) {
+function Details() {
+
+    const { Order } = api
+    const order = new Order()
 
     const { id } = useParams()
     const navigate = useNavigate()
 
-    const [order, setOrder] = useState(null)
+    const [details, setDetails] = useState(null)
     const [address, setAddress] = useState(null)
     const [products, setProducts] = useState(null)
 
     async function getOrder() {
         try {
-            const response = await orders.get(id)
+            const response = await order.detail(id)
             setAddress(JSON.parse(response.address))
-            setOrder(response)
+            setDetails(response)
             setProducts(response.products)
         } catch (error) {
             navigate('/compras')
@@ -74,7 +61,7 @@ function Details({ orders }) {
     }
 
     useEffect(() => {
-        setOrder(null)
+        setDetails(null)
         getOrder()
         document.title = 'Detalle del pedido'
         scrollTo(0, 0)
@@ -84,9 +71,9 @@ function Details({ orders }) {
         <>
             <Link to="/compras" style={{ marginBottom: '30px', display: 'block' }}><FontAwesomeIcon icon={faAngleLeft} /> Volver a mis pedidos</Link>
             <div className="order-confirmed">
-                {order ?
+                {details ?
                     <>
-                        <OrderDetails order={order} address={address} />
+                        <OrderDetails order={details} address={address} />
                         <div className="container-order-product-table">
                             {products &&
                                 <table className="order-product-table" cellSpacing={0}>
