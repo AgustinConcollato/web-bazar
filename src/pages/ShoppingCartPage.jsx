@@ -51,6 +51,7 @@ export function ShoppingCartPage() {
 
     useEffect(() => {
         client && getShoppingCart()
+        scrollTo(0, 0)
     }, [client])
 
     useEffect(() => {
