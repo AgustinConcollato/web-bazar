@@ -49,19 +49,19 @@ export function HomePage() {
     return (
         <>
             <section className="section-products-home">
-                <h2 style={{ flex: 'none' }}>Más relevantes</h2>
-                {productsListViews ?
-                    productsListViews.length > 0 ?
-                        productsListViews.map(e => <ProductCard key={e.id} e={e} />) :
+                <h2 style={{ flex: 'none' }}>Nuevos ingresos</h2>
+                {productsListDate ?
+                    productsListDate.length > 0 ?
+                        productsListDate.map(e => <ProductCard key={e.id} e={e} />) :
                         <p>No hay productos en esta categoría</p>
                     : <Loading />}
             </section>
             <SectionCategoriesHome />
             <section className="section-products-home">
-                <h2 style={{ flex: 'none' }}>Nuevos ingresos</h2>
-                {productsListDate ?
-                    productsListDate.length > 0 ?
-                        productsListDate.map(e => <ProductCard key={e.id} e={e} />) :
+                <h2 style={{ flex: 'none' }}>Más relevantes</h2>
+                {productsListViews ?
+                    productsListViews.length > 0 ?
+                        productsListViews.map(e => <ProductCard key={e.id} e={e} />) :
                         <p>No hay productos en esta categoría</p>
                     : <Loading />}
             </section>
