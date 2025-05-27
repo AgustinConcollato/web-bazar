@@ -65,7 +65,7 @@ export function PaymentOption({ totalAmount, onChange, allowTwoMethods, setAllow
 
     return (
         <div className='payment-method-controls'>
-            <p>Puede pagar el pedido con dos métodos diferentes</p>
+            {/* <p>Puede pagar el pedido con dos métodos diferentes</p>
             <label className="allowTwoMethods">
                 <input
                     type="checkbox"
@@ -80,7 +80,7 @@ export function PaymentOption({ totalAmount, onChange, allowTwoMethods, setAllow
                 <div className={allowTwoMethods ? 'true' : 'false'}>
                     <div className="circle"></div>
                 </div>
-            </label>
+            </label> */}
 
             {paymentOptions.map(method => (
                 <div key={method} className='methods'>
