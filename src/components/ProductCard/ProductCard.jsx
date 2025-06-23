@@ -16,7 +16,7 @@ export function ProductCard({ e }) {
         const currentDate = new Date();
         const creationDate = new Date(e.created_at);
         const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(currentDate.getDate() - 30);
+        thirtyDaysAgo.setDate(currentDate.getDate() - 10);
 
         return creationDate >= thirtyDaysAgo;
     };
@@ -74,22 +74,35 @@ export function ProductCard({ e }) {
                                 <FontAwesomeIcon icon={faAngleRight} />
                             </button>
                         )}
+                        <span className="stock">{e.available_quantity > 0 ?  'Disponibles: ' + e.available_quantity : 'Sin stock'}</span>
                     </div>
                     <div>
                         <p>{e.name}</p>
                         <p className='description'>{e.description}</p>
                     </div>
                     {isNewArrival() && <span className="new-arrival">Nuevo Ingreso</span>}
-                    {e.discount ?
+                    {e.campaign_discount ? (
+                        <>
+                            <p className="discount">
+                                <span>-{e.campaign_discount.type === "percentage" ? `${e.campaign_discount.value}%` : `$${e.campaign_discount.value}`}</span>
+                                <p className="price">${parseFloat(e.price)}</p>
+                            </p>
+                            <p>${e.campaign_discount.type === "percentage"
+                                ? (e.price - (e.campaign_discount.value * e.price) / 100).toFixed(2)
+                                : Math.max(0, e.price - e.campaign_discount.value).toFixed(2)
+                            }</p>
+                        </>
+                    ) : e.discount ? (
                         <>
                             <p className="discount">
                                 <span>-{e.discount}%</span>
                                 <p className="price">${parseFloat(e.price)}</p>
                             </p>
-                            <p>${parseFloat(e.price - (e.discount * e.price) / 100)}</p>
-                        </> :
+                            <p>${(e.price - (e.discount * e.price) / 100).toFixed(2)}</p>
+                        </>
+                    ) : (
                         <p className="price">${parseFloat(e.price)}</p>
-                    }
+                    )}
                 </Link>
                 <FormAddProductToCart type={'CARD'} product={e} />
             </div>
