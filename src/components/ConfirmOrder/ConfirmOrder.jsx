@@ -7,6 +7,7 @@ import { url } from "../../services/api"
 import { Addresses } from "../Addresses/Addresses"
 import { Loading } from "../Loading/Loading"
 import { Modal } from "../Modal/Modal"
+import { OrderProgressBar } from "../OrderProgressBar/OrderProgressBar"
 import { PaymentOption } from "../PaymentOption/PaymentOption"
 import './ConfirmOrder.css'
 
@@ -60,11 +61,20 @@ export function ConfirmOrder({ client }) {
             return;
         }
 
+        let discount = 0
+
+        if (totalAmount >= 300000 && !selectedMethods.includes('check')) {
+            discount = 5
+            // si más adelante hay mas de un solo método modificar la manera de agregar el descuento
+            selectedMethods.map(method => paymentAmounts[method] = totalAmount - ((discount * totalAmount) / 100));
+        }
+
         const data = {
             client_id: client.id,
             user_name: client.name,
             comment,
             payment_methods: paymentAmounts,
+            discount
         }
 
         if (send) {
@@ -138,8 +148,21 @@ export function ConfirmOrder({ client }) {
         if (cart && cart.length > 0) {
             setTotalAmount(
                 cart.reduce((acc, item) => {
-                    const price = item.product.discount ? item.product.price - (item.product.price * item.product.discount / 100) : item.product.price;
-                    return acc + item.quantity * price;
+                    let finalPrice = item.product.price;
+
+                    // Priorizar descuento de campaña sobre descuento del producto
+                    if (item.product.campaign_discount) {
+                        if (item.product.campaign_discount.type === "percentage") {
+                            finalPrice = item.product.price - (item.product.price * item.product.campaign_discount.value / 100);
+                        } else {
+                            // Descuento fijo
+                            finalPrice = Math.max(0, item.product.price - item.product.campaign_discount.value);
+                        }
+                    } else if (item.product.discount) {
+                        finalPrice = item.product.price - (item.product.price * item.product.discount / 100);
+                    }
+
+                    return acc + item.quantity * finalPrice;
                 }, 0)
             )
         } else {
@@ -224,10 +247,32 @@ export function ConfirmOrder({ client }) {
             }
             <div className="confirm-order">
                 <div className="confirm-order-price">
+                    <OrderProgressBar totalAmount={totalAmount} />
+                    {Object.keys(paymentAmounts).includes('check') &&
+                        <span className="check-message">
+                            Para los pagos con cheque NO se aplica el descuento
+                        </span>
+                    }
+                    <p>Subtotal <span>${totalAmount.toLocaleString()}</span></p>
                     <p>
-                        Precio total: ${totalAmount.toFixed(2)}
-                        <span>El precio no incluye el costo del envio</span>
+                        Descuento <span>
+                            {totalAmount >= 300000 && !Object.keys(paymentAmounts).includes('check')
+                                ? `-$${((totalAmount * 0.05)).toLocaleString()}`
+                                : '$0'}
+                        </span>
                     </p>
+                    <p>
+                        Precio total
+                        <span>
+                            {typeof totalAmount === 'number'
+                                ? `$${totalAmount >= 300000 && !Object.keys(paymentAmounts).includes('check')
+                                    ? (totalAmount - ((5 * totalAmount) / 100)).toLocaleString()
+                                    : totalAmount.toLocaleString()}`
+                                : '$0'
+                            }
+                        </span>
+                    </p>
+                    <span>El precio total no incluye el costo del envio</span>
                 </div>
                 {message && <p className="message-error">{message} <FontAwesomeIcon icon={faXmark} onClick={() => setMessage('')} /></p>}
                 <button onClick={confirm} className="btn btn-solid" disabled={loading}>{loading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Confirmar pedido'}</button>

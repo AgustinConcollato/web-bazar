@@ -64,13 +64,35 @@
     width: 100%;
 }
 
+.check-message {
+    display: block;
+    margin: 10px 0;
+    color: rgb(221, 18, 18);
+    text-wrap: pretty;
+}
+
 .confirm-order-price p {
-    font-size: 20px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirm-order-price p:nth-child(2) {
+    margin-top: 20px;
+}
+
+.confirm-order-price p:nth-last-child(2) {
+    font-size: 18px;
+    margin-top: 10px;
 }
 
 .confirm-order-price p span {
-    font-size: 16px;
-    display: block;
+    font-weight: 500;
+}
+
+.confirm-order-price {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
 }
 
 .accept-terms-conditions p {
