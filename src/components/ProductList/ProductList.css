@@ -19,20 +19,6 @@
     margin-bottom: 40px;
 }
 
-.section-products-home {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin: 120px auto;
-}
-
-.section-products-home h2 {
-    width: 100%;
-    font-weight: 500;
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
 @media (max-width: 1280px) {
     .product-list-page {
         padding: 60px 20px 120px;
