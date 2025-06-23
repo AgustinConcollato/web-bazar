@@ -5,7 +5,8 @@ import { Register } from './components/Auth/Register/Register'
 import { Footer } from './components/Footer/Footer'
 import { Header } from './components/Header/Header'
 import { ProductList } from './components/ProductList/ProductList'
-import { HomePage } from './pages/HomePage'
+import { CampaignPage } from './pages/CampaignPage/CampaignPage'
+import { HomePage } from './pages/HomePage/HomePage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { OrdersPage } from './pages/OrdersPage'
 import { ProductPage } from './pages/ProductPage/ProductPage'
@@ -25,6 +26,7 @@ export function App() {
         <Route path='/registrarse' element={<Register />} />
         <Route path='/verificar-correo' element={<VerifyEmailPage />} />
         <Route path='/productos/:categoryCode/:subcategoryCode?' element={<ProductList />} />
+        <Route path='/e/productos/:slug' element={<CampaignPage />} />
         <Route path='/buscador/:productName' element={<SearchResultsPage />} />
         <Route path='/pedido/*' element={<ShoppingCartPage />} />
         <Route path='/producto/:productId' element={<ProductPage />} />
@@ -37,4 +39,3 @@ export function App() {
     </>
   )
 }
-
