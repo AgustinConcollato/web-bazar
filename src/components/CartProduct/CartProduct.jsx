@@ -55,9 +55,26 @@ export function CartProduct({ e, onDelete, setProductList }) {
                             : item
                     )
                 )
-                setDiscountedPrice(((product.price * response.quantity) - (product.discount * (product.price * response.quantity)) / 100))
-                setPrice(product.price * response.quantity)
-                setDisabled(false)
+
+                // Recalcular precio con descuento
+                let finalPrice = product.price * response.quantity;
+                let discountPercentage = 0;
+
+                if (product.campaign_discount) {
+                    if (product.campaign_discount.type === "percentage") {
+                        discountPercentage = product.campaign_discount.value;
+                        finalPrice = finalPrice - (finalPrice * discountPercentage / 100);
+                    } else {
+                        finalPrice = (product.price - product.campaign_discount.value) * response.quantity;
+                    }
+                } else if (product.discount) {
+                    discountPercentage = product.discount;
+                    finalPrice = finalPrice - (finalPrice * discountPercentage / 100);
+                }
+
+                setDiscountedPrice(finalPrice);
+                setPrice(product.price * response.quantity);
+                setDisabled(false);
             }
 
         } catch (error) {
@@ -67,9 +84,30 @@ export function CartProduct({ e, onDelete, setProductList }) {
 
     useEffect(() => {
         setThumbnails(JSON.parse(product.thumbnails))
-        setDiscountedPrice(((product.price * quantity) - (product.discount * (product.price * quantity)) / 100))
-        setPrice(product.price * quantity)
-    }, [e])
+
+        // Calcular precio con descuento de campaña o descuento del producto
+        let finalPrice = product.price * quantity;
+        let discountPercentage = 0;
+
+        if (product.campaign_discount) {
+            // Usar descuento de campaña
+            if (product.campaign_discount.type === "percentage") {
+                discountPercentage = product.campaign_discount.value;
+                finalPrice = finalPrice - (finalPrice * discountPercentage / 100);
+            } else {
+                // Descuento fijo
+                finalPrice = (product.price - product.campaign_discount.value) * quantity;
+            }
+        } else if (product.discount) {
+            // Usar descuento del producto
+            discountPercentage = product.discount;
+            finalPrice = finalPrice - (finalPrice * discountPercentage / 100);
+        }
+
+
+        setDiscountedPrice(finalPrice);
+        setPrice(product.price * quantity);
+    }, [product, quantity])
 
     return (
         <div className="cart-product">
@@ -102,12 +140,24 @@ export function CartProduct({ e, onDelete, setProductList }) {
                     }
                 </div>
             </form>
-            {!product.discount ?
+            {!product.campaign_discount && !product.discount ?
                 <div className="cart-product-price">
                     <p>${price % 1 !== 0 ? price.toFixed(2) : price}</p>
                 </div> :
                 <div className="cart-product-discount">
-                    <div><span>-{product.discount}% </span><p>${price % 1 !== 0 ? price.toFixed(2) : price}</p></div>
+                    <div>
+                        {product.campaign_discount ? (
+                            <>
+                                <span>-{product.campaign_discount.type === "percentage" ? `${product.campaign_discount.value}%` : `$${product.campaign_discount.value}`} </span>
+                                <p>${price % 1 !== 0 ? price.toFixed(2) : price}</p>
+                            </>
+                        ) : (
+                            <>
+                                <span>-{product.discount}% </span>
+                                <p>${price % 1 !== 0 ? price.toFixed(2) : price}</p>
+                            </>
+                        )}
+                    </div>
                     <p>${discountedPrice % 1 === 0 ? discountedPrice : discountedPrice.toFixed(2)}</p>
                 </div>
             }

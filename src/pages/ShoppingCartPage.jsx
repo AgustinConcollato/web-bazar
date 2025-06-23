@@ -91,7 +91,7 @@ export function ShoppingCartPage() {
                         }
                     </div>
                     {(productList && productList.length != 0) &&
-                        <CartDetail productList={productList} cart={productList} />
+                        <CartDetail productList={productList} />
                     }
                 </section >
             } />
