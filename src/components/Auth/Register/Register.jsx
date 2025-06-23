@@ -9,9 +9,9 @@ export const Register = () => {
 
     const passwordRules = [
         { rule: 'Debe contener al menos 8 caracteres', check: value => value.length >= 8 },
-        { rule: 'Debe contener al menos una letra mayúscula', check: value => /[A-Z]/.test(value) },
+        // { rule: 'Debe contener al menos una letra mayúscula', check: value => /[A-Z]/.test(value) },
         { rule: 'Debe contener al menos un número', check: value => /\d/.test(value) },
-        { rule: 'Debe contener al menos un carácter especial', check: value => /[!@#$%^&*(),.?":{}|<>]/.test(value) },
+        // { rule: 'Debe contener al menos un carácter especial', check: value => /[!@#$%^&*(),.?":{}|<>]/.test(value) },
     ];
 
     const { register, client } = useContext(AuthContext)
