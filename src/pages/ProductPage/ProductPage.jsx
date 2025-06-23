@@ -26,7 +26,13 @@ export function ProductPage() {
                 throw new Error()
             }
 
-            setProduct(response.product)
+            const { product } = response
+
+            if (product.campaign_discount && product.campaign_discount.type == "percentage") {
+                product.discount = product.campaign_discount.value
+            }
+
+            setProduct(product)
 
         } catch (error) {
             setNotFound(true)

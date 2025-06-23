@@ -114,6 +114,15 @@ img.thumbnail-selected {
     font-size: 20px;
 }
 
+.product-detail .stock {
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    padding: 5px 7px;
+    font-size: 16px;
+    background: #f5f5f5;
+    width: max-content;
+}
+
 .container-product-info form {
     display: flex;
     flex-direction: column;
