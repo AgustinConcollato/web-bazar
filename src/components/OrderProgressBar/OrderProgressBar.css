@@ -1,0 +1,118 @@
+.order-progress-bar-wrapper {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.progress-line-container {
+  position: relative;
+  height: 48px;
+  margin-bottom: 8px;
+}
+
+.progress-line {
+  position: absolute;
+  top: 22px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #e0e0e0;
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.progress-point {
+  position: absolute;
+  top: 14px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border: 3px solid #bdbdbd;
+  border-radius: 50%;
+  z-index: 2;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.progress-label-message{
+  background: #00000099;
+  color: #fff;
+  border-radius: 5px;
+  display: block;
+  width: max-content;
+  padding: 3px 5px;
+  position: absolute;
+  left: 50%;
+  top: -30px;
+  font-size: 12px;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: .2s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.progress-point:hover .progress-label-message {
+  opacity: 1;
+}
+
+.start-point {
+  border-color: #1872fa;
+}
+
+.min-point {
+  border-color: #bdbdbd;
+}
+
+.min-point.active {
+  border-color: #1872fa;
+}
+
+.discount-point {
+  border-color: #bdbdbd;
+}
+
+.discount-point.active {
+  border-color: #1872fa;
+}
+
+.progress-current-point {
+  position: absolute;
+  top: 17px;
+  width: 12px;
+  height: 12px;
+  background: #1872fa;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  z-index: 3;
+  box-shadow: 0 0 6px #1872fa;
+  transform: translate(-50%, 0);
+  transition: left 0.3s;
+}
+
+.progress-current-point:hover .progress-label-message {
+  opacity: 1;
+}
+
+.progress-label {
+  position: absolute;
+  top: 20px;
+  font-size: 12px;
+  color: #888;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  cursor: default ;
+}
+
+.progress-amount {
+  margin-top: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.progress-message {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+}
