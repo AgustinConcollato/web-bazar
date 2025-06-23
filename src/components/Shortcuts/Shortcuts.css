@@ -1,0 +1,84 @@
+.section-shortcuts {
+    margin: 120px auto;
+}
+
+.shortcut-list {
+    display: flex;
+    justify-content: start;
+    gap: 15px;
+    width: 100%;
+}
+
+.shortcut {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.shortcut:hover {
+    border: 1px solid #aaa;
+}
+
+.shortcut>div {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.shortcut>div img {
+    height: 60px;
+    min-width: 60px;
+    max-width: 60px;
+    object-fit: contain;
+    border-radius: 5px;
+    transition: all 0.3s;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.shortcut>div img.img-hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.shortcut>div img.img-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.shortcut>div span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.shortcut>div p {
+    font-size: 14px;
+}
+
+.shortcut .btn {
+    padding: 5px 7px;
+    width: 100%;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.shortcut .btn:active {
+    box-shadow: none;
+}
+
+.benefit h4 {
+    margin-bottom: 20px;
+}
+
+.benefit p {
+    margin-bottom: 10px;
+}
