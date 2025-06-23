@@ -7,6 +7,7 @@ import { ShoppingCart } from "./shoppingCartServices"
 import { Address } from "./addressService"
 import { Providers } from "./providersService"
 import { Mail } from "./mailService"
+import { Campaign } from './campaignServices'
 
 export const api = {
     Products,
@@ -17,7 +18,8 @@ export const api = {
     ShoppingCart,
     Address,
     Providers,
-    Mail
+    Mail,
+    Campaign
 }
 
 // const apiUrl = 'https://api.bazarrshop.com'
@@ -34,3 +36,4 @@ export const urlAddress= new URL(url + '/user')
 export const urlProvider= new URL(url + '/provider')
 export const urlMail= new URL(url + '/mail')
 export const urlAnalytics= new URL(url + '/analytics')
+export const urlCampaigns = new URL(url + '/campaigns/active')
