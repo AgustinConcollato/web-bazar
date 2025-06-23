@@ -1,0 +1,35 @@
+.campaign-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 20px;
+}
+
+.error-container {
+    text-align: center;
+    max-width: 500px;
+    padding: 40px 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.error-container h2 {
+    color: #dc3545;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.error-container p {
+    color: #6c757d;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.error-suggestion {
+    color: #495057;
+    font-style: italic;
+    font-size: 14px;
+    margin-top: 15px;
+} 
