@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { OrderProgressBar } from '../OrderProgressBar/OrderProgressBar'
 import './CartDetail.css';
 
-export function CartDetail({ productList, cart }) {
-
+export function CartDetail({ productList }) {
 
     const [totalPrice, setTotalPrice] = useState(null)
 
@@ -11,8 +11,20 @@ export function CartDetail({ productList, cart }) {
         setTotalPrice(
             productList.reduce((total, e) => {
                 const price = e.product.price
-                const discount = e.product.discount || 0
-                const discountedPrice = price - (price * discount / 100)
+                let discountedPrice = price
+
+                // Priorizar descuento de campaña sobre descuento del producto
+                if (e.product.campaign_discount) {
+                    if (e.product.campaign_discount.type === "percentage") {
+                        discountedPrice = price - (price * e.product.campaign_discount.value / 100)
+                    } else {
+                        // Descuento fijo
+                        discountedPrice = Math.max(0, price - e.product.campaign_discount.value)
+                    }
+                } else if (e.product.discount) {
+                    discountedPrice = price - (price * e.product.discount / 100)
+                }
+
                 return total + (discountedPrice * e.quantity)
             }, 0)
         )
@@ -24,16 +36,14 @@ export function CartDetail({ productList, cart }) {
             <section className="cart-detail">
                 <div className="cart-detail-info">
                     <h4>Detalle del pedido</h4>
-                    <p>Productos <span>{cart.length}</span></p>
-                    <p>Unidades
-                        <span>
-                            {cart.reduce(
-                                (accumulator, currentValue) => accumulator + currentValue.quantity,
-                                0,
-                            )}
-                        </span>
-                    </p>
-                    <h3>Precio total <span>${totalPrice % 1 === 0 ? totalPrice : totalPrice.toFixed(2)}</span></h3>
+                    <OrderProgressBar totalAmount={totalPrice} />
+                    <h3>Precio total <span>
+                        {typeof totalPrice === 'number'
+                            ? `$${totalPrice >= 300000
+                                ? (totalPrice - ((5 * totalPrice) / 100)).toLocaleString()
+                                : totalPrice.toLocaleString()}`
+                            : '$0'}
+                    </span></h3>
                     <div className="cart-detail-container-btn">
                         <Link to={'/pedido/confirmar'} className="btn btn-solid">Continuar con el pedido</Link>
                     </div>
