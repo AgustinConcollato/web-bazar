@@ -10,6 +10,7 @@
 }
 
 .shortcut {
+    min-width: 230px;
     width: 100%;
     max-width: 300px;
     border-radius: 10px;
@@ -18,13 +19,18 @@
     display: flex;
     gap: 10px;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
     cursor: pointer;
 }
 
 .shortcut:hover {
     border: 1px solid #aaa;
+}
+
+.shortcut-icon {
+    min-width: 40px;
+    max-width: 40px
 }
 
 .shortcut>div {
@@ -81,4 +87,33 @@
 
 .benefit p {
     margin-bottom: 10px;
+}
+
+@media (max-width: 780px) {
+
+    .section-shortcuts {
+        margin: 60px auto;
+    }
+
+    .shortcut-list {
+        flex-wrap: wrap;
+    }
+
+    .shortcut {
+        min-width: 275px;
+        width: calc((100% - 15px) / 2);
+        max-width: none;
+    }
+}
+
+@media (max-width: 620px) {
+
+    .shortcut {
+        width: 100%;
+    }
+
+    .shortcut>div img {
+        min-width: 40px;
+        max-width: 40px;
+    }
 }
