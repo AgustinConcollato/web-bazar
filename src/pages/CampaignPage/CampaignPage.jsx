@@ -2,12 +2,16 @@ import { useParams } from "react-router-dom"
 import { useCampaign } from "../../hooks/useCampaign"
 import { Loading } from "../../components/Loading/Loading"
 import './CampaignPage.css'
+import { useState } from "react"
+import { Pagination } from "../../components/Pagination/Pagination"
+import { ProductCard } from "../../components/ProductCard/ProductCard"
 
 export function CampaignPage() {
 
-    const { slug } = useParams()
+    const [page, setPage] = useState(1)
 
-    const { error, campaigns, loading } = useCampaign(slug)
+    const { slug } = useParams()
+    const { error, campaigns, loading } = useCampaign(slug, page)
 
     if (loading) {
         return <section><Loading /></section>
@@ -37,10 +41,17 @@ export function CampaignPage() {
     return (
         <section>
             {campaigns && (
-                <div>
+                <div className="campaing">
                     <h1>{campaigns.name}</h1>
                     <p>{campaigns.description}</p>
-                    {/* Aquí puedes agregar más contenido de la campaña */}
+                    <div className="product-list">
+                        {campaigns?.products?.data.map(product => <ProductCard e={product} />)}
+                    </div>
+                    <Pagination
+                        currentPage={campaigns?.products?.current_page}
+                        lastPage={campaigns?.products?.last_page}
+                        onPageChange={setPage}
+                    />
                 </div>
             )}
         </section>
