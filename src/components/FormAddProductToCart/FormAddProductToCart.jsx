@@ -62,16 +62,35 @@ export function FormAddProductToCart({ type, product }) {
             <form onSubmit={addCart} className="form-add-product-to-cart">
                 {type == 'CARD' ?
                     <>
-                        <input type="number" name="quantity" min={1} className="input" placeholder='Cantidad' />
+                        <input
+                            type="number"
+                            name="quantity"
+                            min={1}
+                            className="input"
+                            placeholder='Cantidad'
+                            autoComplete="off"
+                        />
                         <div>
-                            <button type='submit' disabled={!addStatus} className="btn btn-regular">{addStatus ? <FontAwesomeIcon icon={faBasketShopping} /> : <FontAwesomeIcon icon={faCircleNotch} spin />}</button>
+                            <button type='submit' disabled={!addStatus} className="btn btn-regular">
+                                {addStatus ? <FontAwesomeIcon icon={faBasketShopping} /> : <FontAwesomeIcon icon={faCircleNotch} spin />}
+                            </button>
                             <span>Agregar al pedido</span>
                         </div>
                     </> :
                     <>
-                        <input type="number" name="quantity" min={1} className="input" placeholder='Cantidad' onChange={() => setError(false)} />
+                        <input
+                            type="number"
+                            name="quantity"
+                            min={1}
+                            className="input"
+                            placeholder='Cantidad'
+                            onChange={() => setError(false)}
+                            autoComplete="off"
+                        />
                         <div>
-                            <button type='submit' disabled={!addStatus} className="btn btn-solid">{addStatus ? 'Agregar al pedido' : <FontAwesomeIcon icon={faCircleNotch} spin />}</button>
+                            <button type='submit' disabled={!addStatus} className="btn btn-solid">
+                                {addStatus ? 'Agregar al pedido' : <FontAwesomeIcon icon={faCircleNotch} spin />}
+                            </button>
                         </div>
                     </>
                 }
