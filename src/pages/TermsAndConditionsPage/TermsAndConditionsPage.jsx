@@ -15,7 +15,7 @@ export function TermsAndConditionsPage() {
             <h3>Métodos y condiciones de Pago</h3>
             <p>Los métodos de pago disponibles son: transferencia bancaria, efectivo (contra reembolso) y cheque (contra reembolso).</p>
             <p>En caso de optar por el pago mediante cheque, el mismo deberá tener una fecha de vencimiento no mayor a 30 días desde su emisión.</p>
-            <p>En el caso de seleccionar dos métodos de pago, si uno de ellos es transferencia bancaria, el pedido no será despachado hasta que se acredite el importe correspondiente a dicha transferencia.</p>
+            {/* <p>En el caso de seleccionar dos métodos de pago, si uno de ellos es transferencia bancaria, el pedido no será despachado hasta que se acredite el importe correspondiente a dicha transferencia.</p> */}
 
             <h3>Modificación de Precios</h3>
             <p>Los precios de los productos pueden cambiar sin previo aviso, conforme a variaciones de mercado u otras circunstancias.</p>
