@@ -56,13 +56,13 @@ export function AllOrders({ client }) {
                                             </div>
                                             <p>{order.discount ?
                                                 <>
-                                                    <p className="discount">
-                                                        <span>-{order.discount}%</span>
-                                                        <p className="price">${parseFloat(order.total_amount)}</p>
+                                                    <p style={{ display: 'flex', gap: '10px', textAlign: 'end', justifyContent: 'end' }}>
+                                                        <span style={{ color: '#66b819' }}>-{order.discount}%</span>
+                                                        <p style={{ textDecorationLine: 'line-through' }}>${parseFloat(order.total_amount).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                                                     </p>
-                                                    <p>${parseFloat(order.total_amount - (order.discount * order.total_amount) / 100)}</p>
+                                                    <p>${parseFloat(order.total_amount - (order.discount * order.total_amount) / 100).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                                                 </> :
-                                                <p>${parseFloat(order.total_amount)}</p>
+                                                <p>${parseFloat(order.total_amount).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                                             }</p>
                                         </Link>
                                     </li>
