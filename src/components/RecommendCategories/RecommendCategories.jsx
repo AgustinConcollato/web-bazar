@@ -26,6 +26,20 @@ export function RecommendCategories({ product }) {
                                     </Link>
                                 </li>
                             )}
+                        {product?.campaign_discount &&
+                            <li>
+                                <Link to={`/e/productos/${product?.campaign_discount.campaign_slug}`}>
+                                    {product?.campaign_discount.campaign_name}
+                                </Link>
+                            </li>
+                        }
+                        {product?.campaign_info &&
+                            <li>
+                                <Link to={`/e/productos/${product?.campaign_info.campaign_slug}`}>
+                                    {product?.campaign_info.campaign_name}
+                                </Link>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
