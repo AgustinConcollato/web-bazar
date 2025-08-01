@@ -51,7 +51,7 @@ export function OrderDetails({ order, address }) {
                     <p>
                         {order.payments.map(e =>
                             <p className='method'>
-                                <b>${e.expected_amount}</b>
+                                <b>${parseFloat(e.expected_amount).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</b>
                                 {e.method == 'transfer' ? 'Transferencia' : e.method == 'cash' ? 'Efectivo' : 'Cheque'}
                             </p>
                         )}
@@ -73,12 +73,12 @@ export function OrderDetails({ order, address }) {
                     <li>Precio
                         <p>
                             <span className="discount">
-                                ${order.total_amount}
+                                ${parseFloat(order.total_amount).toLocaleString('es-AR', { maximumFractionDigits: 2 })}
                             </span>
-                            <b>${parseFloat(order.total_amount - (order.total_amount * order.discount) / 100)}</b>
+                            <b>${parseFloat(order.total_amount - (order.total_amount * order.discount) / 100).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</b>
                         </p>
                     </li> :
-                    <li>Precio<b>${parseFloat(order.total_amount)}</b></li>
+                    <li>Precio<b>${parseFloat(order.total_amount).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</b></li>
                 }
             </ul>
         </div >

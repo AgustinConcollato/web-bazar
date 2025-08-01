@@ -103,15 +103,15 @@ function Details() {
                                                 <td>{product.quantity}</td>
                                                 <td>{product.discount ?
                                                     <>
-                                                        <p className="discount">
-                                                            <span>-{product.discount}%</span>
-                                                            <p className="price">${parseFloat(product.price)}</p>
+                                                        <p style={{ display: 'flex', gap: '10px', textAlign: 'end', justifyContent: 'end' }}>
+                                                            <span style={{ color: '#66b819' }}>-{product.discount}%</span>
+                                                            <p style={{ textDecorationLine: 'line-through', fontSize: '14px' }}>${parseFloat(product.price).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                                                         </p>
-                                                        <p>${parseFloat(product.price - (product.discount * product.price) / 100)}</p>
+                                                        <p>${parseFloat(product.price - (product.discount * product.price) / 100).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                                                     </> :
-                                                    <p>${parseFloat(product.price)}</p>
+                                                    <p>${parseFloat(product.price).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                                                 }</td>
-                                                <td>${parseFloat(product.subtotal)}</td>
+                                                <td>${parseFloat(product.subtotal).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</td>
                                             </tr>
                                         ))}
                                     </tbody>

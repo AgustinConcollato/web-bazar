@@ -142,23 +142,23 @@ export function CartProduct({ e, onDelete, setProductList }) {
             </form>
             {!product.campaign_discount && !product.discount ?
                 <div className="cart-product-price">
-                    <p>${price % 1 !== 0 ? price.toFixed(2) : price}</p>
+                    <p>${price.toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                 </div> :
                 <div className="cart-product-discount">
                     <div>
                         {product.campaign_discount ? (
                             <>
-                                <span>-{product.campaign_discount.type === "percentage" ? `${product.campaign_discount.value}%` : `$${product.campaign_discount.value}`} </span>
-                                <p>${price % 1 !== 0 ? price.toFixed(2) : price}</p>
+                                <span>-{product.campaign_discount.type === "percentage" ? `${product.campaign_discount.value}%` : `$${product.campaign_discount.value.toLocaleString('es-AR', { maximumFractionDigits: 2 })}`} </span>
+                                <p>${price.toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                             </>
                         ) : (
                             <>
                                 <span>-{product.discount}% </span>
-                                <p>${price % 1 !== 0 ? price.toFixed(2) : price}</p>
+                                <p>${price.toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                             </>
                         )}
                     </div>
-                    <p>${discountedPrice % 1 === 0 ? discountedPrice : discountedPrice.toFixed(2)}</p>
+                    <p>${discountedPrice.toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                 </div>
             }
             <div>
