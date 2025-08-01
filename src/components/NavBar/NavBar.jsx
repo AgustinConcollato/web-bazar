@@ -11,6 +11,7 @@ export function NavBar() {
             <ul>
                 {(categories && categories.length != 0) &&
                     categories.map(e =>
+                        e.code != 'CAT007' &&
                         <li key={e.code}>
                             <NavLink to={'/productos/' + e.code}>{e.name}</NavLink>
                         </li>
