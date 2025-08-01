@@ -19,3 +19,68 @@
 .filter .input {
     padding: 10px 15px;
 }
+
+.show-not-available-quantity {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+.container-filters>p {
+    text-align: end ;
+}
+
+.show-not-available-quantity p {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.show-not-available-quantity .true,
+.show-not-available-quantity .false {
+    width: 30px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    padding: 0 3px;
+    height: 18px;
+}
+
+.show-not-available-quantity .circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+.show-not-available-quantity .true {
+    justify-content: end;
+    border-color: var(--color-primary);
+}
+
+.show-not-available-quantity .false {
+    justify-content: start;
+}
+
+.show-not-available-quantity .true .circle {
+    background: var(--color-primary);
+}
+
+.show-not-available-quantity .false .circle {
+    background: #ccc;
+}
+
+@media (max-width: 700px) {
+    .container-filters {
+        margin-bottom: 60px;
+    }
+
+    .show-not-available-quantity p:last-child {
+        position: absolute;
+        width: calc(100vw - 40px);
+        top: calc(100% + 20px);
+    }
+}

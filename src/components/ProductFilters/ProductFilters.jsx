@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import "./ProductFilters.css";
 
-export function ProductFilters({ totalProducts }) {
+export function ProductFilters({ totalProducts, setAvailableQuantity, availableQuantity }) {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const handleFilterChange = (filter, value, isSorting = false) => {
@@ -10,7 +10,6 @@ export function ProductFilters({ totalProducts }) {
         if (!isSorting) {
             newParams.delete('page')
         }
-
 
         if (value) {
             newParams.set(filter, value);
@@ -23,18 +22,27 @@ export function ProductFilters({ totalProducts }) {
 
     return (
         <div className="container-filters">
+            <div className="show-not-available-quantity">
+                <div className="filter">
+                    <select
+                        className="input"
+                        value={searchParams.get('price') ?? ''}
+                        onChange={(e) => { handleFilterChange('price', e.target.value, true) }}
+                    >
+                        <option value="">Ordenar</option>
+                        <option value="min">Menor precio</option>
+                        <option value="max">Mayor precio</option>
+                    </select>
+                </div>
+                <p onClick={() => setAvailableQuantity(e => e ? null : true)}>
+                    Ver productos con stock
+                    <div className={availableQuantity ? 'true' : 'false'}>
+                        <div className="circle"></div>
+                    </div>
+                </p>
+            </div>
             <p>{totalProducts || '0'} productos encontrados</p>
 
-            <div className="filter">
-                <select
-                    className="input"
-                    onChange={(e) => { handleFilterChange('price', e.target.value, true) }}
-                >
-                    <option value="">Ordenar</option>
-                    <option value="min">Menor precio</option>
-                    <option value="max">Mayor precio</option>
-                </select>
-            </div>
         </div>
     );
 }
