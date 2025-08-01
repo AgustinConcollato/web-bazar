@@ -5,13 +5,15 @@ export class Campaign {
         this.url = url
     }
 
-    async get({ slug = null } = {}) {
+    async get({ slug = null, page = 1 } = {}) {
 
         let fullUrl = url
 
         if (slug) {
             fullUrl += `/${slug}`
         }
+
+        fullUrl += `?page=${page}`
 
         try {
             const response = await fetch(fullUrl)
