@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Campaign } from "../services/campaignServices";
 
-export function useCampaign(slug = null) {
+export function useCampaign(slug = null, page) {
 
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -12,7 +12,7 @@ export function useCampaign(slug = null) {
             try {
                 setLoading(true)
                 setError(null)
-                const response = await new Campaign().get({ slug })
+                const response = await new Campaign().get({ slug, page })
                 setCampaings(response)
             } catch (error) {
                 console.error('Error fetching campaign:', error)
@@ -27,7 +27,7 @@ export function useCampaign(slug = null) {
         }
 
         fetchCampaign()
-    }, [slug])
+    }, [slug, page])
 
     return { error, campaigns, loading }
 }
