@@ -100,9 +100,23 @@ img.thumbnail-selected {
     text-wrap: wrap;
 }
 
+.discount-detail {
+    font-size: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.discount-detail span {
+    color: #66b819;
+}
+
+.discount-detail p {
+    text-decoration: line-through;
+}
+
 .container-product-info .price {
-    font-size: 22px;
-    font-weight: 600;
+    font-size: 32px;
+    font-weight: 500;
 }
 
 .container-product-info .discount p {

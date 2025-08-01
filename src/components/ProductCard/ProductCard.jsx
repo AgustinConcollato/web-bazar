@@ -59,7 +59,8 @@ export function ProductCard({ e }) {
                             <img
                                 className={`fade-image ${fade ? "visible" : "hidden"}`}
                                 loading="lazy"
-                                src={urlStorage + '/' + images[position]}
+                                src={'https://api.bazarrshop.com/storage' + '/' + images[position]}
+                                // src={urlStorage + '/' + images[position]}
                                 alt={e.name + e.description}
                             />
                         )}
@@ -74,7 +75,7 @@ export function ProductCard({ e }) {
                                 <FontAwesomeIcon icon={faAngleRight} />
                             </button>
                         )}
-                        <span className="stock">{e.available_quantity > 0 ?  'Disponibles: ' + e.available_quantity : 'Sin stock'}</span>
+                        {e.available_quantity <= 0 && <span className="stock">Sin stock</span>}
                     </div>
                     <div>
                         <p>{e.name}</p>
@@ -84,24 +85,28 @@ export function ProductCard({ e }) {
                     {e.campaign_discount ? (
                         <>
                             <p className="discount">
-                                <span>-{e.campaign_discount.type === "percentage" ? `${e.campaign_discount.value}%` : `$${e.campaign_discount.value}`}</span>
+                                <span>
+                                    <span style={e.campaign_discount.value < 10 ? { left: '-5px' } : {}}>-{e.campaign_discount.type === "percentage" ? `${e.campaign_discount.value}%` : `$${e.campaign_discount.value}`}</span>
+                                </span>
                                 <p className="price">${parseFloat(e.price)}</p>
                             </p>
                             <p>${e.campaign_discount.type === "percentage"
-                                ? (e.price - (e.campaign_discount.value * e.price) / 100).toFixed(2)
-                                : Math.max(0, e.price - e.campaign_discount.value).toFixed(2)
+                                ? (e.price - (e.campaign_discount.value * e.price) / 100).toLocaleString('es-AR', { maximumFractionDigits: 2 })
+                                : Math.max(0, e.price - e.campaign_discount.value).toLocaleString('es-AR', { maximumFractionDigits: 2 })
                             }</p>
                         </>
                     ) : e.discount ? (
                         <>
                             <p className="discount">
-                                <span>-{e.discount}%</span>
-                                <p className="price">${parseFloat(e.price)}</p>
+                                <span>
+                                    <span style={e.discount < 10 ? { left: '-5px' } : {}} >-{e.discount}%</span>
+                                </span>
+                                <p className="price">${parseFloat(e.price).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                             </p>
-                            <p>${(e.price - (e.discount * e.price) / 100).toFixed(2)}</p>
+                            <p>${(e.price - (e.discount * e.price) / 100).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                         </>
                     ) : (
-                        <p className="price">${parseFloat(e.price)}</p>
+                        <p className="price">${parseFloat(e.price).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                     )}
                 </Link>
                 <FormAddProductToCart type={'CARD'} product={e} />

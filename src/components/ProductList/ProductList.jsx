@@ -16,6 +16,7 @@ export function ProductList() {
 
     const [pageData, setPageData] = useState(null)
     const [productList, setProductList] = useState(null)
+    const [availableQuantity, setAvailableQuantity] = useState(true)
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -36,7 +37,8 @@ export function ProductList() {
             category,
             page: searchParams.get("page") || 1,
             subcategory,
-            price: searchParams.get("price")
+            price: searchParams.get("price"),
+            available_quantity: availableQuantity
         }
 
         const dataPage = await products.search({ options })
@@ -51,19 +53,22 @@ export function ProductList() {
         getProducts(categoryCode, subcategoryCode)
 
         window.scrollTo(0, 0)
-    }, [categoryCode, searchParams, subcategoryCode])
+    }, [categoryCode, searchParams, subcategoryCode, availableQuantity])
 
     useEffect(() => {
-        const newParams = new URLSearchParams();
-        setSearchParams(newParams);
-    }, [categoryCode, subcategoryCode])
+        pageData && handlePageChange(1)
+    }, [availableQuantity])
 
     return (
         <section className='product-list-page'>
             <Filters category={categoryCode} />
             <div className='container-product-list'>
                 <div>
-                    <ProductFilters totalProducts={pageData?.total} />
+                    <ProductFilters
+                        totalProducts={pageData?.total}
+                        setAvailableQuantity={setAvailableQuantity}
+                        availableQuantity={availableQuantity}
+                    />
                 </div>
                 {pageData ?
                     productList.length != 0 ?

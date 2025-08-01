@@ -54,29 +54,29 @@ export function ProductDetail({ product }) {
                             {isNewArrival(product) && <span className="new-arrival">Nuevo Ingreso</span>}
                             <h1>{product.name} <span>Código referencia: {product.code}</span></h1>
                             {product.description && <pre className="description">{product.description}</pre>}
-                            {product.campaign_discount ? (
+                            {(product.campaign_discount) ? (
                                 <>
-                                    <p className="discount">
-                                        <span>-{product.campaign_discount.type === "percentage" ? `${product.campaign_discount.value}%` : `$${product.campaign_discount.value}`}</span>
-                                        <p>${parseFloat(product.price)}</p>
+                                    <p className="discount-detail">
+                                        <span>-{product.campaign_discount.type === "percentage" ? `${product.campaign_discount.value}%` : `$${product.campaign_discount.value.toLocaleString('es-AR', { maximumFractionDigits: 2 })}`}</span>
+                                        <p>${parseFloat(product.price).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                                     </p>
                                     <p className="price">{product.campaign_discount.type === "percentage"
-                                        ? `$${(product.price - (product.campaign_discount.value * product.price) / 100).toFixed(2)}`
-                                        : `$${Math.max(0, product.price - product.campaign_discount.value).toFixed(2)}`
+                                        ? `$${(product.price - (product.campaign_discount.value * product.price) / 100).toLocaleString('es-AR', { maximumFractionDigits: 2 })}`
+                                        : `$${Math.max(0, product.price - product.campaign_discount.value).toLocaleString('es-AR', { maximumFractionDigits: 2 })}`
                                     }</p>
                                 </>
                             ) : product.discount ? (
                                 <>
-                                    <p className="discount">
+                                    <p className="discount-detail">
                                         <span>-{product.discount}%</span>
-                                        <p>${parseFloat(product.price)}</p>
+                                        <p>${parseFloat(product.price).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                                     </p>
-                                    <p className="price">${(product.price - (product.discount * product.price) / 100).toFixed(2)}</p>
+                                    <p className="price">${(product.price - (product.discount * product.price) / 100).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                                 </>
                             ) : (
-                                <p className="price">${parseFloat(product.price)}</p>
+                                <p className="price">${parseFloat(product.price).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                             )}
-                            <span className="stock">{product.available_quantity > 0 ? 'Disponibles: ' + product.available_quantity : 'Sin stock'}</span>
+                            {product.available_quantity < 1 && <span className="stock">Sin stock</span>}
                             <FormAddProductToCart type={'DETAIL'} product={product} />
                         </div>
                     </> :
