@@ -11,6 +11,7 @@ export const Register = () => {
         { rule: 'Debe contener al menos 8 caracteres', check: value => value.length >= 8 },
         // { rule: 'Debe contener al menos una letra mayúscula', check: value => /[A-Z]/.test(value) },
         { rule: 'Debe contener al menos un número', check: value => /\d/.test(value) },
+        { rule: 'Debe contener al menos una letra', check: value => /[a-zA-Z]/.test(value) },
         // { rule: 'Debe contener al menos un carácter especial', check: value => /[!@#$%^&*(),.?":{}|<>]/.test(value) },
     ];
 
@@ -53,7 +54,8 @@ export const Register = () => {
                     'The password field must contain at least one number.',
                     'The password field must contain at least one uppercase and one lowercase letter.',
                     'The password field must be at least 8 characters.',
-                    'The password field is required.'
+                    'The password field is required.',
+                    'The password field must contain at least one letter.'
                 ],
                 name: [
                     'The name field is required.'
@@ -98,6 +100,10 @@ export const Register = () => {
 
                 if (typeErrors.password[4] == password[0]) {
                     return setErrorMessage('Debe contener al menos 8 caracteres')
+                }
+
+                if (typeErrors.password[6] == password[0]) {
+                    return setErrorMessage('Debe contener al menos una letra')
                 }
             }
         }
