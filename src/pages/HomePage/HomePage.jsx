@@ -42,7 +42,8 @@ export function HomePage() {
 
         const options = {
             date: pastDateInMilliseconds,
-            page: 1
+            page: 1,
+            available_quantity: true
         }
 
         const products = new Products()
@@ -58,8 +59,10 @@ export function HomePage() {
     async function getProductsByViews() {
 
         const options = {
-            views: true,
-            page: 1
+            // views: true,
+            page: 1,
+            available_quantity: true,
+            discount: true
         }
 
         const products = new Products()
@@ -99,7 +102,7 @@ export function HomePage() {
             <SectionCategoriesHome />
             <section className="section-products-home">
                 <div>
-                    <h2>Productos destacados</h2>
+                    <h2>Productos con descuentos</h2>
                     <div className="btn-nav">
                         <button onClick={() => scrollProducts(popularProductsRef, 'left')}>{'<'}</button>
                         <button onClick={() => scrollProducts(popularProductsRef, 'right')}>{'>'}</button>
