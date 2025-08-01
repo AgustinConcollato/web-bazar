@@ -21,7 +21,8 @@ export function SearchResultsPage() {
             const response = await product.search({
                 options: {
                     name: productName,
-                    page
+                    page,
+                    available_quantity: true
                 }
             });
 
