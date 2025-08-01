@@ -31,7 +31,7 @@ export function Header() {
 
     return (
         <>
-            <p className="min-purchase">Compra mínima por la web $150.000</p>
+            <p className="min-purchase">Compra mínima por la web $100.000</p>
             <header>
                 <div className="header-container">
                     <div>
