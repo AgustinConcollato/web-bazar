@@ -15,6 +15,7 @@ import { SearchResultsPage } from './pages/SearchResultsPage'
 import { ShoppingCartPage } from './pages/ShoppingCartPage'
 import { TermsAndConditionsPage } from './pages/TermsAndConditionsPage/TermsAndConditionsPage'
 import { VerifyEmailPage } from './pages/VerifyEmailPage/VerifyEmailPage'
+import { ResetPasswordPage } from './pages/ResetPasswordPage/ResetPasswordPage'
 
 export function App() {
   return (
@@ -33,6 +34,7 @@ export function App() {
         <Route path='/perfil' element={<ProfilePage />} />
         <Route path='/compras/*' element={<OrdersPage />} />
         <Route path='/terminos-condiciones' element={<TermsAndConditionsPage />} />
+        <Route path='/reset-password/:token/:email' element={<ResetPasswordPage />} />
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
       <Footer />

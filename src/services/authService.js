@@ -115,4 +115,26 @@ export class Auth {
         }
     }
 
+    async passwordReset(data) {
+        try {
+
+            const response = await fetch(`${url}/reset-password`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                },
+                body: data
+            });
+
+
+            if (!response.ok) {
+                const error = await response.json()
+                throw error
+            }
+
+            return await response.json()
+        } catch (error) {
+            throw error
+        }
+    }
 }

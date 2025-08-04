@@ -35,7 +35,6 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('token', token)
 
             setClient(client)
-            setToken(token)
 
             return response
         } catch (error) {
@@ -54,7 +53,20 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    async function passwordReset(email) { }
+    async function passwordReset(data) {
+        try {
+            const response = await auth.passwordReset(data)
+            const { token, client } = response
+            localStorage.setItem('token', token)
+
+            setClient(client)
+
+            return response
+
+        } catch (error) {
+            throw error
+        }
+    }
 
     async function updatePhone(phone) {
         try {
