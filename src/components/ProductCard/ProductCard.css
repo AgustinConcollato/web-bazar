@@ -151,23 +151,20 @@
     display: inline-block;
     background: #66b819;
     position: absolute;
-    top: -60px;
-    left: -60px;
-    width: 120px;
-    height: 120px;
-    transform: rotate(45deg);
+    top: 0;
+    left: 0;
+    border-radius: 0 0 10px 0;
+    /* height: 60px; */
     display: flex;
-    justify-content: end;
-    align-items: center;
-    padding: 5px;
+    flex-direction: column;
+    padding: 10px;
 }
 
 .discount>span span {
     position: relative;
     display: inline-block;
     color: #fff;
-    font-weight: 500;
-    transform: rotate(-45deg) translate(0, 0);
+    font-size: 15px;
 }
 
 .product-card form {

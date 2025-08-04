@@ -59,8 +59,7 @@ export function ProductCard({ e }) {
                             <img
                                 className={`fade-image ${fade ? "visible" : "hidden"}`}
                                 loading="lazy"
-                                src={'https://api.bazarrshop.com/storage' + '/' + images[position]}
-                                // src={urlStorage + '/' + images[position]}
+                                src={urlStorage + '/' + images[position]}
                                 alt={e.name + e.description}
                             />
                         )}
@@ -86,7 +85,7 @@ export function ProductCard({ e }) {
                         <>
                             <p className="discount">
                                 <span>
-                                    <span style={e.campaign_discount.value < 10 ? { left: '-5px' } : {}}>-{e.campaign_discount.type === "percentage" ? `${e.campaign_discount.value}%` : `$${e.campaign_discount.value}`}</span>
+                                    <span style={e.campaign_discount.value < 10 ? { left: '-5px' } : {}}>{e.campaign_discount.type === "percentage" ? `${e.campaign_discount.value}%` : `$${e.campaign_discount.value}`} de descuento</span>
                                 </span>
                                 <p className="price">${parseFloat(e.price)}</p>
                             </p>
@@ -99,7 +98,7 @@ export function ProductCard({ e }) {
                         <>
                             <p className="discount">
                                 <span>
-                                    <span style={e.discount < 10 ? { left: '-5px' } : {}} >-{e.discount}%</span>
+                                    <span style={e.discount < 10 ? { left: '-5px' } : {}} >{e.discount}% de descuento</span>
                                 </span>
                                 <p className="price">${parseFloat(e.price).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                             </p>
