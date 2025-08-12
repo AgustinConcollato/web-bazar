@@ -4,12 +4,12 @@
 }
 
 :root {
-    --color-primary: #df491c;
-    --color-primary-900: #df491c90;
-    --color-primary-200: #df491c20;
-    --color-primary-100: #df491c10;
-    --color-error: #e74c3c;
-    --color-error-200: #e74c3c20;
+    --color-primary: #d14d45;
+    --color-primary-900: #d14d4590;
+    --color-primary-200: #d14d4520;
+    --color-primary-100: #d14d4510;
+    --color-error: #ff1900;
+    --color-error-200: #ff190020;
 }
 
 * {
