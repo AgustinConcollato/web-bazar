@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { OrderProgressBar } from '../OrderProgressBar/OrderProgressBar'
 import './CartDetail.css';
 
 export function CartDetail({ productList }) {
+
 
     const [totalPrice, setTotalPrice] = useState(null)
 
@@ -35,15 +35,17 @@ export function CartDetail({ productList }) {
         <>
             <section className="cart-detail">
                 <div className="cart-detail-info">
-                    <h4>Detalle del pedido</h4>
-                    <OrderProgressBar totalAmount={totalPrice} />
-                    <h3>Precio total <span>
-                        {typeof totalPrice === 'number'
-                            ? `$${totalPrice >= 300000
-                                ? (totalPrice - ((5 * totalPrice) / 100)).toLocaleString()
-                                : totalPrice.toLocaleString()}`
-                            : '$0'}
-                    </span></h3>
+                    <h3>Subtotal
+                        <span>
+                            {/* {typeof totalPrice === 'number'
+                                ? `$${totalPrice >= 300000
+                                    ? (totalPrice - ((5 * totalPrice) / 100)).toLocaleString()
+                                    : totalPrice.toLocaleString()}`
+                                : '$0'
+                            } */}
+                            ${typeof totalPrice === 'number' ? totalPrice.toLocaleString() : '$0'}
+                        </span>
+                    </h3>
                     <div className="cart-detail-container-btn">
                         <Link to={'/pedido/confirmar'} className="btn btn-solid">Continuar con el pedido</Link>
                     </div>

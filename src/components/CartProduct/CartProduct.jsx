@@ -38,7 +38,6 @@ export function CartProduct({ e, onDelete, setProductList }) {
         const data = {
             quantity: q,
             product_id: product.id,
-            client_id: client.id
         }
 
         try {
@@ -76,9 +75,11 @@ export function CartProduct({ e, onDelete, setProductList }) {
                 setPrice(product.price * response.quantity);
                 setDisabled(false);
             }
-
+            
         } catch (error) {
             console.log(error)
+        } finally {
+            setDisabled(false);
         }
     }
 
@@ -163,7 +164,7 @@ export function CartProduct({ e, onDelete, setProductList }) {
             }
             <div>
                 <button
-                    onClick={() => onDelete({ clientId: client.id, productId: product.id })}
+                    onClick={() => onDelete({ productId: product.id })}
                     className="btn btn-error-thins"
                 >
                     <FontAwesomeIcon icon={faTrashAlt} />

@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { urlStorage } from "../../services/api"
 import { FormAddProductToCart } from "../FormAddProductToCart/FormAddProductToCart"
 import './ProductDetail.css'
+import { AuthContext } from "../../context/authContext";
 
 export function ProductDetail({ product }) {
+
+    const { client } = useContext(AuthContext);
 
     const [images, setImages] = useState([])
     const [thumbnails, setThumbnail] = useState([])
@@ -35,12 +38,17 @@ export function ProductDetail({ product }) {
         <div>
             <div className="product-detail" >
                 <div className="container-images">
-                    <img src={urlStorage + '/' + images[position]} alt={product.name} />
+                    <img
+                        //  src={urlStorage + '/' + images[position]}
+                        src={'https://api.bazarrshop.com/storage/' + images[position]}
+                        alt={product.name}
+                    />
                     <div className="container-thumbnails">
                         {thumbnails.length > 1 &&
                             thumbnails.map((e, i) =>
                                 <img
-                                    src={urlStorage + '/' + e}
+                                    // src={urlStorage + '/' + e}
+                                    src={'https://api.bazarrshop.com/storage/' + e}
                                     key={i}
                                     onClick={() => setPosition(i)}
                                     className={position == i ? "thumbnail-selected" : ""}
@@ -76,6 +84,7 @@ export function ProductDetail({ product }) {
                             ) : (
                                 <p className="price">${parseFloat(product.price).toLocaleString('es-AR', { maximumFractionDigits: 2 })}</p>
                             )}
+                            {(client?.type == "final" && product.available_quantity > 0) && <span className="stock">Disponibles: {product.available_quantity}</span>}
                             {product.available_quantity < 1 && <span className="stock">Sin stock</span>}
                             <FormAddProductToCart type={'DETAIL'} product={product} />
                         </div>

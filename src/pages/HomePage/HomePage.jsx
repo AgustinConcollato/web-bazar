@@ -11,7 +11,7 @@ export function HomePage() {
     const { Products } = api
 
     const [productsListDate, setProductsListDate] = useState(null);
-    const [productsListViews, setProductsListViews] = useState(null);
+    const [productsListWithDiscount, setProductsListWithDiscount] = useState(null);
     const [showOnlyPopular, setShowOnlyPopular] = useState(false);
 
     // Referencias para los contenedores de productos
@@ -56,10 +56,9 @@ export function HomePage() {
         }
     }
 
-    async function getProductsByViews() {
+    async function getProductsWithDiscount() {
 
         const options = {
-            // views: true,
             page: 1,
             available_quantity: true,
             discount: true
@@ -67,13 +66,13 @@ export function HomePage() {
 
         const products = new Products()
         const dataPage = await products.search({ options })
-        setProductsListViews(dataPage.data)
+        setProductsListWithDiscount(dataPage.data)
     }
 
     useEffect(() => {
         document.title = 'Bazarshop'
         getProductsByCreationDate()
-        getProductsByViews();
+        getProductsWithDiscount();
 
         scrollTo(0, 0)
     }, [])
@@ -108,10 +107,10 @@ export function HomePage() {
                         <button onClick={() => scrollProducts(popularProductsRef, 'right')}>{'>'}</button>
                     </div>
                 </div>
-                {productsListViews ?
-                    productsListViews.length > 0 ?
+                {productsListWithDiscount ?
+                    productsListWithDiscount.length > 0 ?
                         <div ref={popularProductsRef} className="products-container">
-                            {productsListViews.map(e => <ProductCard key={e.id} e={e} />)}
+                            {productsListWithDiscount.map(e => <ProductCard key={e.id} e={e} />)}
                         </div> :
                         <p>No hay productos en esta categoría</p>
                     : <Loading />}

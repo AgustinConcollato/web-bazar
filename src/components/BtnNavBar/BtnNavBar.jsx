@@ -21,7 +21,6 @@ export function BtnNavBar() {
                     <ul>
                         {(categories && categories.length != 0) &&
                             categories.map(e =>
-                                e.code != 'CAT007' &&
                                 <li key={e.code} onClick={() => setHidden(!hidden)}>
                                     <Link to={'/productos/' + e.code}>{e.name}</Link>
                                 </li>

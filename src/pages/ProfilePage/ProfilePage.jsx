@@ -110,7 +110,7 @@ export function ProfilePage() {
             <aside>
                 <div>
                     <h3>{client.name}</h3>
-                    <p>{client.email}</p>
+                    <p>{client.type == 'final' ? 'Consumidor final' : 'Revendedor / Negocio'}</p>
                 </div>
                 <nav>
                     <Link to={'/compras'}>Mis pedidos</Link>

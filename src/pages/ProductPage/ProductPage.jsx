@@ -1,13 +1,16 @@
 import { Link, useParams } from "react-router-dom"
 import { ProductDetail } from "../../components/ProductDetail/ProductDetail"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { api } from "../../services/api"
 import { Loading } from "../../components/Loading/Loading"
 import { RelatedProducts } from "../../components/RelatedProducts/RelatedProducts"
 import { RecommendCategories } from "../../components/RecommendCategories/RecommendCategories"
 import './ProductPage.css'
+import { AuthContext } from "../../context/authContext"
 
 export function ProductPage() {
+
+    const { client } = useContext(AuthContext)
 
     const { productId } = useParams()
 

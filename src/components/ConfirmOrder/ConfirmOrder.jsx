@@ -7,7 +7,6 @@ import { url } from "../../services/api"
 import { Addresses } from "../Addresses/Addresses"
 import { Loading } from "../Loading/Loading"
 import { Modal } from "../Modal/Modal"
-import { OrderProgressBar } from "../OrderProgressBar/OrderProgressBar"
 import { PaymentOption } from "../PaymentOption/PaymentOption"
 import './ConfirmOrder.css'
 
@@ -26,6 +25,17 @@ export function ConfirmOrder({ client }) {
     const [allowTwoMethods, setAllowTwoMethods] = useState(false);
     const [send, setSend] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [paymentMethods, setPaymentMethods] = useState(null)
+
+    // Calcula el costo de envío
+    const shippingCost =
+        !send && address && address.city?.toLowerCase() === 'rafaela' && address.zip_code === '2300'
+            ? (client.type == "reseller" ? 3500 : 2000)
+            : 0;
+    // Precio final (subtotal + envío)
+    const hasCreditCard = paymentMethods && paymentMethods[0] === 'credit_card';
+    const surcharge = hasCreditCard ? totalAmount * 0.1 : 0;
+    const finalTotal = totalAmount + shippingCost + surcharge;
 
     async function confirm() {
 
@@ -61,20 +71,14 @@ export function ConfirmOrder({ client }) {
             return;
         }
 
-        let discount = 0
-
-        if (totalAmount >= 300000 && !selectedMethods.includes('check')) {
-            discount = 5
-            // si más adelante hay mas de un solo método modificar la manera de agregar el descuento
-            selectedMethods.map(method => paymentAmounts[method] = totalAmount - ((discount * totalAmount) / 100));
-        }
 
         const data = {
             client_id: client.id,
             user_name: client.name,
             comment,
             payment_methods: paymentAmounts,
-            discount
+            delivery: shippingCost,
+            discount: 0
         }
 
         if (send) {
@@ -172,6 +176,15 @@ export function ConfirmOrder({ client }) {
         scrollTo(0, 0)
     }, [cart])
 
+    useEffect(() => {
+        // Actualizar los métodos de pago disponibles
+        if (Object.keys(paymentAmounts).length > 0) {
+            setPaymentMethods(Object.keys(paymentAmounts));
+        } else {
+            setPaymentMethods(null);
+        }
+    }, [paymentAmounts])
+
     return (
         <section className="section-confirm-order">
             {cart ?
@@ -182,45 +195,89 @@ export function ConfirmOrder({ client }) {
                     </div>
                     <div className="order-delivery-options">
                         <h3>¿Cómo querés recibir tu pedido?</h3>
-                        <div className="delivery-options-buttons">
-                            <button
-                                className={send ? "btn" : "btn btn-regular"}
-                                onClick={() => setSend(false)}
-                            >
-                                Enviar a domicilio
-                            </button>
-                            <button
-                                className={send ? "btn btn-regular" : "btn"}
-                                onClick={() => setSend(true)}
-                            >
-                                Retirar
-                            </button>
-                        </div>
-                        {!send &&
-                            <div className="confirm-order-address">
-                                <h3>Dirección de envío</h3>
-                                <div className="address-for-order">
-                                    {address ?
-                                        <>
-                                            <p className="order-address-selected">
-                                                {address.address + ' ' + address.address_number}
-                                                <button className="btn-change-address" onClick={() => setChangeAddress(!changeAddress)}>Cambiar</button>
+
+                        <div className="delivery-radio-group">
+                            <div className="send-option">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="deliveryOption"
+                                        checked={!send}
+                                        onChange={() => setSend(false)}
+                                    />
+                                    Enviar a domicilio
+                                </label>
+                                {!send &&
+                                    <>
+                                        <div>
+                                            <p className="price-for-delivery">
+                                                Dirección de envío
+                                                <b>
+                                                    {address ?
+                                                        address.city?.toLowerCase() === 'rafaela' && address.zip_code === '2300'
+                                                            ? `$${shippingCost}`
+                                                            : 'A coordinar'
+                                                        : ''
+                                                    }
+                                                </b>
                                             </p>
-                                            <p>{address ? address.city : ''}</p>
-                                        </> :
-                                        <>
-                                            <p>No hay direcciones registradas</p>
-                                            <button className="btn-change-address" onClick={() => setChangeAddress(!changeAddress)}>Agregar nueva dirección</button>
-                                        </>
-                                    }
-                                </div>
-                                {changeAddress &&
-                                    <Modal onClose={setChangeAddress}>
-                                        <Addresses client={client} type={'MODAL'} onChange={setAddress} />
-                                    </Modal>
+                                            <div className="address-for-order">
+                                                {address ?
+                                                    <>
+                                                        <p className="order-address-selected">
+                                                            {address.address + ' ' + address.address_number}
+                                                            <button className="btn-change-address" onClick={() => setChangeAddress(!changeAddress)}>Cambiar</button>
+                                                        </p>
+                                                        <p>{address ? address.city + ', ' + address.province : ''}</p>
+                                                    </> :
+                                                    <>
+                                                        <p>No hay direcciones registradas</p>
+                                                        <button className="btn-change-address" onClick={() => setChangeAddress(!changeAddress)}>Agregar nueva dirección</button>
+                                                    </>
+                                                }
+                                            </div>
+                                            {changeAddress &&
+                                                <Modal onClose={setChangeAddress}>
+                                                    <Addresses client={client} type={'MODAL'} onChange={setAddress} />
+                                                </Modal>
+                                            }
+                                        </div>
+                                        {client.type == 'reseller' && <p><span>*</span>El costo del envío queda a cargo del cliente.</p>}
+                                        <p><span>*</span>Nos comunicaremos a la brevedad para coordinar el transporte.</p>
+                                    </>
                                 }
                             </div>
-                        }
+                            <div className="send-option">
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="deliveryOption"
+                                        checked={send}
+                                        onChange={() => setSend(true)}
+                                    />
+                                    Retirar por depósito (Rafaela, Santa Fe)
+                                </label>
+                                {send &&
+                                    <div>
+                                        <p>Dirección de depósito</p>
+                                        <div className="address-for-order">
+                                            <p className="order-address-selected">
+                                                Juan José Paso 1523
+                                                <Link
+                                                    to={'https://www.google.com.ar/maps/place/Juan+Jos%C3%A9+Paso+1523,+S2300+Rafaela,+Santa+Fe/@-31.2664114,-61.5118381,70m/data=!3m1!1e3!4m6!3m5!1s0x95caae2af4108a65:0xfd97a1b7bba70429!8m2!3d-31.2663358!4d-61.511836!16s%2Fg%2F11l75_ggfg?hl=es&entry=ttu&g_ep=EgoyMDI1MDQyNy4xIKXMDSoASAFQAw%3D%3D'}
+                                                    target='_blank'
+                                                    className="btn-change-address"
+                                                >
+                                                    Ver en Google Maps
+                                                </Link>
+                                            </p>
+                                            <p>Rafaela, Santa Fe</p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
                     </div>
                     <div className="payment-methods">
                         <h3>Métodos de pago</h3>
@@ -246,39 +303,43 @@ export function ConfirmOrder({ client }) {
                 <Loading />
             }
             <div className="confirm-order">
+                <h4>Detalle del pedido</h4>
                 <div className="confirm-order-price">
-                    <OrderProgressBar totalAmount={totalAmount} />
-                    {Object.keys(paymentAmounts).includes('check') &&
-                        <span className="check-message">
-                            Para los pagos con cheque NO se aplica el descuento
+                    <p>Subtotal <span>${totalAmount.toLocaleString('es-AR', { maximumFractionDigits: 2 })}</span></p>
+                    <p>Recargo
+                        <span>
+                            {paymentMethods &&
+                                paymentMethods[0] === 'credit_card'
+                                ? `10% / $${parseFloat(totalAmount * 0.1).toLocaleString('es-AR', { maximumFractionDigits: 2 })}`
+                                : '$0'
+                            }
                         </span>
-                    }
-                    <p>Subtotal <span>${totalAmount.toLocaleString()}</span></p>
+                    </p>
                     <p>
-                        Descuento <span>
-                            {totalAmount >= 300000 && !Object.keys(paymentAmounts).includes('check')
-                                ? `-$${((totalAmount * 0.05)).toLocaleString()}`
-                                : '$0'}
+                        Envio
+                        <span>
+                            {send
+                                ? 'Retiro en depósito'
+                                : address
+                                    ? address.city?.toLowerCase() === 'rafaela' && address.zip_code === '2300'
+                                        ? `$${shippingCost}`
+                                        : 'A coordinar'
+                                    : 'No seleccionado'
+                            }
                         </span>
                     </p>
                     <p>
                         Precio total
                         <span>
                             {typeof totalAmount === 'number'
-                                ? `$${totalAmount >= 300000 && !Object.keys(paymentAmounts).includes('check')
-                                    ? (totalAmount - ((5 * totalAmount) / 100)).toLocaleString()
-                                    : totalAmount.toLocaleString()}`
+                                ? `$${finalTotal.toLocaleString('es-AR', { maximumFractionDigits: 2 })}`
                                 : '$0'
                             }
                         </span>
                     </p>
-                    <span>El precio total no incluye el costo del envio</span>
                 </div>
                 {message && <p className="message-error">{message} <FontAwesomeIcon icon={faXmark} onClick={() => setMessage('')} /></p>}
                 <button onClick={confirm} className="btn btn-solid" disabled={loading}>{loading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : 'Confirmar pedido'}</button>
-                <div className="accept-terms-conditions">
-                    <p>Al confirmar el pedido estás aceptando los <Link to={'/terminos-condiciones'} target="_blank" >términos y condiciones</Link>.</p>
-                </div>
             </div>
         </section>
     )

@@ -1,7 +1,12 @@
+import { useContext } from "react";
 import { useSearchParams } from "react-router-dom";
+import { AuthContext } from "../../context/authContext";
 import "./ProductFilters.css";
 
 export function ProductFilters({ totalProducts, setAvailableQuantity, availableQuantity }) {
+
+    const { client } = useContext(AuthContext);
+
     const [searchParams, setSearchParams] = useSearchParams();
 
     const handleFilterChange = (filter, value, isSorting = false) => {
@@ -34,12 +39,14 @@ export function ProductFilters({ totalProducts, setAvailableQuantity, availableQ
                         <option value="max">Mayor precio</option>
                     </select>
                 </div>
-                <p onClick={() => setAvailableQuantity(e => e ? null : true)}>
-                    Ver productos con stock
-                    <div className={availableQuantity ? 'true' : 'false'}>
-                        <div className="circle"></div>
-                    </div>
-                </p>
+                {client?.type == "reseller" &&
+                    <p onClick={() => setAvailableQuantity(e => e ? null : true)}>
+                        Ver productos con stock
+                        <div className={availableQuantity ? 'true' : 'false'}>
+                            <div className="circle"></div>
+                        </div>
+                    </p>
+                }
             </div>
             <p>{totalProducts || '0'} productos encontrados</p>
 

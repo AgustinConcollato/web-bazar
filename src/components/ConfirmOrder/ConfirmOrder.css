@@ -18,14 +18,81 @@
     min-width: 400px;
 }
 
-.delivery-options-buttons {
-    margin-top: 10px;
+.price-for-delivery {
     display: flex;
+    justify-content: space-between;
+}
+
+.address-for-order {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 10px;
+    margin-top: 5px;
+    background: #fff;
+}
+
+.order-address-selected {
+    display: flex;
+    align-items: center;
     gap: 10px;
 }
 
-.confirm-order-address {
+.address-for-order p:nth-child(2) {
+    font-size: 15px;
+    color: #555555;
+}
+
+.order-address-selected .btn-change-address {
+    font-size: 14px;
+}
+
+.btn-change-address {
+    font-size: 16px;
+    color: #1872fa;
+    background: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.btn-change-address:hover {
+    text-decoration: underline;
+}
+
+.delivery-radio-group {
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.send-option>div {
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.send-option label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-wrap: pretty;
+}
+
+.send-option>p {
+    margin-bottom: 5px;
+}
+
+.send-option>p span {
+    color: #f11;
+    margin-right: 5px;
 }
 
 .order-comment {
@@ -53,7 +120,7 @@
 
 .confirm-order {
     position: sticky;
-    top: 20px;
+    top: 150px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -77,15 +144,6 @@
     justify-content: space-between;
 }
 
-.confirm-order-price p:nth-child(2) {
-    margin-top: 20px;
-}
-
-.confirm-order-price p:nth-last-child(2) {
-    font-size: 18px;
-    margin-top: 10px;
-}
-
 .confirm-order-price p span {
     font-weight: 500;
 }
@@ -93,23 +151,6 @@
 .confirm-order-price {
     padding-bottom: 20px;
     border-bottom: 1px solid #ccc;
-}
-
-.accept-terms-conditions p {
-    font-size: 14px;
-    color: #aaa;
-    text-align: center;
-    text-wrap: pretty;
-}
-
-.accept-terms-conditions a {
-    font-weight: 600;
-    text-wrap: nowrap;
-    color: #7c7c7c;
-}
-
-.accept-terms-conditions a:hover {
-    text-decoration: underline;
 }
 
 @media (max-width:1000px) {

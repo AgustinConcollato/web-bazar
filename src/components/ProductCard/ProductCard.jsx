@@ -1,12 +1,15 @@
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/authContext";
 import { urlStorage } from "../../services/api";
 import { FormAddProductToCart } from "../FormAddProductToCart/FormAddProductToCart";
 import './ProductCard.css';
 
 export function ProductCard({ e }) {
+
+    const { client } = useContext(AuthContext);
 
     const [images, setImages] = useState([]);
     const [position, setPosition] = useState(0);
@@ -59,7 +62,8 @@ export function ProductCard({ e }) {
                             <img
                                 className={`fade-image ${fade ? "visible" : "hidden"}`}
                                 loading="lazy"
-                                src={urlStorage + '/' + images[position]}
+                                // src={urlStorage + '/' + images[position]}
+                                src={'https://api.bazarrshop.com/storage/' + images[position]}
                                 alt={e.name + e.description}
                             />
                         )}
@@ -74,6 +78,7 @@ export function ProductCard({ e }) {
                                 <FontAwesomeIcon icon={faAngleRight} />
                             </button>
                         )}
+                        {(client?.type == "final" && e.available_quantity > 0) && <span className="stock">Disponibles: {e.available_quantity}</span>}
                         {e.available_quantity <= 0 && <span className="stock">Sin stock</span>}
                     </div>
                     <div>

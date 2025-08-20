@@ -46,6 +46,8 @@ export function ShoppingCartPage() {
             setLoading(null)
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(null)
         }
     }
 

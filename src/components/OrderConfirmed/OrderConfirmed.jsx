@@ -1,42 +1,33 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
-import { Order } from "../../services/ordersService"
-import { Loading } from "../Loading/Loading"
-import { OrderDetails } from "../OrderDetails/OrderDetails"
 import './OrderConfirmed.css'
 
 export function OrderConfirmed() {
 
-    const orders = new Order()
     const { id } = useParams()
-
-    const [order, setOrder] = useState(null)
-    const [address, setAddress] = useState(null)
-
-    async function getOrder() {
-        try {
-            const data = await orders.detail(id)
-
-            setAddress(JSON.parse(data.address))
-            setOrder(data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     useEffect(() => {
         localStorage.removeItem('address')
-        getOrder()
         scrollTo(0, 0)
     }, [])
 
     return (
         <section className="order-confirmed">
-            <h1>¡Pedido confirmado!</h1>
-            {order ?
-                <OrderDetails order={order} address={address} /> :
-                <Loading />
-            }
+            <div className="order-confirmed-header">
+                <h1>¡Pedido confirmado!</h1>
+                <div className="icon">
+                    <i className="hgi hgi-stroke hgi-checkmark-circle-01"></i>
+                </div>
+            </div>
+            <p className="order-confirmed-text">
+                Tu pedido ha sido confirmado y se encuentra en proceso de preparación.
+            </p>
+            <p className="order-confirmed-text">
+                Nos comunicaremos a la brevedad para coordinar el envío o retiro del mismo.
+            </p>
+            <p className="order-confirmed-text">
+                ¡Muchas gracias por tu compra!
+            </p>
             <div className="container-btn">
                 <Link to={'/compras/' + id} className="btn">Ver pedido actual</Link>
                 <Link to={'/compras'} className="btn">Ver todos mis pedidos</Link>

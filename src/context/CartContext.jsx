@@ -12,38 +12,54 @@ export function CartProvider({ children }) {
     const shoppingCart = new ShoppingCart()
 
     const [cart, setCart] = useState(null);
+    const [cartCount, setCartCount] = useState(0)
 
     async function getCart() {
-        const response = await shoppingCart.get(client.id)
+        const response = await shoppingCart.get()
         setCart(response)
 
         return response
     }
 
+    async function getCartCount() {
+        const response = await shoppingCart.getCount()
+        setCartCount(response)
+
+    }
+
     async function addProductCart(product) {
-        const response = await shoppingCart.add(product)
+        try {
+            const response = await shoppingCart.add(product)
 
-        setCart(prevCart => {
-            const existingItem = prevCart.find(item => item.product_id === product.product_id)
-            if (existingItem) {
-                return prevCart.map(item =>
-                    item.product_id === product.product_id
-                        ? { ...item, quantity: parseInt(item.quantity) + parseInt(product.quantity) }
-                        : item
-                )
-            }
-            return [...prevCart, response]
-        })
+            setCart(prevCart => {
+                if (!prevCart) return [response]
+                const existingItem = prevCart.find(item => item.product_id === product.product_id)
+                if (existingItem) {
+                    return prevCart.map(item =>
+                        item.product_id === product.product_id
+                            ? { ...item, quantity: parseInt(item.quantity) + parseInt(product.quantity) }
+                            : item
+                    )
+                }
+                return [...prevCart, response]
+            })
 
-        return response
+            return response
+        } catch (error) {
+            throw error
+        }
     }
 
     async function deleteProductCart(data) {
-        const response = await shoppingCart.delete(data)
+        try {
+            const response = await shoppingCart.delete(data)
 
-        setCart(prevCart => prevCart.filter(item => item.product_id !== response.product_id))
+            setCart(prevCart => prevCart.filter(item => item.product_id !== response.product_id))
 
-        return response
+            return response
+        } catch (error) {
+            throw error
+        }
     }
 
     async function updateProductCart(data) {
@@ -66,12 +82,17 @@ export function CartProvider({ children }) {
     }
 
     useEffect(() => {
-        client && getCart()
+        client && getCartCount()
     }, [client])
+
+    useEffect(() => {
+        setCartCount(cart ? cart.length : 0)
+    }, [cart])
 
     return (
         <CartContext.Provider value={{
             cart,
+            cartCount,
             addProductCart,
             deleteProductCart,
             updateProductCart,

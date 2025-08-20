@@ -20,7 +20,7 @@ export function Footer() {
             <div>
                 <div className='container-footer'>
                     <div>
-                        <Link to={'/'}><img src="/logo-c.svg" alt="logo bazarshop" /></Link>
+                        <Link to={'/'}><img src={client?.type === 'reseller' ? "/logo-c.svg" : "/logo-c-final.svg"} alt="logo bazarshop" /></Link>
                     </div>
                     <div className='container-footer-list'>
                         <div className='footer-list'>

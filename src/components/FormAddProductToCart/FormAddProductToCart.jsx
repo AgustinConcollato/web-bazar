@@ -45,15 +45,20 @@ export function FormAddProductToCart({ type, product }) {
 
         setAddStatus(false)
 
-        const response = await addProductCart({
-            quantity,
-            client_id: client.id,
-            product_id: product.id
-        })
+        try {
+            const response = await addProductCart({
+                quantity,
+                product_id: product.id
+            })
 
-        if (response) {
+            if (response) {
+                setAddStatus(true)
+                e.target[0].value = ''
+            }
+        } catch (error) {
+            console.log(error)
+        } finally {
             setAddStatus(true)
-            e.target[0].value = ''
         }
     }
 
@@ -69,6 +74,7 @@ export function FormAddProductToCart({ type, product }) {
                             className="input"
                             placeholder='Cantidad'
                             autoComplete="off"
+                            max={client?.type == "final" ? product.available_quantity : null}
                         />
                         <div>
                             <button type='submit' disabled={!addStatus} className="btn btn-regular">
@@ -86,6 +92,7 @@ export function FormAddProductToCart({ type, product }) {
                             placeholder='Cantidad'
                             onChange={() => setError(false)}
                             autoComplete="off"
+                            max={client?.type == "final" ? product.available_quantity : null}
                         />
                         <div>
                             <button type='submit' disabled={!addStatus} className="btn btn-solid">

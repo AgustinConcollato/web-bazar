@@ -22,7 +22,7 @@ export function UserMenu() {
                 <nav className="user-nav">
                     <div className="user-info">
                         <div>
-                            <p>{client.name} <span>{client.email}</span></p>
+                            <p>{client.name} <span>{client.type == 'final' ? 'Consumidor final' : 'Revendedor / Negocio'}</span></p>
                         </div>
                     </div>
                     <div className="div"></div>

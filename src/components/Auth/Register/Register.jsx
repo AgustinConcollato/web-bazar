@@ -1,4 +1,4 @@
-import { faCircleNotch, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCircleNotch, faExclamationCircle, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -41,7 +41,7 @@ export const Register = () => {
             setLoading(false)
             setPasswordRulesVisibility(false)
 
-            const { email, name, password } = error.errors
+            const { email, name, password, phone_number, type } = error.errors
 
             const typeErrors = {
                 email: [
@@ -59,11 +59,20 @@ export const Register = () => {
                 ],
                 name: [
                     'The name field is required.'
+                ],
+                phone_number: [
+                    'The phone number field is required.'
+                ],
+                type: [
+                    'The type field is required.',
+                    'The selected type is invalid.'
                 ]
             }
 
-            if (name && typeErrors.name[0] == name[0]) {
-                return setErrorMessage('Completa con tu nombre')
+            if (name) {
+                if (typeErrors.name[0] == name[0]) {
+                    return setErrorMessage('Completa con tu nombre')
+                }
             }
 
             if (email) {
@@ -73,6 +82,22 @@ export const Register = () => {
 
                 if (typeErrors.email[1] == email[0]) {
                     return setErrorMessage('Completa con tu correo electrónico')
+                }
+            }
+
+            if (phone_number) {
+                if (typeErrors.phone_number[0] == phone_number[0]) {
+                    return setErrorMessage('Completa con un número de teléfono')
+                }
+            }
+
+            if (type) {
+                if (typeErrors.type[0] == type[0]) {
+                    return setErrorMessage('Selecciona tipo de cuenta')
+                }
+
+                if (typeErrors.type[1] == type[0]) {
+                    return setErrorMessage('Selecciona tipo de cuenta')
                 }
             }
 
@@ -158,6 +183,23 @@ export const Register = () => {
                     placeholder="Número de teléfono (opcional)"
                     onChange={changeInput}
                 />
+                <div className="client-type">
+                    <p>Tipo de cuenta
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14" color="#888" fill="none">
+                                <path d="M21.5 12.6863V11.3137C21.5 9.67871 21.5 8.8612 21.1955 8.12612C20.891 7.39104 20.313 6.81297 19.1569 5.65685L18.3431 4.84315C17.187 3.68702 16.609 3.10896 15.8739 2.80448C15.1388 2.5 14.3213 2.5 12.6863 2.5H11.3137C9.67871 2.5 8.8612 2.5 8.12612 2.80448C7.39104 3.10896 6.81297 3.68702 5.65685 4.84315L4.84315 5.65685C3.68702 6.81298 3.10896 7.39104 2.80448 8.12612C2.5 8.8612 2.5 9.67871 2.5 11.3137V12.6863C2.5 14.3213 2.5 15.1388 2.80448 15.8739C3.10896 16.609 3.68702 17.187 4.84315 18.3431L5.65685 19.1569C6.81297 20.313 7.39104 20.891 8.12612 21.1955C8.8612 21.5 9.67871 21.5 11.3137 21.5H12.6863C14.3213 21.5 15.1388 21.5 15.8739 21.1955C16.609 20.891 17.187 20.313 18.3431 19.1569L19.1569 18.3431C20.313 17.187 20.891 16.609 21.1955 15.8739C21.5 15.1388 21.5 14.3213 21.5 12.6863Z" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M12 8L12 12.5" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M12 15.9883V15.9983" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <p className="client-type-message">Si es necesario en el futuro, podrás pedir el cambio de tipo de cuenta desde tu perfil</p>
+                        </div>
+                    </p>
+                    <select name="type" className="input">
+                        <option >Seleccioná un tipo de cuenta</option>
+                        <option value="final">Consumidor final</option>
+                        <option value="reseller">Revendedor / Negocio</option>
+                    </select>
+                </div>
                 <input
                     className="input"
                     autoComplete="off"

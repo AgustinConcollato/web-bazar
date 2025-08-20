@@ -11,7 +11,10 @@ export function CategoriesProvider({ children }) {
 
     async function getCategories() {
         const categories = new Categories()
-        setCategories(await categories.get({}))
+
+        const response = await categories.get({})
+
+        setCategories(response.filter(e => e.code != 'CAT007'))
     }
 
     useEffect(() => {

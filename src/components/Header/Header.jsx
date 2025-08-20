@@ -13,10 +13,16 @@ import './Header.css';
 export function Header() {
 
     const { client } = useContext(AuthContext)
-    const { cart } = useContext(CartContext)
+    const { cartCount } = useContext(CartContext)
 
     const [quantity, setQuantity] = useState(0)
     const [width, setWidth] = useState(window.innerWidth)
+    const [currentMsg, setCurrentMsg] = useState(0);
+
+    const messages = [
+        "Compra mínima por la web $100.000",
+        "5% de descuento para compras superiores a $300.000"
+    ];
 
     const handleResize = () => {
         setWidth(window.innerWidth)
@@ -26,17 +32,36 @@ export function Header() {
     window.addEventListener('resize', handleResize)
 
     useEffect(() => {
-        cart && setQuantity(cart.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue.quantity), 0))
-    }, [cart])
+        setQuantity(cartCount)
+    }, [cartCount])
+
+    useEffect(() => {
+        if (width < 660 && client?.type === 'reseller') {
+            const interval = setInterval(() => {
+                setCurrentMsg(prev => (prev + 1) % messages.length);
+            }, 3000); // Cambia cada 3 segundos
+            return () => clearInterval(interval);
+        }
+    }, [width, client]);
 
     return (
         <>
-            <p className="min-purchase">Compra mínima por la web $100.000</p>
+            {client?.type === 'reseller' && (
+                width < 660 ?
+                    <div className="min-purchase-slider">
+                        <p className="min-purchase">{messages[currentMsg]}</p>
+                    </div>
+                    :
+                    <p className="min-purchase">
+                        {messages.join(' | ')}
+                    </p>
+            )}
             <header>
                 <div className="header-container">
                     <div>
                         <Link to={'/'} className="logo">
-                            <img src="/logo.svg" alt="Logo bazarshop mayorista" />
+                            <img className="desktop" src={client?.type === 'reseller' ? "/logo.svg" : "/logo-final.svg"} alt="Logo bazarshop mayorista" />
+                            <img className="mobile" src="/vite.svg" alt="Logo bazarshop mayorista" />
                         </Link>
                         <Search />
                         {client ?

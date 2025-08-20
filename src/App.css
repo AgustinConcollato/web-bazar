@@ -8,8 +8,8 @@
     --color-primary-900: #d14d4590;
     --color-primary-200: #d14d4520;
     --color-primary-100: #d14d4510;
-    --color-error: #ff1900;
-    --color-error-200: #ff190020;
+    --color-error: #e74c3c;
+    --color-error-200: #e74c3c20;
 }
 
 * {
