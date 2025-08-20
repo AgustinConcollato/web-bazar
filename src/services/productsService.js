@@ -22,6 +22,13 @@ export class Products {
 
         if (options.date) {
             this.url = new URL(`${url}/recent`)
+
+            Object.entries(options).forEach(([key, value]) => {
+                if (value !== undefined && value !== null && key !== 'date') {
+                    this.url.searchParams.set(key, value);
+                }
+            });
+
             const response = await fetch(this.url, {
                 headers: {
                     'Authorization': `Bearer ${this.token}`
