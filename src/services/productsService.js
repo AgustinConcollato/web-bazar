@@ -2,41 +2,58 @@ import { urlProducts as url } from "./api";
 
 export class Products {
     constructor() {
-        this.token = localStorage.getItem('authToken')
+        this.token = localStorage.getItem('token')
         this.url = new URL(url)
     }
 
     async search({ options = {}, id = null }) {
-
         this.url.search = ''
 
         if (id) {
-            const { panel } = options
-
-            if (panel) {
-                this.url = new URL(`${url}/${id}?panel=${panel}`)
-            }
-            else {
-                this.url = new URL(`${url}/${id}`)
-            }
-
-            const response = await fetch(this.url);
+            // Si hay ID, es para obtener detalle de producto
+            this.url = new URL(`${url}/web/${id}`)
+            const response = await fetch(this.url, {
+                headers: {
+                    'Authorization': `Bearer ${this.token}`
+                }
+            });
             return await response.json();
         }
 
+        if (options.date) {
+            this.url = new URL(`${url}/recent`)
+            const response = await fetch(this.url, {
+                headers: {
+                    'Authorization': `Bearer ${this.token}`
+                }
+            });
+            return await response.json()
+        }
+        // Si no hay ID, es para búsqueda de productos web
+        this.url = new URL(`${url}/web`)
+
+        // Agregar parámetros de búsqueda
         Object.entries(options).forEach(([key, value]) => {
             if (value !== undefined && value !== null) {
                 this.url.searchParams.set(key, value);
             }
         });
 
-        const response = await fetch(this.url);
+        const response = await fetch(this.url, {
+            headers: {
+                'Authorization': `Bearer ${this.token}`
+            }
+        });
         return await response.json();
     }
 
     async related(id) {
         try {
-            const response = await fetch(`${url}/related/${id}`);
+            const response = await fetch(`${url}/related/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${this.token}`
+                },
+            });
 
             if (!response.ok) {
                 const error = await response.json()

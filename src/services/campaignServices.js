@@ -2,6 +2,7 @@ import { urlCampaigns as url } from './api'
 
 export class Campaign {
     constructor() {
+        this.token = localStorage.getItem('token')
         this.url = url
     }
 
@@ -16,7 +17,11 @@ export class Campaign {
         fullUrl += `?page=${page}`
 
         try {
-            const response = await fetch(fullUrl)
+            const response = await fetch(fullUrl,{
+                headers: {
+                    'authorization': `Bearer ${this.token}`
+                }
+            })
 
             if (!response.ok) {
                 const errorData = await response.json()

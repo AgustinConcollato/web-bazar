@@ -1,27 +1,40 @@
-import { urlShoppingCart } from './api'
+import { urlShoppingCart as url } from './api'
 
 export class ShoppingCart {
-    constructor(parameters) { }
+    constructor() {
+        this.token = localStorage.getItem('token')
+        this.url = new URL(url)
+    }
 
     async add(data) {
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                },
+                body: JSON.stringify(data)
+            })
 
-        const response = await fetch(urlShoppingCart, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
+            if (!response.ok) {
+                const error = await response.json()
+                throw error
+            }
 
-        return await response.json()
+            return await response.json()
+        } catch (error) {
+            throw error
+        }
     }
 
     async update(data) {
 
-        const response = await fetch(urlShoppingCart, {
+        const response = await fetch(url, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.token}`
             },
             body: JSON.stringify(data)
         })
@@ -29,32 +42,73 @@ export class ShoppingCart {
         return await response.json()
     }
 
-    async get(clientId) {
+    async get() {
+        try {
+            const response = await fetch(`${url}/detail`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                }
+            })
 
-        const response = await fetch(`${urlShoppingCart}/${clientId}`)
+            if (!response.ok) {
+                const error = await response.json()
+                throw error
+            }
 
-        return await response.json()
+            return await response.json()
+        } catch (error) {
+            throw error
+        }
     }
 
-    async getDetail(clientId) {
+    async getCount() {
+        try {
+            const response = await fetch(`${url}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                }
+            })
 
-        const response = await fetch(`${urlShoppingCart}/detail/${clientId}`)
+            if (!response.ok) {
+                const error = await response.json()
+                throw error
+            }
 
-        return await response.json()
+            return await response.json()
+        } catch (error) {
+            throw error
+        }
     }
 
-    async delete({ clientId, productId }) {
 
-        const response = await fetch(`${urlShoppingCart}/${clientId}/${productId}`, {
-            method: 'DELETE'
-        })
+    async delete({ productId }) {
 
-        return await response.json()
+        try {
+
+            const response = await fetch(`${url}/${productId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${this.token}`
+                }
+            })
+            if (!response.ok) {
+                const error = await response.json()
+                throw error
+            }
+
+            return await response.json()
+        } catch (error) {
+            throw error
+        }
     }
 
     async confirm(data) {
         try {
-            const response = await fetch(`${urlShoppingCart}/confirm`, {
+            const response = await fetch(`${url}/confirm`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
