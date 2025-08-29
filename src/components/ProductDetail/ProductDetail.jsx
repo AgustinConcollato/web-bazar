@@ -39,16 +39,14 @@ export function ProductDetail({ product }) {
             <div className="product-detail" >
                 <div className="container-images">
                     <img
-                        //  src={urlStorage + '/' + images[position]}
-                        src={'https://api.bazarrshop.com/storage/' + images[position]}
+                         src={urlStorage + '/' + images[position]}
                         alt={product.name}
                     />
                     <div className="container-thumbnails">
                         {thumbnails.length > 1 &&
                             thumbnails.map((e, i) =>
                                 <img
-                                    // src={urlStorage + '/' + e}
-                                    src={'https://api.bazarrshop.com/storage/' + e}
+                                    src={urlStorage + '/' + e}
                                     key={i}
                                     onClick={() => setPosition(i)}
                                     className={position == i ? "thumbnail-selected" : ""}

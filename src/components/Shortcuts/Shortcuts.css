@@ -1,5 +1,5 @@
 .section-shortcuts {
-    margin: 120px auto;
+    margin: 0 auto;
 }
 
 .shortcut-list {
@@ -22,6 +22,7 @@
     align-items: start;
     justify-content: space-between;
     cursor: pointer;
+    margin: 120px 0;
 }
 
 .shortcut:hover {
