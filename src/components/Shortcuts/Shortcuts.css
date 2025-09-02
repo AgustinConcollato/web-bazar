@@ -22,7 +22,6 @@
     align-items: start;
     justify-content: space-between;
     cursor: pointer;
-    margin: 120px 0;
 }
 
 .shortcut:hover {

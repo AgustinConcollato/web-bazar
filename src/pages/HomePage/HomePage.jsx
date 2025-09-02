@@ -3,6 +3,7 @@ import { Loading } from "../../components/Loading/Loading";
 import { ProductCard } from "../../components/ProductCard/ProductCard";
 import { SectionCategoriesHome } from "../../components/SectionCategoriesHome/SectionCategoriesHome";
 import { Shortcuts } from '../../components/Shortcuts/Shortcuts';
+import { ImagesSlider } from '../../components/ImagesSlider/ImagesSlider';
 import { api } from "../../services/api";
 import './HomePage.css';
 
@@ -79,6 +80,7 @@ export function HomePage() {
 
     return (
         <>
+            <ImagesSlider />
             <Shortcuts />
             {!showOnlyPopular && (
                 <section className="section-products-home">
