@@ -81,6 +81,7 @@ export function HomePage() {
     return (
         <>
             <ImagesSlider />
+            
             <Shortcuts />
             {!showOnlyPopular && (
                 <section className="section-products-home">

@@ -5,6 +5,7 @@ export function ImagesSlider() {
     const images = [
         "/img-slider-1.png",
         "/img-slider-2.png",
+        "/img-slider-3.png",
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -76,7 +77,7 @@ export function ImagesSlider() {
                     <img
                         key={i}
                         src={src}
-                        onClick={() => setCurrentIndex(i)}  
+                        onClick={() => setCurrentIndex(i)}
                         className={`slider-inner-img ${i === currentIndex ? "active" : ""}`}
                         alt="bazarshop mayorista y minorista - bazar - jugueteria - regaleria - libreria"
                     />
