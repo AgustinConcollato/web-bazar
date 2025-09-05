@@ -3,45 +3,30 @@ import { urlClients as url } from "./api";
 export class Clients {
 
     constructor() {
-        this.token = localStorage.getItem('authToken')
+        this.token = localStorage.getItem('token')
     }
 
-    // async get(id = null) {
-    //     try {
-    //         if (id) {
-    //             const response = await fetch(`${url}/${id}`, {
-    //                 method: 'GET',
-    //                 headers: {
-    //                     'Authorization': `Bearer ${this.token}`
-    //                 }
-    //             })
-    //             return await response.json()
-    //         }
+    // solicitar cambio de tipo de cuenta
+    async requestChangeAccountType(data) {
+        try {
+            const response = await fetch(`${url}/request-change-account-type`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token}`
+                },
+                body: JSON.stringify(data)
+            })
 
-    //         const response = await fetch(url, {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Authorization': `Bearer ${this.token}`
-    //             }
-    //         })
-    //         return await response.json()
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+            if (!response.ok) {
+                const error = await response.json()
+                throw error
+            }
 
-    // async add(data) {
-    //     try {
-    //         const response = await fetch(url, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Authorization': `Bearer ${this.token}`
-    //             },
-    //             body: data
-    //         })
-    //         return await response.json()
-    //     } catch (error) {
-    //         throw new Error(error)
-    //     }
-    // }
+            const result = await response.json()
+            return result
+        } catch (error) {
+            throw error
+        }
+    }
 }

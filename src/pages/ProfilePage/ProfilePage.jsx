@@ -7,6 +7,7 @@ import { Loading } from "../../components/Loading/Loading"
 import { AuthContext } from "../../context/authContext"
 import { Auth } from "../../services/authService"
 import './ProfilePage.css'
+import { Clients } from "../../services/clientsService"
 
 export function ProfilePage() {
 
@@ -18,6 +19,8 @@ export function ProfilePage() {
     const [error, setError] = useState(false)
     const [errorEmail, setErrorEmail] = useState(false)
     const [updateEmail, setUpdateEmail] = useState(false)
+    const [loadingChangeAccountType, setLoadingChangeAccountType] = useState(false)
+    const [successMessage, setSuccessMessage] = useState(null)
 
     async function handlePhoneNumberChange(e) {
         e.preventDefault()
@@ -83,13 +86,40 @@ export function ProfilePage() {
         }
     }
 
+    async function handleAccountTypeChange() {
+        // solicitar cambio de tipo de cuenta
+        const clients = new Clients()
+        if (localStorage.getItem('account_type_change_requested') !== 'true') {
+            try {
+                setLoadingChangeAccountType(true)
+                await clients.requestChangeAccountType({
+                    requested_type: client.type === 'final' ? 'reseller' : 'final'
+                })
+                setSuccessMessage('Solicitud enviada. Nos pondremos en contacto contigo pronto.')
+
+                localStorage.setItem('account_type_change_requested', 'true')
+
+            } catch (error) {
+                if (error.message) {
+                    console.log(error.message)
+                } else {
+                    console.log('Error al enviar la solicitud. Inténtalo de nuevo más tarde.')
+                }
+                setLoadingChangeAccountType(false)
+            } finally {
+                setLoadingChangeAccountType(false)
+            }
+        } else {
+            setSuccessMessage('Ya has solicitado un cambio de tipo de cuenta. Nos pondremos en contacto contigo pronto.')
+        }
+    }
+
     useEffect(() => {
         if (client) {
             document.title = 'Tu perfil - ' + client.name
         }
         scrollTo(0, 0)
     }, [client])
-
 
     if (!client) {
 
@@ -119,6 +149,23 @@ export function ProfilePage() {
             </aside>
             <div className="client-data">
                 <h2>Mis datos</h2>
+                <div>
+                    <h4>Tipo de cuenta</h4>
+                    <div className="phone-number">
+                        {client.type === "final" ?
+                            <p>Consumidor final</p> :
+                            <p>Revendedor / Negocio</p>
+                        }
+                        <button className="btn" onClick={handleAccountTypeChange}>
+                            {!loadingChangeAccountType ?
+                                `Solicitar cambio a cuenta ${client.type !== "final" ? 'Consumidor final' : 'Revendedor / Negocio'}`
+                                :
+                                <FontAwesomeIcon icon={faCircleNotch} spin />
+                            }
+                        </button>
+                        {successMessage && <p className="success-message" onClick={() => setSuccessMessage(null)}>{successMessage}</p>}
+                    </div>
+                </div>
                 <div>
                     <h4>Correo electrónico</h4>
                     <div className="verified-email">
