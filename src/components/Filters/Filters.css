@@ -1,5 +1,7 @@
 .filters h1 {
     margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 400;
 }
 
 .filters div {
