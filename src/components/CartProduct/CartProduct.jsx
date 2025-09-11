@@ -13,6 +13,8 @@ export function CartProduct({ e, onDelete, setProductList }) {
     const { client } = useContext(AuthContext)
     const { updateProductCart } = useContext(CartContext)
 
+    console.log()
+
     const { product, quantity: q } = e
 
     const [thumbnails, setThumbnails] = useState(JSON.parse(product.thumbnails))
@@ -75,7 +77,7 @@ export function CartProduct({ e, onDelete, setProductList }) {
                 setPrice(product.price * response.quantity);
                 setDisabled(false);
             }
-            
+
         } catch (error) {
             console.log(error)
         } finally {
@@ -127,6 +129,7 @@ export function CartProduct({ e, onDelete, setProductList }) {
                         onChange={(e) => setQuantity(e.target.value)}
                         min={1}
                         disabled={disabled}
+                        max={client.type == 'final' ? product.available_quantity : null}
                     />
                     {newQuantity != quantity &&
                         <button className="btn btn-solid" type="submit">
