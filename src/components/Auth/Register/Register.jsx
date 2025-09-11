@@ -180,7 +180,7 @@ export const Register = () => {
                     autoComplete="off"
                     type="tel"
                     name="phone_number"
-                    placeholder="Número de teléfono (opcional)"
+                    placeholder="Número de teléfono"
                     onChange={changeInput}
                 />
                 <div className="client-type">
