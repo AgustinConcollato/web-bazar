@@ -58,7 +58,7 @@ export function Shortcuts() {
                             </svg>
                             <div>
                                 <span>Ingresá a tu cuenta</span>
-                                <p>Armá y realizá tus pedido de los productos que más te gustan</p>
+                                <p>Realizá los pedidos de los productos que más te gustan</p>
                             </div>
                         </div>
                         <button className="btn btn-solid">Ingresar a tu cuenta</button>
