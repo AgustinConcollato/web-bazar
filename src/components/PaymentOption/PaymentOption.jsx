@@ -178,12 +178,12 @@ export function PaymentOption({ totalAmount, onChange, allowTwoMethods, setAllow
                                         </button>
                                     </p>
                                     <p>
-                                        Alias: bazar.shop.mp
+                                        Alias: concoypunto.mp
                                         <button
                                             type="button"
                                             className="btn-copy"
                                             onClick={() => {
-                                                navigator.clipboard.writeText('bazar.shop.mp');
+                                                navigator.clipboard.writeText('concoypunto.mp');
                                                 setCopied('alias');
                                                 setTimeout(() => setCopied(''), 1500);
                                             }}
