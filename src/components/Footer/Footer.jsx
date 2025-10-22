@@ -50,7 +50,7 @@ export function Footer() {
                         </div>
                     </div>
                 </div>
-                <p>Ver <Link to={'/terminos-condiciones'}>términos y condiciones</Link> de bazarshop</p>
+                <p>Ver <Link to={'/terminos-condiciones'}>términos y condiciones</Link> de Conco & Punto</p>
                 {mobile ?
                     <Link to={'whatsapp://send?phone=+543492209855'} data-action="share/whatsapp/share" className='btn-whatsapp'><FontAwesomeIcon icon={faWhatsapp} size='2x' /></Link> :
                     <Link to={'https://web.whatsapp.com/send?phone=+543492209855'} target='_blank' rel='noopener noreferrer' className='btn-whatsapp'><FontAwesomeIcon icon={faWhatsapp} size='2x' /></Link>

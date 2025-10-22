@@ -71,7 +71,7 @@ export function HomePage() {
     }
 
     useEffect(() => {
-        document.title = 'Bazarshop'
+        document.title = 'Conco & Punto'
         getProductsByCreationDate()
         getProductsWithDiscount();
 
