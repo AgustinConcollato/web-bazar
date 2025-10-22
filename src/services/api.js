@@ -23,7 +23,7 @@ export const api = {
 }
 
 // const apiUrl = 'https://api.bazarrshop.com'
-const apiUrl = import.meta.env.DEV ? 'http://localhost:8000' : 'https://api.bazarrshop.com'
+const apiUrl = import.meta.env.DEV ? 'http://localhost:8000' : 'https://api.concoypunto.com'
 
 export const url = new URL(apiUrl + '/api')
 export const urlStorage = new URL(apiUrl + '/storage')
