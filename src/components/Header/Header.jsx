@@ -60,7 +60,7 @@ export function Header() {
                 <div className="header-container">
                     <div>
                         <Link to={'/'} className="logo">
-                            <img className="desktop" src={client?.type === 'reseller' ? "/logo.svg" : "/logo-final.svg"} alt="Logo bazarshop mayorista" />
+                            <img className="desktop" src={"/logo-final.svg"} alt="Logo bazarshop mayorista" />
                             <img className="mobile" src="/vite.svg" alt="Logo bazarshop mayorista" />
                         </Link>
                         <Search />
